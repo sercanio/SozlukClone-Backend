@@ -11,23 +11,17 @@ namespace Application.Features.Users.Commands.UpdateFromAuth;
 public class UpdateUserFromAuthCommand : IRequest<UpdatedUserFromAuthResponse>
 {
     public Guid Id { get; set; }
-    public string FirstName { get; set; }
-    public string LastName { get; set; }
     public string Password { get; set; }
     public string? NewPassword { get; set; }
 
     public UpdateUserFromAuthCommand()
     {
-        FirstName = string.Empty;
-        LastName = string.Empty;
         Password = string.Empty;
     }
 
-    public UpdateUserFromAuthCommand(Guid id, string firstName, string lastName, string password)
+    public UpdateUserFromAuthCommand(Guid id, string password)
     {
         Id = id;
-        FirstName = firstName;
-        LastName = lastName;
         Password = password;
     }
 

@@ -1,5 +1,5 @@
-﻿using System.Text.RegularExpressions;
-using FluentValidation;
+﻿using FluentValidation;
+using System.Text.RegularExpressions;
 
 namespace Application.Features.Users.Commands.UpdateFromAuth;
 
@@ -7,8 +7,6 @@ public class UpdateUserFromAuthCommandValidator : AbstractValidator<UpdateUserFr
 {
     public UpdateUserFromAuthCommandValidator()
     {
-        RuleFor(c => c.FirstName).NotEmpty().MinimumLength(2);
-        RuleFor(c => c.LastName).NotEmpty().MinimumLength(2);
         RuleFor(c => c.Password).NotEmpty().MinimumLength(8);
         RuleFor(c => c.NewPassword)
             .NotEmpty()
