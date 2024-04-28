@@ -1,1 +1,2 @@
-PenaltyTypeNotExists: Penalty type don't exists.
+PenaltyTypeNotExists: "Penalty type don't exists."
+PenaltyTypeAlreadyExists : "Penalty type already exists."

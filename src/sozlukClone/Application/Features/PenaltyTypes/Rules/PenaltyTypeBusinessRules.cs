@@ -1,9 +1,9 @@
 using Application.Features.PenaltyTypes.Constants;
 using Application.Services.Repositories;
+using Domain.Entities;
 using NArchitecture.Core.Application.Rules;
 using NArchitecture.Core.CrossCuttingConcerns.Exception.Types;
 using NArchitecture.Core.Localization.Abstraction;
-using Domain.Entities;
 
 namespace Application.Features.PenaltyTypes.Rules;
 
@@ -38,5 +38,17 @@ public class PenaltyTypeBusinessRules : BaseBusinessRules
             cancellationToken: cancellationToken
         );
         await PenaltyTypeShouldExistWhenSelected(penaltyType);
+    }
+
+    // PenaltyType name should be unique
+    public async Task PenaltyTypeShouldBeUnique(string name, CancellationToken cancellationToken)
+    {
+        PenaltyType? penaltyType = await _penaltyTypeRepository.GetAsync(
+                       predicate: pt => pt.Name == name,
+                                  enableTracking: false,
+                                             cancellationToken: cancellationToken
+                                                    );
+        if (penaltyType != null)
+            await throwBusinessException(PenaltyTypesBusinessMessages.PenaltyTypeAlreadyExists);
     }
 }

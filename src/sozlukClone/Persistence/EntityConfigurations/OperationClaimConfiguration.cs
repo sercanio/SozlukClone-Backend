@@ -1,19 +1,19 @@
 using Application.Features.Auth.Constants;
+using Application.Features.AuthorGroups.Constants;
+using Application.Features.Authors.Constants;
+using Application.Features.Badges.Constants;
+using Application.Features.Entries.Constants;
+using Application.Features.Followings.Constants;
 using Application.Features.OperationClaims.Constants;
+using Application.Features.Penalties.Constants;
+using Application.Features.PenaltyTypes.Constants;
+using Application.Features.Titles.Constants;
 using Application.Features.UserOperationClaims.Constants;
 using Application.Features.Users.Constants;
 using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using NArchitecture.Core.Security.Constants;
-using Application.Features.Authors.Constants;
-using Application.Features.AuthorGroups.Constants;
-using Application.Features.Badges.Constants;
-using Application.Features.Entries.Constants;
-using Application.Features.Followings.Constants;
-using Application.Features.Penalties.Constants;
-using Application.Features.Titles.Constants;
-using Application.Features.PenaltyTypes.Constants;
 
 namespace Persistence.EntityConfigurations;
 
@@ -105,7 +105,7 @@ public class OperationClaimConfiguration : IEntityTypeConfiguration<OperationCla
         );
         #endregion
 
-        
+
         #region Authors CRUD
         featureOperationClaims.AddRange(
             [
@@ -118,8 +118,8 @@ public class OperationClaimConfiguration : IEntityTypeConfiguration<OperationCla
             ]
         );
         #endregion
-        
-        
+
+
         #region AuthorGroups CRUD
         featureOperationClaims.AddRange(
             [
@@ -132,8 +132,8 @@ public class OperationClaimConfiguration : IEntityTypeConfiguration<OperationCla
             ]
         );
         #endregion
-        
-        
+
+
         #region Badges CRUD
         featureOperationClaims.AddRange(
             [
@@ -146,8 +146,8 @@ public class OperationClaimConfiguration : IEntityTypeConfiguration<OperationCla
             ]
         );
         #endregion
-        
-        
+
+
         #region Entries CRUD
         featureOperationClaims.AddRange(
             [
@@ -160,8 +160,8 @@ public class OperationClaimConfiguration : IEntityTypeConfiguration<OperationCla
             ]
         );
         #endregion
-        
-        
+
+
         #region Followings CRUD
         featureOperationClaims.AddRange(
             [
@@ -174,8 +174,8 @@ public class OperationClaimConfiguration : IEntityTypeConfiguration<OperationCla
             ]
         );
         #endregion
-        
-        
+
+
         #region Penalties CRUD
         featureOperationClaims.AddRange(
             [
@@ -188,8 +188,8 @@ public class OperationClaimConfiguration : IEntityTypeConfiguration<OperationCla
             ]
         );
         #endregion
-        
-        
+
+
         #region Titles CRUD
         featureOperationClaims.AddRange(
             [
@@ -202,64 +202,8 @@ public class OperationClaimConfiguration : IEntityTypeConfiguration<OperationCla
             ]
         );
         #endregion
-        
-        
-        #region Followings CRUD
-        featureOperationClaims.AddRange(
-            [
-                new() { Id = ++lastId, Name = FollowingsOperationClaims.Admin },
-                new() { Id = ++lastId, Name = FollowingsOperationClaims.Read },
-                new() { Id = ++lastId, Name = FollowingsOperationClaims.Write },
-                new() { Id = ++lastId, Name = FollowingsOperationClaims.Create },
-                new() { Id = ++lastId, Name = FollowingsOperationClaims.Update },
-                new() { Id = ++lastId, Name = FollowingsOperationClaims.Delete },
-            ]
-        );
-        #endregion
-        
-        
-        #region Authors CRUD
-        featureOperationClaims.AddRange(
-            [
-                new() { Id = ++lastId, Name = AuthorsOperationClaims.Admin },
-                new() { Id = ++lastId, Name = AuthorsOperationClaims.Read },
-                new() { Id = ++lastId, Name = AuthorsOperationClaims.Write },
-                new() { Id = ++lastId, Name = AuthorsOperationClaims.Create },
-                new() { Id = ++lastId, Name = AuthorsOperationClaims.Update },
-                new() { Id = ++lastId, Name = AuthorsOperationClaims.Delete },
-            ]
-        );
-        #endregion
-        
-        
-        #region AuthorGroups CRUD
-        featureOperationClaims.AddRange(
-            [
-                new() { Id = ++lastId, Name = AuthorGroupsOperationClaims.Admin },
-                new() { Id = ++lastId, Name = AuthorGroupsOperationClaims.Read },
-                new() { Id = ++lastId, Name = AuthorGroupsOperationClaims.Write },
-                new() { Id = ++lastId, Name = AuthorGroupsOperationClaims.Create },
-                new() { Id = ++lastId, Name = AuthorGroupsOperationClaims.Update },
-                new() { Id = ++lastId, Name = AuthorGroupsOperationClaims.Delete },
-            ]
-        );
-        #endregion
-        
-        
-        #region Badges CRUD
-        featureOperationClaims.AddRange(
-            [
-                new() { Id = ++lastId, Name = BadgesOperationClaims.Admin },
-                new() { Id = ++lastId, Name = BadgesOperationClaims.Read },
-                new() { Id = ++lastId, Name = BadgesOperationClaims.Write },
-                new() { Id = ++lastId, Name = BadgesOperationClaims.Create },
-                new() { Id = ++lastId, Name = BadgesOperationClaims.Update },
-                new() { Id = ++lastId, Name = BadgesOperationClaims.Delete },
-            ]
-        );
-        #endregion
-        
-        
+
+
         #region PenaltyTypes CRUD
         featureOperationClaims.AddRange(
             [
@@ -272,21 +216,8 @@ public class OperationClaimConfiguration : IEntityTypeConfiguration<OperationCla
             ]
         );
         #endregion
-        
-        
-        #region Authors CRUD
-        featureOperationClaims.AddRange(
-            [
-                new() { Id = ++lastId, Name = AuthorsOperationClaims.Admin },
-                new() { Id = ++lastId, Name = AuthorsOperationClaims.Read },
-                new() { Id = ++lastId, Name = AuthorsOperationClaims.Write },
-                new() { Id = ++lastId, Name = AuthorsOperationClaims.Create },
-                new() { Id = ++lastId, Name = AuthorsOperationClaims.Update },
-                new() { Id = ++lastId, Name = AuthorsOperationClaims.Delete },
-            ]
-        );
-        #endregion
-        
+
+
         return featureOperationClaims;
     }
 #pragma warning restore S1854 // Unused assignments should be removed

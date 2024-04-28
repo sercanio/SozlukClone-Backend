@@ -9,26 +9,17 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Persistence.Migrations
 {
     /// <inheritdoc />
-    public partial class entityconfig : Migration
+    public partial class entityconfig1 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DeleteData(
-                table: "UserOperationClaims",
-                keyColumn: "Id",
-                keyValue: new Guid("a980e41c-9605-4f9c-97a5-a953be595669"));
-
-            migrationBuilder.DeleteData(
-                table: "Users",
-                keyColumn: "Id",
-                keyValue: new Guid("f00fa4c9-a602-4cf6-bd18-723af9eb3b08"));
-
             migrationBuilder.CreateTable(
                 name: "AuthorGroups",
                 columns: table => new
                 {
-                    Id = table.Column<byte>(type: "smallint", nullable: false),
+                    Id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     Name = table.Column<string>(type: "text", nullable: false),
                     Description = table.Column<string>(type: "text", nullable: true),
                     CreatedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
@@ -44,7 +35,8 @@ namespace Persistence.Migrations
                 name: "Badges",
                 columns: table => new
                 {
-                    Id = table.Column<byte>(type: "smallint", nullable: false),
+                    Id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     Name = table.Column<string>(type: "text", nullable: false),
                     Description = table.Column<string>(type: "text", nullable: false),
                     IconUrl = table.Column<string>(type: "text", nullable: false),
@@ -58,10 +50,27 @@ namespace Persistence.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "PenaltyType",
+                name: "OperationClaims",
                 columns: table => new
                 {
-                    Id = table.Column<byte>(type: "smallint", nullable: false),
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    CreatedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    UpdatedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    DeletedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    Name = table.Column<string>(type: "text", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_OperationClaims", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "PenaltyTypes",
+                columns: table => new
+                {
+                    Id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     Name = table.Column<string>(type: "text", nullable: false),
                     Description = table.Column<string>(type: "text", nullable: false),
                     CreatedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
@@ -70,7 +79,25 @@ namespace Persistence.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_PenaltyType", x => x.Id);
+                    table.PrimaryKey("PK_PenaltyTypes", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Users",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    CreatedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    UpdatedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    DeletedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    Email = table.Column<string>(type: "text", nullable: false),
+                    PasswordSalt = table.Column<byte[]>(type: "bytea", nullable: false),
+                    PasswordHash = table.Column<byte[]>(type: "bytea", nullable: false),
+                    AuthenticatorType = table.Column<int>(type: "integer", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Users", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -79,13 +106,15 @@ namespace Persistence.Migrations
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    UserId = table.Column<Guid>(type: "uuid", nullable: false),
                     UserName = table.Column<string>(type: "text", nullable: false),
                     Biography = table.Column<string>(type: "text", nullable: false),
                     ProfilePictureUrl = table.Column<string>(type: "text", nullable: false),
                     CoverPictureUrl = table.Column<string>(type: "text", nullable: false),
-                    TitleCount = table.Column<long>(type: "bigint", nullable: false),
-                    AuthorGroupId = table.Column<byte>(type: "smallint", nullable: false),
-                    BadgeId = table.Column<byte>(type: "smallint", nullable: false),
+                    Age = table.Column<byte>(type: "smallint", nullable: true),
+                    Gender = table.Column<int>(type: "integer", nullable: true),
+                    AuthorGroupId = table.Column<long>(type: "bigint", nullable: false),
+                    ActiveBadgeId = table.Column<long>(type: "bigint", nullable: false),
                     CreatedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     UpdatedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
                     DeletedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
@@ -99,6 +128,120 @@ namespace Persistence.Migrations
                         principalTable: "AuthorGroups",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Authors_Badges_ActiveBadgeId",
+                        column: x => x.ActiveBadgeId,
+                        principalTable: "Badges",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Authors_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "EmailAuthenticators",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    CreatedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    UpdatedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    DeletedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    UserId = table.Column<Guid>(type: "uuid", nullable: false),
+                    ActivationKey = table.Column<string>(type: "text", nullable: true),
+                    IsVerified = table.Column<bool>(type: "boolean", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_EmailAuthenticators", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_EmailAuthenticators_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "OtpAuthenticators",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    CreatedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    UpdatedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    DeletedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    UserId = table.Column<Guid>(type: "uuid", nullable: false),
+                    SecretKey = table.Column<byte[]>(type: "bytea", nullable: false),
+                    IsVerified = table.Column<bool>(type: "boolean", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_OtpAuthenticators", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_OtpAuthenticators_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "RefreshTokens",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    CreatedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    UpdatedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    DeletedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    UserId = table.Column<Guid>(type: "uuid", nullable: false),
+                    Token = table.Column<string>(type: "text", nullable: false),
+                    ExpiresDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    CreatedByIp = table.Column<string>(type: "text", nullable: false),
+                    RevokedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    RevokedByIp = table.Column<string>(type: "text", nullable: true),
+                    ReplacedByToken = table.Column<string>(type: "text", nullable: true),
+                    ReasonRevoked = table.Column<string>(type: "text", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_RefreshTokens", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_RefreshTokens_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "UserOperationClaims",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    CreatedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    UpdatedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    DeletedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    UserId = table.Column<Guid>(type: "uuid", nullable: false),
+                    OperationClaimId = table.Column<int>(type: "integer", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_UserOperationClaims", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_UserOperationClaims_OperationClaims_OperationClaimId",
+                        column: x => x.OperationClaimId,
+                        principalTable: "OperationClaims",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_UserOperationClaims_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -106,7 +249,7 @@ namespace Persistence.Migrations
                 columns: table => new
                 {
                     AuthorsId = table.Column<long>(type: "bigint", nullable: false),
-                    BadgesId = table.Column<byte>(type: "smallint", nullable: false)
+                    BadgesId = table.Column<long>(type: "bigint", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -131,7 +274,6 @@ namespace Persistence.Migrations
                 {
                     FollowerId = table.Column<long>(type: "bigint", nullable: false),
                     FollowedId = table.Column<long>(type: "bigint", nullable: false),
-                    Id = table.Column<Guid>(type: "uuid", nullable: false),
                     CreatedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     UpdatedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
                     DeletedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
@@ -164,6 +306,7 @@ namespace Persistence.Migrations
                     PenaltyTypeId = table.Column<byte>(type: "smallint", nullable: false),
                     AuthorId = table.Column<long>(type: "bigint", nullable: false),
                     IssuerId = table.Column<long>(type: "bigint", nullable: false),
+                    PenaltyTypeId1 = table.Column<long>(type: "bigint", nullable: false),
                     CreatedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     UpdatedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
                     DeletedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
@@ -178,9 +321,9 @@ namespace Persistence.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Penalties_PenaltyType_PenaltyTypeId",
-                        column: x => x.PenaltyTypeId,
-                        principalTable: "PenaltyType",
+                        name: "FK_Penalties_PenaltyTypes_PenaltyTypeId1",
+                        column: x => x.PenaltyTypeId1,
+                        principalTable: "PenaltyTypes",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -244,6 +387,29 @@ namespace Persistence.Migrations
                 columns: new[] { "Id", "CreatedDate", "DeletedDate", "Name", "UpdatedDate" },
                 values: new object[,]
                 {
+                    { 1, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Admin", null },
+                    { 2, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Auth.Admin", null },
+                    { 3, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Auth.Read", null },
+                    { 4, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Auth.Write", null },
+                    { 5, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Auth.RevokeToken", null },
+                    { 6, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "OperationClaims.Admin", null },
+                    { 7, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "OperationClaims.Read", null },
+                    { 8, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "OperationClaims.Write", null },
+                    { 9, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "OperationClaims.Create", null },
+                    { 10, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "OperationClaims.Update", null },
+                    { 11, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "OperationClaims.Delete", null },
+                    { 12, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "UserOperationClaims.Admin", null },
+                    { 13, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "UserOperationClaims.Read", null },
+                    { 14, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "UserOperationClaims.Write", null },
+                    { 15, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "UserOperationClaims.Create", null },
+                    { 16, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "UserOperationClaims.Update", null },
+                    { 17, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "UserOperationClaims.Delete", null },
+                    { 18, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Users.Admin", null },
+                    { 19, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Users.Read", null },
+                    { 20, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Users.Write", null },
+                    { 21, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Users.Create", null },
+                    { 22, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Users.Update", null },
+                    { 23, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Users.Delete", null },
                     { 24, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Authors.Admin", null },
                     { 25, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Authors.Read", null },
                     { 26, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Authors.Write", null },
@@ -286,23 +452,23 @@ namespace Persistence.Migrations
                     { 63, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Titles.Create", null },
                     { 64, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Titles.Update", null },
                     { 65, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Titles.Delete", null },
-                    { 66, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Followings.Admin", null },
-                    { 67, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Followings.Read", null },
-                    { 68, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Followings.Write", null },
-                    { 69, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Followings.Create", null },
-                    { 70, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Followings.Update", null },
-                    { 71, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Followings.Delete", null }
+                    { 66, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "PenaltyTypes.Admin", null },
+                    { 67, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "PenaltyTypes.Read", null },
+                    { 68, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "PenaltyTypes.Write", null },
+                    { 69, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "PenaltyTypes.Create", null },
+                    { 70, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "PenaltyTypes.Update", null },
+                    { 71, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "PenaltyTypes.Delete", null }
                 });
 
             migrationBuilder.InsertData(
                 table: "Users",
                 columns: new[] { "Id", "AuthenticatorType", "CreatedDate", "DeletedDate", "Email", "PasswordHash", "PasswordSalt", "UpdatedDate" },
-                values: new object[] { new Guid("c81d876c-6ab8-472d-b5ec-1bf0b53cbcc1"), 0, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "narch@kodlama.io", new byte[] { 100, 162, 207, 151, 84, 51, 155, 252, 21, 240, 15, 56, 201, 132, 104, 182, 140, 154, 129, 231, 86, 131, 18, 62, 51, 248, 191, 241, 89, 99, 80, 117, 215, 192, 136, 149, 163, 186, 254, 180, 211, 41, 22, 234, 5, 124, 171, 15, 197, 28, 64, 162, 134, 196, 166, 44, 101, 206, 143, 27, 52, 217, 21, 143 }, new byte[] { 225, 200, 28, 29, 85, 183, 179, 42, 93, 188, 103, 230, 6, 183, 57, 2, 127, 88, 78, 93, 90, 203, 141, 129, 214, 168, 103, 72, 172, 221, 69, 181, 89, 33, 215, 113, 171, 115, 45, 146, 224, 159, 2, 105, 221, 189, 188, 149, 225, 193, 240, 196, 224, 85, 103, 209, 171, 22, 70, 73, 39, 74, 206, 250, 190, 133, 236, 178, 237, 38, 242, 223, 49, 188, 188, 148, 64, 220, 168, 209, 251, 214, 206, 101, 107, 114, 58, 156, 80, 154, 230, 140, 58, 224, 139, 75, 40, 140, 180, 57, 166, 35, 214, 75, 35, 88, 129, 104, 114, 9, 245, 188, 64, 12, 180, 20, 48, 176, 203, 252, 250, 220, 53, 140, 112, 71, 133, 254 }, null });
+                values: new object[] { new Guid("81171f1d-681d-47b8-a0a0-6523c6fb5ebb"), 0, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "sozluk@email.com", new byte[] { 18, 34, 240, 209, 67, 72, 203, 152, 12, 212, 7, 144, 9, 57, 78, 61, 0, 16, 230, 207, 216, 213, 47, 104, 239, 167, 234, 93, 145, 31, 117, 177, 4, 15, 136, 40, 218, 5, 142, 173, 33, 157, 149, 66, 145, 184, 137, 44, 123, 88, 13, 156, 11, 248, 247, 145, 102, 11, 58, 187, 232, 170, 133, 224 }, new byte[] { 193, 120, 111, 117, 137, 206, 181, 176, 4, 208, 99, 194, 212, 212, 11, 37, 62, 72, 114, 191, 92, 95, 69, 204, 99, 6, 27, 244, 137, 250, 62, 148, 167, 55, 71, 123, 178, 219, 103, 162, 228, 13, 102, 219, 118, 138, 150, 3, 193, 55, 31, 85, 22, 228, 74, 161, 214, 230, 137, 45, 83, 54, 218, 94, 112, 40, 236, 115, 149, 44, 236, 16, 42, 231, 91, 37, 193, 180, 47, 210, 187, 65, 46, 124, 115, 218, 142, 70, 22, 229, 165, 239, 58, 161, 48, 201, 171, 176, 154, 43, 176, 111, 50, 91, 33, 109, 47, 93, 210, 83, 115, 2, 190, 102, 25, 125, 81, 161, 233, 22, 151, 149, 192, 187, 96, 172, 234, 194 }, null });
 
             migrationBuilder.InsertData(
                 table: "UserOperationClaims",
                 columns: new[] { "Id", "CreatedDate", "DeletedDate", "OperationClaimId", "UpdatedDate", "UserId" },
-                values: new object[] { new Guid("a5768886-8965-4a2b-977d-350de4be6dfd"), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, 1, null, new Guid("c81d876c-6ab8-472d-b5ec-1bf0b53cbcc1") });
+                values: new object[] { new Guid("32705ba0-d89e-4a63-8b4f-d562e8b1f00a"), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, 1, null, new Guid("81171f1d-681d-47b8-a0a0-6523c6fb5ebb") });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AuthorBadge_BadgesId",
@@ -310,9 +476,25 @@ namespace Persistence.Migrations
                 column: "BadgesId");
 
             migrationBuilder.CreateIndex(
+                name: "Author_UserID_UK",
+                table: "Authors",
+                column: "UserId",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Authors_ActiveBadgeId",
+                table: "Authors",
+                column: "ActiveBadgeId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Authors_AuthorGroupId",
                 table: "Authors",
                 column: "AuthorGroupId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_EmailAuthenticators_UserId",
+                table: "EmailAuthenticators",
+                column: "UserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Entries_AuthorId",
@@ -330,19 +512,39 @@ namespace Persistence.Migrations
                 column: "FollowedId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_OtpAuthenticators_UserId",
+                table: "OtpAuthenticators",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Penalties_AuthorId",
                 table: "Penalties",
                 column: "AuthorId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Penalties_PenaltyTypeId",
+                name: "IX_Penalties_PenaltyTypeId1",
                 table: "Penalties",
-                column: "PenaltyTypeId");
+                column: "PenaltyTypeId1");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_RefreshTokens_UserId",
+                table: "RefreshTokens",
+                column: "UserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Titles_AuthorId",
                 table: "Titles",
                 column: "AuthorId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_UserOperationClaims_OperationClaimId",
+                table: "UserOperationClaims",
+                column: "OperationClaimId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_UserOperationClaims_UserId",
+                table: "UserOperationClaims",
+                column: "UserId");
         }
 
         /// <inheritdoc />
@@ -352,22 +554,34 @@ namespace Persistence.Migrations
                 name: "AuthorBadge");
 
             migrationBuilder.DropTable(
+                name: "EmailAuthenticators");
+
+            migrationBuilder.DropTable(
                 name: "Entries");
 
             migrationBuilder.DropTable(
                 name: "Followings");
 
             migrationBuilder.DropTable(
+                name: "OtpAuthenticators");
+
+            migrationBuilder.DropTable(
                 name: "Penalties");
 
             migrationBuilder.DropTable(
-                name: "Badges");
+                name: "RefreshTokens");
+
+            migrationBuilder.DropTable(
+                name: "UserOperationClaims");
 
             migrationBuilder.DropTable(
                 name: "Titles");
 
             migrationBuilder.DropTable(
-                name: "PenaltyType");
+                name: "PenaltyTypes");
+
+            migrationBuilder.DropTable(
+                name: "OperationClaims");
 
             migrationBuilder.DropTable(
                 name: "Authors");
@@ -375,265 +589,11 @@ namespace Persistence.Migrations
             migrationBuilder.DropTable(
                 name: "AuthorGroups");
 
-            migrationBuilder.DeleteData(
-                table: "OperationClaims",
-                keyColumn: "Id",
-                keyValue: 24);
+            migrationBuilder.DropTable(
+                name: "Badges");
 
-            migrationBuilder.DeleteData(
-                table: "OperationClaims",
-                keyColumn: "Id",
-                keyValue: 25);
-
-            migrationBuilder.DeleteData(
-                table: "OperationClaims",
-                keyColumn: "Id",
-                keyValue: 26);
-
-            migrationBuilder.DeleteData(
-                table: "OperationClaims",
-                keyColumn: "Id",
-                keyValue: 27);
-
-            migrationBuilder.DeleteData(
-                table: "OperationClaims",
-                keyColumn: "Id",
-                keyValue: 28);
-
-            migrationBuilder.DeleteData(
-                table: "OperationClaims",
-                keyColumn: "Id",
-                keyValue: 29);
-
-            migrationBuilder.DeleteData(
-                table: "OperationClaims",
-                keyColumn: "Id",
-                keyValue: 30);
-
-            migrationBuilder.DeleteData(
-                table: "OperationClaims",
-                keyColumn: "Id",
-                keyValue: 31);
-
-            migrationBuilder.DeleteData(
-                table: "OperationClaims",
-                keyColumn: "Id",
-                keyValue: 32);
-
-            migrationBuilder.DeleteData(
-                table: "OperationClaims",
-                keyColumn: "Id",
-                keyValue: 33);
-
-            migrationBuilder.DeleteData(
-                table: "OperationClaims",
-                keyColumn: "Id",
-                keyValue: 34);
-
-            migrationBuilder.DeleteData(
-                table: "OperationClaims",
-                keyColumn: "Id",
-                keyValue: 35);
-
-            migrationBuilder.DeleteData(
-                table: "OperationClaims",
-                keyColumn: "Id",
-                keyValue: 36);
-
-            migrationBuilder.DeleteData(
-                table: "OperationClaims",
-                keyColumn: "Id",
-                keyValue: 37);
-
-            migrationBuilder.DeleteData(
-                table: "OperationClaims",
-                keyColumn: "Id",
-                keyValue: 38);
-
-            migrationBuilder.DeleteData(
-                table: "OperationClaims",
-                keyColumn: "Id",
-                keyValue: 39);
-
-            migrationBuilder.DeleteData(
-                table: "OperationClaims",
-                keyColumn: "Id",
-                keyValue: 40);
-
-            migrationBuilder.DeleteData(
-                table: "OperationClaims",
-                keyColumn: "Id",
-                keyValue: 41);
-
-            migrationBuilder.DeleteData(
-                table: "OperationClaims",
-                keyColumn: "Id",
-                keyValue: 42);
-
-            migrationBuilder.DeleteData(
-                table: "OperationClaims",
-                keyColumn: "Id",
-                keyValue: 43);
-
-            migrationBuilder.DeleteData(
-                table: "OperationClaims",
-                keyColumn: "Id",
-                keyValue: 44);
-
-            migrationBuilder.DeleteData(
-                table: "OperationClaims",
-                keyColumn: "Id",
-                keyValue: 45);
-
-            migrationBuilder.DeleteData(
-                table: "OperationClaims",
-                keyColumn: "Id",
-                keyValue: 46);
-
-            migrationBuilder.DeleteData(
-                table: "OperationClaims",
-                keyColumn: "Id",
-                keyValue: 47);
-
-            migrationBuilder.DeleteData(
-                table: "OperationClaims",
-                keyColumn: "Id",
-                keyValue: 48);
-
-            migrationBuilder.DeleteData(
-                table: "OperationClaims",
-                keyColumn: "Id",
-                keyValue: 49);
-
-            migrationBuilder.DeleteData(
-                table: "OperationClaims",
-                keyColumn: "Id",
-                keyValue: 50);
-
-            migrationBuilder.DeleteData(
-                table: "OperationClaims",
-                keyColumn: "Id",
-                keyValue: 51);
-
-            migrationBuilder.DeleteData(
-                table: "OperationClaims",
-                keyColumn: "Id",
-                keyValue: 52);
-
-            migrationBuilder.DeleteData(
-                table: "OperationClaims",
-                keyColumn: "Id",
-                keyValue: 53);
-
-            migrationBuilder.DeleteData(
-                table: "OperationClaims",
-                keyColumn: "Id",
-                keyValue: 54);
-
-            migrationBuilder.DeleteData(
-                table: "OperationClaims",
-                keyColumn: "Id",
-                keyValue: 55);
-
-            migrationBuilder.DeleteData(
-                table: "OperationClaims",
-                keyColumn: "Id",
-                keyValue: 56);
-
-            migrationBuilder.DeleteData(
-                table: "OperationClaims",
-                keyColumn: "Id",
-                keyValue: 57);
-
-            migrationBuilder.DeleteData(
-                table: "OperationClaims",
-                keyColumn: "Id",
-                keyValue: 58);
-
-            migrationBuilder.DeleteData(
-                table: "OperationClaims",
-                keyColumn: "Id",
-                keyValue: 59);
-
-            migrationBuilder.DeleteData(
-                table: "OperationClaims",
-                keyColumn: "Id",
-                keyValue: 60);
-
-            migrationBuilder.DeleteData(
-                table: "OperationClaims",
-                keyColumn: "Id",
-                keyValue: 61);
-
-            migrationBuilder.DeleteData(
-                table: "OperationClaims",
-                keyColumn: "Id",
-                keyValue: 62);
-
-            migrationBuilder.DeleteData(
-                table: "OperationClaims",
-                keyColumn: "Id",
-                keyValue: 63);
-
-            migrationBuilder.DeleteData(
-                table: "OperationClaims",
-                keyColumn: "Id",
-                keyValue: 64);
-
-            migrationBuilder.DeleteData(
-                table: "OperationClaims",
-                keyColumn: "Id",
-                keyValue: 65);
-
-            migrationBuilder.DeleteData(
-                table: "OperationClaims",
-                keyColumn: "Id",
-                keyValue: 66);
-
-            migrationBuilder.DeleteData(
-                table: "OperationClaims",
-                keyColumn: "Id",
-                keyValue: 67);
-
-            migrationBuilder.DeleteData(
-                table: "OperationClaims",
-                keyColumn: "Id",
-                keyValue: 68);
-
-            migrationBuilder.DeleteData(
-                table: "OperationClaims",
-                keyColumn: "Id",
-                keyValue: 69);
-
-            migrationBuilder.DeleteData(
-                table: "OperationClaims",
-                keyColumn: "Id",
-                keyValue: 70);
-
-            migrationBuilder.DeleteData(
-                table: "OperationClaims",
-                keyColumn: "Id",
-                keyValue: 71);
-
-            migrationBuilder.DeleteData(
-                table: "UserOperationClaims",
-                keyColumn: "Id",
-                keyValue: new Guid("a5768886-8965-4a2b-977d-350de4be6dfd"));
-
-            migrationBuilder.DeleteData(
-                table: "Users",
-                keyColumn: "Id",
-                keyValue: new Guid("c81d876c-6ab8-472d-b5ec-1bf0b53cbcc1"));
-
-            migrationBuilder.InsertData(
-                table: "Users",
-                columns: new[] { "Id", "AuthenticatorType", "CreatedDate", "DeletedDate", "Email", "PasswordHash", "PasswordSalt", "UpdatedDate" },
-                values: new object[] { new Guid("f00fa4c9-a602-4cf6-bd18-723af9eb3b08"), 0, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "narch@kodlama.io", new byte[] { 96, 17, 248, 164, 149, 96, 49, 176, 106, 7, 48, 120, 1, 10, 207, 56, 38, 112, 237, 222, 200, 20, 185, 84, 195, 106, 188, 198, 121, 10, 231, 70, 47, 237, 61, 117, 182, 20, 234, 240, 214, 172, 38, 115, 54, 180, 198, 101, 13, 219, 83, 13, 183, 17, 18, 12, 85, 144, 160, 117, 42, 250, 151, 186 }, new byte[] { 16, 137, 227, 181, 45, 196, 171, 130, 205, 8, 133, 87, 4, 103, 213, 180, 34, 100, 25, 235, 148, 116, 97, 70, 185, 124, 47, 251, 50, 212, 24, 222, 23, 207, 161, 19, 72, 250, 26, 76, 47, 147, 85, 51, 189, 130, 60, 36, 6, 16, 102, 180, 224, 101, 184, 221, 51, 113, 64, 91, 101, 172, 86, 249, 66, 170, 140, 61, 77, 37, 89, 220, 117, 224, 32, 181, 33, 228, 68, 112, 153, 11, 252, 42, 88, 236, 210, 69, 19, 183, 145, 114, 240, 91, 55, 114, 63, 230, 163, 255, 119, 147, 58, 255, 4, 191, 10, 209, 45, 185, 165, 61, 62, 7, 79, 203, 83, 59, 213, 58, 115, 143, 158, 127, 137, 72, 77, 79 }, null });
-
-            migrationBuilder.InsertData(
-                table: "UserOperationClaims",
-                columns: new[] { "Id", "CreatedDate", "DeletedDate", "OperationClaimId", "UpdatedDate", "UserId" },
-                values: new object[] { new Guid("a980e41c-9605-4f9c-97a5-a953be595669"), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, 1, null, new Guid("f00fa4c9-a602-4cf6-bd18-723af9eb3b08") });
+            migrationBuilder.DropTable(
+                name: "Users");
         }
     }
 }

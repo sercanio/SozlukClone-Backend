@@ -3,11 +3,11 @@ using Application.Features.PenaltyTypes.Rules;
 using Application.Services.Repositories;
 using AutoMapper;
 using Domain.Entities;
+using MediatR;
 using NArchitecture.Core.Application.Pipelines.Authorization;
 using NArchitecture.Core.Application.Pipelines.Caching;
 using NArchitecture.Core.Application.Pipelines.Logging;
 using NArchitecture.Core.Application.Pipelines.Transaction;
-using MediatR;
 using static Application.Features.PenaltyTypes.Constants.PenaltyTypesOperationClaims;
 
 namespace Application.Features.PenaltyTypes.Commands.Create;
@@ -39,6 +39,7 @@ public class CreatePenaltyTypeCommand : IRequest<CreatedPenaltyTypeResponse>, IS
 
         public async Task<CreatedPenaltyTypeResponse> Handle(CreatePenaltyTypeCommand request, CancellationToken cancellationToken)
         {
+            await _penaltyTypeBusinessRules.PenaltyTypeShouldBeUnique(request.Name, cancellationToken);
             PenaltyType penaltyType = _mapper.Map<PenaltyType>(request);
 
             await _penaltyTypeRepository.AddAsync(penaltyType);

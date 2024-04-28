@@ -12,8 +12,8 @@ using Persistence.Contexts;
 namespace Persistence.Migrations
 {
     [DbContext(typeof(BaseDbContext))]
-    [Migration("20240428134208_entity-config-3")]
-    partial class entityconfig3
+    [Migration("20240428202711_entity-config-1")]
+    partial class entityconfig1
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -52,6 +52,9 @@ namespace Persistence.Migrations
                     b.Property<long>("ActiveBadgeId")
                         .HasColumnType("bigint");
 
+                    b.Property<byte?>("Age")
+                        .HasColumnType("smallint");
+
                     b.Property<long>("AuthorGroupId")
                         .HasColumnType("bigint")
                         .HasColumnName("AuthorGroupId");
@@ -73,6 +76,9 @@ namespace Persistence.Migrations
                     b.Property<DateTime?>("DeletedDate")
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("DeletedDate");
+
+                    b.Property<int?>("Gender")
+                        .HasColumnType("integer");
 
                     b.Property<string>("ProfilePictureUrl")
                         .IsRequired()
@@ -277,9 +283,6 @@ namespace Persistence.Migrations
                     b.Property<DateTime?>("DeletedDate")
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("DeletedDate");
-
-                    b.Property<Guid>("Id")
-                        .HasColumnType("uuid");
 
                     b.Property<DateTime?>("UpdatedDate")
                         .HasColumnType("timestamp with time zone")
@@ -717,217 +720,37 @@ namespace Persistence.Migrations
                         {
                             Id = 66,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Followings.Admin"
+                            Name = "PenaltyTypes.Admin"
                         },
                         new
                         {
                             Id = 67,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Followings.Read"
+                            Name = "PenaltyTypes.Read"
                         },
                         new
                         {
                             Id = 68,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Followings.Write"
+                            Name = "PenaltyTypes.Write"
                         },
                         new
                         {
                             Id = 69,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Followings.Create"
+                            Name = "PenaltyTypes.Create"
                         },
                         new
                         {
                             Id = 70,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Followings.Update"
+                            Name = "PenaltyTypes.Update"
                         },
                         new
                         {
                             Id = 71,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Followings.Delete"
-                        },
-                        new
-                        {
-                            Id = 72,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Authors.Admin"
-                        },
-                        new
-                        {
-                            Id = 73,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Authors.Read"
-                        },
-                        new
-                        {
-                            Id = 74,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Authors.Write"
-                        },
-                        new
-                        {
-                            Id = 75,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Authors.Create"
-                        },
-                        new
-                        {
-                            Id = 76,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Authors.Update"
-                        },
-                        new
-                        {
-                            Id = 77,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Authors.Delete"
-                        },
-                        new
-                        {
-                            Id = 78,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "AuthorGroups.Admin"
-                        },
-                        new
-                        {
-                            Id = 79,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "AuthorGroups.Read"
-                        },
-                        new
-                        {
-                            Id = 80,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "AuthorGroups.Write"
-                        },
-                        new
-                        {
-                            Id = 81,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "AuthorGroups.Create"
-                        },
-                        new
-                        {
-                            Id = 82,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "AuthorGroups.Update"
-                        },
-                        new
-                        {
-                            Id = 83,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "AuthorGroups.Delete"
-                        },
-                        new
-                        {
-                            Id = 84,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Badges.Admin"
-                        },
-                        new
-                        {
-                            Id = 85,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Badges.Read"
-                        },
-                        new
-                        {
-                            Id = 86,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Badges.Write"
-                        },
-                        new
-                        {
-                            Id = 87,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Badges.Create"
-                        },
-                        new
-                        {
-                            Id = 88,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Badges.Update"
-                        },
-                        new
-                        {
-                            Id = 89,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Badges.Delete"
-                        },
-                        new
-                        {
-                            Id = 90,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "PenaltyTypes.Admin"
-                        },
-                        new
-                        {
-                            Id = 91,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "PenaltyTypes.Read"
-                        },
-                        new
-                        {
-                            Id = 92,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "PenaltyTypes.Write"
-                        },
-                        new
-                        {
-                            Id = 93,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "PenaltyTypes.Create"
-                        },
-                        new
-                        {
-                            Id = 94,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "PenaltyTypes.Update"
-                        },
-                        new
-                        {
-                            Id = 95,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Name = "PenaltyTypes.Delete"
-                        },
-                        new
-                        {
-                            Id = 96,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Authors.Admin"
-                        },
-                        new
-                        {
-                            Id = 97,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Authors.Read"
-                        },
-                        new
-                        {
-                            Id = 98,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Authors.Write"
-                        },
-                        new
-                        {
-                            Id = 99,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Authors.Create"
-                        },
-                        new
-                        {
-                            Id = 100,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Authors.Update"
-                        },
-                        new
-                        {
-                            Id = 101,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Authors.Delete"
                         });
                 });
 
@@ -1208,12 +1031,12 @@ namespace Persistence.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("156b9e2b-7b86-4d22-85bd-90db518b0922"),
+                            Id = new Guid("81171f1d-681d-47b8-a0a0-6523c6fb5ebb"),
                             AuthenticatorType = 0,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Email = "narch@kodlama.io",
-                            PasswordHash = new byte[] { 125, 0, 243, 175, 207, 240, 191, 184, 135, 106, 53, 55, 78, 37, 154, 165, 210, 9, 168, 160, 206, 154, 249, 178, 146, 239, 194, 31, 212, 130, 59, 191, 228, 60, 240, 40, 17, 251, 192, 108, 98, 246, 196, 124, 94, 213, 67, 72, 136, 168, 123, 138, 180, 63, 122, 124, 188, 218, 148, 253, 238, 181, 217, 22 },
-                            PasswordSalt = new byte[] { 86, 49, 111, 63, 254, 45, 238, 122, 54, 68, 83, 92, 87, 143, 212, 104, 128, 98, 80, 154, 94, 85, 11, 195, 234, 219, 235, 154, 242, 28, 51, 255, 102, 241, 236, 207, 173, 82, 23, 93, 88, 28, 121, 201, 98, 165, 133, 238, 147, 228, 87, 241, 44, 42, 164, 240, 115, 6, 191, 5, 131, 40, 156, 213, 144, 171, 245, 81, 85, 202, 170, 172, 179, 85, 13, 87, 233, 122, 4, 4, 90, 194, 210, 188, 12, 23, 222, 89, 139, 127, 167, 141, 84, 35, 12, 119, 120, 235, 156, 3, 104, 202, 213, 184, 254, 192, 148, 13, 228, 202, 191, 135, 51, 84, 57, 133, 213, 9, 45, 203, 5, 236, 16, 75, 252, 44, 176, 173 }
+                            Email = "sozluk@email.com",
+                            PasswordHash = new byte[] { 18, 34, 240, 209, 67, 72, 203, 152, 12, 212, 7, 144, 9, 57, 78, 61, 0, 16, 230, 207, 216, 213, 47, 104, 239, 167, 234, 93, 145, 31, 117, 177, 4, 15, 136, 40, 218, 5, 142, 173, 33, 157, 149, 66, 145, 184, 137, 44, 123, 88, 13, 156, 11, 248, 247, 145, 102, 11, 58, 187, 232, 170, 133, 224 },
+                            PasswordSalt = new byte[] { 193, 120, 111, 117, 137, 206, 181, 176, 4, 208, 99, 194, 212, 212, 11, 37, 62, 72, 114, 191, 92, 95, 69, 204, 99, 6, 27, 244, 137, 250, 62, 148, 167, 55, 71, 123, 178, 219, 103, 162, 228, 13, 102, 219, 118, 138, 150, 3, 193, 55, 31, 85, 22, 228, 74, 161, 214, 230, 137, 45, 83, 54, 218, 94, 112, 40, 236, 115, 149, 44, 236, 16, 42, 231, 91, 37, 193, 180, 47, 210, 187, 65, 46, 124, 115, 218, 142, 70, 22, 229, 165, 239, 58, 161, 48, 201, 171, 176, 154, 43, 176, 111, 50, 91, 33, 109, 47, 93, 210, 83, 115, 2, 190, 102, 25, 125, 81, 161, 233, 22, 151, 149, 192, 187, 96, 172, 234, 194 }
                         });
                 });
 
@@ -1255,10 +1078,10 @@ namespace Persistence.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("243d8c43-76a8-4f25-a882-c5ce778f5ef4"),
+                            Id = new Guid("32705ba0-d89e-4a63-8b4f-d562e8b1f00a"),
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             OperationClaimId = 1,
-                            UserId = new Guid("156b9e2b-7b86-4d22-85bd-90db518b0922")
+                            UserId = new Guid("81171f1d-681d-47b8-a0a0-6523c6fb5ebb")
                         });
                 });
 
