@@ -1,4 +1,4 @@
-﻿using System.Reflection;
+using System.Reflection;
 using Application.Services.AuthenticatorService;
 using Application.Services.AuthService;
 using Application.Services.UsersService;
@@ -20,6 +20,14 @@ using NArchitecture.Core.Mailing;
 using NArchitecture.Core.Mailing.MailKit;
 using NArchitecture.Core.Security.DependencyInjection;
 using NArchitecture.Core.Security.JWT;
+using Application.Services.Authors;
+using Application.Services.AuthorGroups;
+using Application.Services.Badges;
+using Application.Services.Entries;
+using Application.Services.Followings;
+using Application.Services.Penalties;
+using Application.Services.Titles;
+using Application.Services.PenaltyTypes;
 
 namespace Application;
 
@@ -61,6 +69,19 @@ public static class ApplicationServiceRegistration
 
         services.AddSecurityServices<Guid, int, Guid>(tokenOptions);
 
+        services.AddScoped<IAuthorService, AuthorManager>();
+        services.AddScoped<IAuthorGroupService, AuthorGroupManager>();
+        services.AddScoped<IBadgeService, BadgeManager>();
+        services.AddScoped<IEntryService, EntryManager>();
+        services.AddScoped<IFollowingService, FollowingManager>();
+        services.AddScoped<IPenaltyService, PenaltyManager>();
+        services.AddScoped<ITitleService, TitleManager>();
+        services.AddScoped<IFollowingService, FollowingManager>();
+        services.AddScoped<IAuthorService, AuthorManager>();
+        services.AddScoped<IAuthorGroupService, AuthorGroupManager>();
+        services.AddScoped<IBadgeService, BadgeManager>();
+        services.AddScoped<IPenaltyTypeService, PenaltyTypeManager>();
+        services.AddScoped<IAuthorService, AuthorManager>();
         return services;
     }
 

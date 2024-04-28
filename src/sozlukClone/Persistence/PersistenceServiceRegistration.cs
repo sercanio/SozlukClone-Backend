@@ -1,4 +1,4 @@
-﻿using Application.Services.Repositories;
+using Application.Services.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -22,6 +22,19 @@ public static class PersistenceServiceRegistration
         services.AddScoped<IUserRepository, UserRepository>();
         services.AddScoped<IUserOperationClaimRepository, UserOperationClaimRepository>();
 
+        services.AddScoped<IAuthorRepository, AuthorRepository>();
+        services.AddScoped<IAuthorGroupRepository, AuthorGroupRepository>();
+        services.AddScoped<IBadgeRepository, BadgeRepository>();
+        services.AddScoped<IEntryRepository, EntryRepository>();
+        services.AddScoped<IFollowingRepository, FollowingRepository>();
+        services.AddScoped<IPenaltyRepository, PenaltyRepository>();
+        services.AddScoped<ITitleRepository, TitleRepository>();
+
+        services.AddScoped<IAuthorRepository, AuthorRepository>();
+        services.AddScoped<IAuthorGroupRepository, AuthorGroupRepository>();
+        services.AddScoped<IBadgeRepository, BadgeRepository>();
+        services.AddScoped<IPenaltyTypeRepository, PenaltyTypeRepository>();
+        services.AddScoped<IAuthorRepository, AuthorRepository>();
         return services;
     }
 }
