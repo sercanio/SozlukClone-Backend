@@ -1,5 +1,4 @@
 ﻿using Application.Features.Users.Rules;
-using Application.Services.RegisterAudits;
 using Application.Services.Repositories;
 using Domain.Entities;
 using Microsoft.EntityFrameworkCore.Query;
@@ -14,13 +13,11 @@ public class UserManager : IUserService
 {
     private readonly IUserRepository _userRepository;
     private readonly UserBusinessRules _userBusinessRules;
-    private readonly IRegisterAuditService _registerAuditService;
 
-    public UserManager(IUserRepository userRepository, UserBusinessRules userBusinessRules, IRegisterAuditService registerAuditService)
+    public UserManager(IUserRepository userRepository, UserBusinessRules userBusinessRules)
     {
         _userRepository = userRepository;
         _userBusinessRules = userBusinessRules;
-        _registerAuditService = registerAuditService;
     }
 
     public async Task<User?> GetAsync(
@@ -100,18 +97,8 @@ public class UserManager : IUserService
                 PasswordHash = passwordHash,
                 PasswordSalt = passwordSalt,
             };
+
         User createdUser = await _userRepository.AddAsync(newUser);
-
-        RegisterAudit registerAudit = new()
-        {
-            Ip = "",
-            Location = "",
-            UserId = createdUser.Id,
-            Email = createdUser.Email,
-        };
-
-        await _registerAuditService.AddAsync(registerAudit);
-
         return createdUser;
     }
 }

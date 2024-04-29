@@ -6,7 +6,6 @@ using Application.Services.AuthenticatorService;
 using Application.Services.Authors;
 using Application.Services.AuthService;
 using Application.Services.LoginAudits;
-using Application.Services.RegisterAudits;
 using Application.Services.Repositories;
 using Application.Services.UsersService;
 using AutoMapper;
@@ -78,8 +77,7 @@ public class LoginTests
             mapper
         );
         UserBusinessRules _userBusinessRules = new(_userRepository, localizationService);
-        IRegisterAuditService registerAuditService = new RegisterAuditManager();
-        IUserService _userService = new UserManager(_userRepository, _userBusinessRules, registerAuditService);
+        IUserService _userService = new UserManager(_userRepository, _userBusinessRules);
         IAuthenticatorService _authententicatorService = new AuthenticatorManager(
             emailAuthenticatorHelper,
             _userEmailAuthenticatorRepository,

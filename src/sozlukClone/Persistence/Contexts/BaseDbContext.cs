@@ -23,7 +23,6 @@ public class BaseDbContext : DbContext
     public DbSet<Title> Titles { get; set; }
     public DbSet<PenaltyType> PenaltyTypes { get; set; }
     public DbSet<LoginAudit> LoginAudits { get; set; }
-    public DbSet<RegisterAudit> RegisterAudits { get; set; }
 
     public BaseDbContext(DbContextOptions dbContextOptions, IConfiguration configuration)
         : base(dbContextOptions)

@@ -33,21 +33,18 @@ public class RegisterCommand : IRequest<RegisteredResponse>
         private readonly IAuthService _authService;
         private readonly AuthBusinessRules _authBusinessRules;
         private readonly IAuthorService _authorService;
-        private readonly IRegisterAuditRepository _registerAuditService;
 
         public RegisterCommandHandler(
             IUserRepository userRepository,
             IAuthService authService,
             AuthBusinessRules authBusinessRules
 ,
-            IAuthorService authorService,
-            IRegisterAuditRepository registerAuditService)
+            IAuthorService authorService)
         {
             _userRepository = userRepository;
             _authService = authService;
             _authBusinessRules = authBusinessRules;
             _authorService = authorService;
-            _registerAuditService = registerAuditService;
         }
 
         public async Task<RegisteredResponse> Handle(RegisterCommand request, CancellationToken cancellationToken)

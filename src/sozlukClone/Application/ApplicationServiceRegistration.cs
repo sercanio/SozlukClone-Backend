@@ -5,6 +5,7 @@ using Application.Services.AuthService;
 using Application.Services.Badges;
 using Application.Services.Entries;
 using Application.Services.Followings;
+using Application.Services.LoginAudits;
 using Application.Services.Penalties;
 using Application.Services.PenaltyTypes;
 using Application.Services.Titles;
@@ -28,8 +29,6 @@ using NArchitecture.Core.Mailing.MailKit;
 using NArchitecture.Core.Security.DependencyInjection;
 using NArchitecture.Core.Security.JWT;
 using System.Reflection;
-using Application.Services.LoginAudits;
-using Application.Services.RegisterAudits;
 
 namespace Application;
 
@@ -81,9 +80,6 @@ public static class ApplicationServiceRegistration
         services.AddScoped<IFollowingService, FollowingManager>();
         services.AddScoped<IPenaltyTypeService, PenaltyTypeManager>();
         services.AddScoped<ILoginAuditService, LoginAuditManager>();
-        services.AddScoped<IRegisterAuditService, RegisterAuditManager>();
-        services.AddScoped<IRegisterAuditService, RegisterAuditManager>();
-        services.AddScoped<IRegisterAuditService, RegisterAuditManager>();
         return services;
     }
 
