@@ -79,6 +79,7 @@ public static class ApplicationServiceRegistration
         services.AddScoped<ILoginAuditService, LoginAuditManager>();
         services.AddScoped<IAuthorService, AuthorManager>();
         services.AddScoped<ITitleService, TitleManager>();
+        services.AddScoped<ITitleService, TitleManager>();
         return services;
     }
 

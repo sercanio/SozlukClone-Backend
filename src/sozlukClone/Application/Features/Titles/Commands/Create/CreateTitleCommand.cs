@@ -1,6 +1,7 @@
 using Application.Features.Titles.Rules;
 using Application.Services.Authors;
 using Application.Services.Repositories;
+using Application.Utils;
 using AutoMapper;
 using Domain.Entities;
 using MediatR;
@@ -33,6 +34,10 @@ public class CreateTitleCommand : IRequest<CreatedTitleResponse>, ILoggableReque
         public async Task<CreatedTitleResponse> Handle(CreateTitleCommand request, CancellationToken cancellationToken)
         {
             Title title = _mapper.Map<Title>(request);
+            title.slug = TitleUtils.GenerateSlug(title.Name);
+
+            await _titleBusinessRules.TitleNameShouldNotExistsWhenInsert(title.Name);
+
             Author? author = await _authorService.GetAsync(predicate: a => a.Id == title.AuthorId);
 
             if (author is not null)
@@ -40,7 +45,6 @@ public class CreateTitleCommand : IRequest<CreatedTitleResponse>, ILoggableReque
                 var savedTitle = await _titleRepository.AddAsync(title);
                 author.Titles.Add(savedTitle);
                 await _authorService.UpdateAsync(author);
-
             }
             CreatedTitleResponse response = _mapper.Map<CreatedTitleResponse>(title);
             return response;

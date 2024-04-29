@@ -1,9 +1,9 @@
 using Application.Features.Titles.Constants;
 using Application.Services.Repositories;
+using Domain.Entities;
 using NArchitecture.Core.Application.Rules;
 using NArchitecture.Core.CrossCuttingConcerns.Exception.Types;
 using NArchitecture.Core.Localization.Abstraction;
-using Domain.Entities;
 
 namespace Application.Features.Titles.Rules;
 
@@ -38,5 +38,12 @@ public class TitleBusinessRules : BaseBusinessRules
             cancellationToken: cancellationToken
         );
         await TitleShouldExistWhenSelected(title);
+    }
+
+    public async Task TitleNameShouldNotExistsWhenInsert(string name)
+    {
+        bool doesExist = await _titleRepository.AnyAsync(predicate: t => t.Name == name);
+        if (doesExist)
+            await throwBusinessException(TitlesBusinessMessages.TitleAlreadyExists);
     }
 }
