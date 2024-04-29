@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Persistence.Contexts;
@@ -11,9 +12,11 @@ using Persistence.Contexts;
 namespace Persistence.Migrations
 {
     [DbContext(typeof(BaseDbContext))]
-    partial class BaseDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240429062214_entity-config-1")]
+    partial class entityconfig1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -844,114 +847,6 @@ namespace Persistence.Migrations
                             Id = 77,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Name = "LoginAudits.Delete"
-                        },
-                        new
-                        {
-                            Id = 78,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "RegisterAudits.Admin"
-                        },
-                        new
-                        {
-                            Id = 79,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "RegisterAudits.Read"
-                        },
-                        new
-                        {
-                            Id = 80,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "RegisterAudits.Write"
-                        },
-                        new
-                        {
-                            Id = 81,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "RegisterAudits.Create"
-                        },
-                        new
-                        {
-                            Id = 82,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "RegisterAudits.Update"
-                        },
-                        new
-                        {
-                            Id = 83,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "RegisterAudits.Delete"
-                        },
-                        new
-                        {
-                            Id = 84,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "RegisterAudits.Admin"
-                        },
-                        new
-                        {
-                            Id = 85,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "RegisterAudits.Read"
-                        },
-                        new
-                        {
-                            Id = 86,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "RegisterAudits.Write"
-                        },
-                        new
-                        {
-                            Id = 87,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "RegisterAudits.Create"
-                        },
-                        new
-                        {
-                            Id = 88,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "RegisterAudits.Update"
-                        },
-                        new
-                        {
-                            Id = 89,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "RegisterAudits.Delete"
-                        },
-                        new
-                        {
-                            Id = 90,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "RegisterAudits.Admin"
-                        },
-                        new
-                        {
-                            Id = 91,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "RegisterAudits.Read"
-                        },
-                        new
-                        {
-                            Id = 92,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "RegisterAudits.Write"
-                        },
-                        new
-                        {
-                            Id = 93,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "RegisterAudits.Create"
-                        },
-                        new
-                        {
-                            Id = 94,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "RegisterAudits.Update"
-                        },
-                        new
-                        {
-                            Id = 95,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "RegisterAudits.Delete"
                         });
                 });
 
@@ -1146,51 +1041,6 @@ namespace Persistence.Migrations
                     b.ToTable("RefreshTokens", (string)null);
                 });
 
-            modelBuilder.Entity("Domain.Entities.RegisterAudit", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid")
-                        .HasColumnName("Id");
-
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("CreatedDate");
-
-                    b.Property<DateTime?>("DeletedDate")
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("DeletedDate");
-
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnName("Email");
-
-                    b.Property<string>("Ip")
-                        .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnName("Ip");
-
-                    b.Property<string>("Location")
-                        .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnName("Location");
-
-                    b.Property<DateTime?>("UpdatedDate")
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("UpdatedDate");
-
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("uuid")
-                        .HasColumnName("UserId");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("RegisterAudits", (string)null);
-                });
-
             modelBuilder.Entity("Domain.Entities.Title", b =>
                 {
                     b.Property<long>("Id")
@@ -1277,12 +1127,12 @@ namespace Persistence.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("7dbb75a6-14a0-4fda-98fa-f3d615d1c0d4"),
+                            Id = new Guid("44bf182a-abba-4d62-aa28-a2ab00ab52be"),
                             AuthenticatorType = 0,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "sozluk@email.com",
-                            PasswordHash = new byte[] { 104, 58, 124, 243, 80, 205, 102, 175, 218, 141, 62, 157, 32, 251, 155, 9, 45, 33, 23, 169, 224, 15, 231, 194, 83, 157, 1, 40, 23, 245, 45, 253, 72, 168, 36, 43, 224, 220, 81, 246, 95, 92, 164, 187, 73, 244, 223, 123, 43, 223, 11, 133, 182, 85, 91, 13, 245, 47, 11, 82, 152, 141, 167, 29 },
-                            PasswordSalt = new byte[] { 20, 24, 134, 71, 163, 124, 125, 120, 225, 41, 9, 243, 49, 154, 87, 68, 150, 158, 16, 42, 119, 180, 193, 204, 141, 166, 93, 202, 168, 130, 196, 55, 164, 219, 168, 119, 254, 1, 194, 44, 140, 82, 244, 222, 230, 252, 8, 49, 130, 218, 82, 109, 117, 186, 47, 145, 75, 117, 92, 252, 43, 207, 127, 210, 123, 92, 52, 198, 88, 242, 208, 122, 128, 206, 152, 48, 177, 75, 146, 94, 166, 239, 200, 57, 36, 35, 128, 5, 177, 15, 48, 202, 88, 51, 248, 50, 53, 8, 155, 77, 63, 173, 221, 184, 227, 185, 132, 75, 189, 31, 243, 27, 143, 211, 68, 200, 211, 140, 123, 232, 56, 137, 56, 199, 32, 39, 205, 238 }
+                            PasswordHash = new byte[] { 70, 228, 187, 226, 115, 21, 185, 38, 112, 175, 78, 156, 187, 59, 6, 40, 178, 112, 250, 8, 226, 66, 150, 106, 108, 218, 223, 57, 162, 201, 243, 148, 232, 141, 216, 35, 233, 89, 238, 49, 220, 253, 166, 8, 99, 200, 201, 168, 93, 82, 175, 164, 191, 34, 142, 192, 239, 8, 13, 215, 209, 219, 110, 202 },
+                            PasswordSalt = new byte[] { 140, 210, 76, 174, 205, 182, 126, 255, 181, 2, 13, 111, 23, 1, 92, 101, 188, 70, 193, 95, 49, 48, 195, 118, 10, 218, 124, 168, 3, 196, 4, 68, 227, 41, 86, 124, 180, 224, 116, 68, 47, 24, 102, 194, 170, 122, 162, 191, 182, 245, 105, 151, 21, 218, 85, 127, 87, 175, 194, 57, 32, 108, 242, 103, 41, 146, 235, 254, 206, 63, 116, 135, 135, 234, 170, 89, 135, 213, 208, 79, 64, 206, 118, 245, 87, 161, 27, 3, 181, 96, 13, 164, 61, 130, 212, 53, 3, 135, 157, 70, 175, 73, 212, 131, 251, 158, 2, 167, 128, 52, 128, 13, 235, 253, 226, 120, 110, 13, 2, 57, 250, 97, 185, 89, 56, 68, 217, 249 }
                         });
                 });
 
@@ -1324,10 +1174,10 @@ namespace Persistence.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("b05decce-f156-4da8-a79e-721bd69f21b7"),
+                            Id = new Guid("49de5578-12fd-408e-8233-472a2ba93616"),
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             OperationClaimId = 1,
-                            UserId = new Guid("7dbb75a6-14a0-4fda-98fa-f3d615d1c0d4")
+                            UserId = new Guid("44bf182a-abba-4d62-aa28-a2ab00ab52be")
                         });
                 });
 
@@ -1473,17 +1323,6 @@ namespace Persistence.Migrations
                 {
                     b.HasOne("Domain.Entities.User", "User")
                         .WithMany("RefreshTokens")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("Domain.Entities.RegisterAudit", b =>
-                {
-                    b.HasOne("Domain.Entities.User", "User")
-                        .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();

@@ -28,6 +28,8 @@ using NArchitecture.Core.Mailing.MailKit;
 using NArchitecture.Core.Security.DependencyInjection;
 using NArchitecture.Core.Security.JWT;
 using System.Reflection;
+using Application.Services.LoginAudits;
+using Application.Services.RegisterAudits;
 
 namespace Application;
 
@@ -78,6 +80,10 @@ public static class ApplicationServiceRegistration
         services.AddScoped<ITitleService, TitleManager>();
         services.AddScoped<IFollowingService, FollowingManager>();
         services.AddScoped<IPenaltyTypeService, PenaltyTypeManager>();
+        services.AddScoped<ILoginAuditService, LoginAuditManager>();
+        services.AddScoped<IRegisterAuditService, RegisterAuditManager>();
+        services.AddScoped<IRegisterAuditService, RegisterAuditManager>();
+        services.AddScoped<IRegisterAuditService, RegisterAuditManager>();
         return services;
     }
 

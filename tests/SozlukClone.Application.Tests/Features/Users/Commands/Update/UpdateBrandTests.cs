@@ -50,8 +50,6 @@ public class UpdateUserTests : UserMockRepository
     public async Task UpdateShouldSuccessfully()
     {
         _command.Id = UserFakeData.Ids[0];
-        _command.FirstName = "First";
-        _command.LastName = "Last";
         _command.Email = "test@email.com";
         _command.Password = "password";
 
@@ -64,8 +62,6 @@ public class UpdateUserTests : UserMockRepository
     public async Task UserIdNotExistsShouldReturnError()
     {
         _command.Id = Guid.NewGuid();
-        _command.FirstName = "First";
-        _command.LastName = "Last";
         _command.Email = "test@email.com";
         _command.Password = "password";
 

@@ -18,6 +18,10 @@ public class AuthorManager : IAuthorService
         _authorBusinessRules = authorBusinessRules;
     }
 
+    public AuthorManager()
+    {
+    }
+
     public async Task<Author?> GetAsync(
         Expression<Func<Author, bool>> predicate,
         Func<IQueryable<Author>, IIncludableQueryable<Author, object>>? include = null,

@@ -37,8 +37,6 @@ public class CreateUserTests : UserMockRepository
     [Fact]
     public void UserEmailNotMatchEmailRuleShouldReturnError()
     {
-        _command.FirstName = "First";
-        _command.LastName = "Last";
         _command.Email = "NotEmailFormat";
         _command.Password = "password";
 
@@ -52,8 +50,6 @@ public class CreateUserTests : UserMockRepository
     [Fact]
     public async Task CreateShouldSuccessfully()
     {
-        _command.FirstName = "First";
-        _command.LastName = "Last";
         _command.Email = "test@email.com";
         _command.Password = "password";
 
@@ -65,8 +61,6 @@ public class CreateUserTests : UserMockRepository
     [Fact]
     public async Task DuplicatedUserEmailShouldReturnError()
     {
-        _command.FirstName = "First";
-        _command.LastName = "Last";
         _command.Email = "example@kodlama.io";
         _command.Password = "password";
 

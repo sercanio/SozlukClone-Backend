@@ -3,7 +3,10 @@ using Application.Features.Auth.Profiles;
 using Application.Features.Auth.Rules;
 using Application.Features.Users.Rules;
 using Application.Services.AuthenticatorService;
+using Application.Services.Authors;
 using Application.Services.AuthService;
+using Application.Services.LoginAudits;
+using Application.Services.RegisterAudits;
 using Application.Services.Repositories;
 using Application.Services.UsersService;
 using AutoMapper;
@@ -75,7 +78,8 @@ public class LoginTests
             mapper
         );
         UserBusinessRules _userBusinessRules = new(_userRepository, localizationService);
-        IUserService _userService = new UserManager(_userRepository, _userBusinessRules);
+        IRegisterAuditService registerAuditService = new RegisterAuditManager();
+        IUserService _userService = new UserManager(_userRepository, _userBusinessRules, registerAuditService);
         IAuthenticatorService _authententicatorService = new AuthenticatorManager(
             emailAuthenticatorHelper,
             _userEmailAuthenticatorRepository,
@@ -83,9 +87,11 @@ public class LoginTests
             otpAuthenticatorHelper,
             _userOtpAuthenticatorRepository
         );
+        ILoginAuditService loginAuditService = new LoginAuditManager();
+        IAuthorService authorService = new AuthorManager();
         _validator = new LoginCommandValidator();
         _loginCommand = new LoginCommand();
-        _loginCommandHandler = new LoginCommandHandler(_userService, _authService, authBusinessRules, _authententicatorService);
+        _loginCommandHandler = new LoginCommandHandler(_userService, _authService, authBusinessRules, _authententicatorService, loginAuditService, authorService);
     }
 
     [Fact]

@@ -296,6 +296,39 @@ namespace Persistence.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "LoginAudits",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    LastLoginIp = table.Column<string>(type: "text", nullable: false),
+                    LastLoginLocation = table.Column<string>(type: "text", nullable: false),
+                    UserId = table.Column<Guid>(type: "uuid", nullable: false),
+                    AuthorId = table.Column<long>(type: "bigint", nullable: false),
+                    Username = table.Column<string>(type: "text", nullable: false),
+                    Email = table.Column<string>(type: "text", nullable: false),
+                    AuthenticatorType = table.Column<int>(type: "integer", nullable: false),
+                    CreatedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    UpdatedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    DeletedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_LoginAudits", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_LoginAudits_Authors_AuthorId",
+                        column: x => x.AuthorId,
+                        principalTable: "Authors",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_LoginAudits_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Penalties",
                 columns: table => new
                 {
@@ -457,18 +490,24 @@ namespace Persistence.Migrations
                     { 68, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "PenaltyTypes.Write", null },
                     { 69, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "PenaltyTypes.Create", null },
                     { 70, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "PenaltyTypes.Update", null },
-                    { 71, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "PenaltyTypes.Delete", null }
+                    { 71, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "PenaltyTypes.Delete", null },
+                    { 72, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "LoginAudits.Admin", null },
+                    { 73, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "LoginAudits.Read", null },
+                    { 74, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "LoginAudits.Write", null },
+                    { 75, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "LoginAudits.Create", null },
+                    { 76, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "LoginAudits.Update", null },
+                    { 77, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "LoginAudits.Delete", null }
                 });
 
             migrationBuilder.InsertData(
                 table: "Users",
                 columns: new[] { "Id", "AuthenticatorType", "CreatedDate", "DeletedDate", "Email", "PasswordHash", "PasswordSalt", "UpdatedDate" },
-                values: new object[] { new Guid("81171f1d-681d-47b8-a0a0-6523c6fb5ebb"), 0, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "sozluk@email.com", new byte[] { 18, 34, 240, 209, 67, 72, 203, 152, 12, 212, 7, 144, 9, 57, 78, 61, 0, 16, 230, 207, 216, 213, 47, 104, 239, 167, 234, 93, 145, 31, 117, 177, 4, 15, 136, 40, 218, 5, 142, 173, 33, 157, 149, 66, 145, 184, 137, 44, 123, 88, 13, 156, 11, 248, 247, 145, 102, 11, 58, 187, 232, 170, 133, 224 }, new byte[] { 193, 120, 111, 117, 137, 206, 181, 176, 4, 208, 99, 194, 212, 212, 11, 37, 62, 72, 114, 191, 92, 95, 69, 204, 99, 6, 27, 244, 137, 250, 62, 148, 167, 55, 71, 123, 178, 219, 103, 162, 228, 13, 102, 219, 118, 138, 150, 3, 193, 55, 31, 85, 22, 228, 74, 161, 214, 230, 137, 45, 83, 54, 218, 94, 112, 40, 236, 115, 149, 44, 236, 16, 42, 231, 91, 37, 193, 180, 47, 210, 187, 65, 46, 124, 115, 218, 142, 70, 22, 229, 165, 239, 58, 161, 48, 201, 171, 176, 154, 43, 176, 111, 50, 91, 33, 109, 47, 93, 210, 83, 115, 2, 190, 102, 25, 125, 81, 161, 233, 22, 151, 149, 192, 187, 96, 172, 234, 194 }, null });
+                values: new object[] { new Guid("44bf182a-abba-4d62-aa28-a2ab00ab52be"), 0, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "sozluk@email.com", new byte[] { 70, 228, 187, 226, 115, 21, 185, 38, 112, 175, 78, 156, 187, 59, 6, 40, 178, 112, 250, 8, 226, 66, 150, 106, 108, 218, 223, 57, 162, 201, 243, 148, 232, 141, 216, 35, 233, 89, 238, 49, 220, 253, 166, 8, 99, 200, 201, 168, 93, 82, 175, 164, 191, 34, 142, 192, 239, 8, 13, 215, 209, 219, 110, 202 }, new byte[] { 140, 210, 76, 174, 205, 182, 126, 255, 181, 2, 13, 111, 23, 1, 92, 101, 188, 70, 193, 95, 49, 48, 195, 118, 10, 218, 124, 168, 3, 196, 4, 68, 227, 41, 86, 124, 180, 224, 116, 68, 47, 24, 102, 194, 170, 122, 162, 191, 182, 245, 105, 151, 21, 218, 85, 127, 87, 175, 194, 57, 32, 108, 242, 103, 41, 146, 235, 254, 206, 63, 116, 135, 135, 234, 170, 89, 135, 213, 208, 79, 64, 206, 118, 245, 87, 161, 27, 3, 181, 96, 13, 164, 61, 130, 212, 53, 3, 135, 157, 70, 175, 73, 212, 131, 251, 158, 2, 167, 128, 52, 128, 13, 235, 253, 226, 120, 110, 13, 2, 57, 250, 97, 185, 89, 56, 68, 217, 249 }, null });
 
             migrationBuilder.InsertData(
                 table: "UserOperationClaims",
                 columns: new[] { "Id", "CreatedDate", "DeletedDate", "OperationClaimId", "UpdatedDate", "UserId" },
-                values: new object[] { new Guid("32705ba0-d89e-4a63-8b4f-d562e8b1f00a"), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, 1, null, new Guid("81171f1d-681d-47b8-a0a0-6523c6fb5ebb") });
+                values: new object[] { new Guid("49de5578-12fd-408e-8233-472a2ba93616"), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, 1, null, new Guid("44bf182a-abba-4d62-aa28-a2ab00ab52be") });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AuthorBadge_BadgesId",
@@ -510,6 +549,16 @@ namespace Persistence.Migrations
                 name: "IX_Followings_FollowedId",
                 table: "Followings",
                 column: "FollowedId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_LoginAudits_AuthorId",
+                table: "LoginAudits",
+                column: "AuthorId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_LoginAudits_UserId",
+                table: "LoginAudits",
+                column: "UserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_OtpAuthenticators_UserId",
@@ -561,6 +610,9 @@ namespace Persistence.Migrations
 
             migrationBuilder.DropTable(
                 name: "Followings");
+
+            migrationBuilder.DropTable(
+                name: "LoginAudits");
 
             migrationBuilder.DropTable(
                 name: "OtpAuthenticators");

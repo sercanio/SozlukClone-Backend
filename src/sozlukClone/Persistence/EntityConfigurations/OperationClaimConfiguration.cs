@@ -4,6 +4,7 @@ using Application.Features.Authors.Constants;
 using Application.Features.Badges.Constants;
 using Application.Features.Entries.Constants;
 using Application.Features.Followings.Constants;
+using Application.Features.LoginAudits.Constants;
 using Application.Features.OperationClaims.Constants;
 using Application.Features.Penalties.Constants;
 using Application.Features.PenaltyTypes.Constants;
@@ -14,6 +15,7 @@ using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using NArchitecture.Core.Security.Constants;
+using Application.Features.RegisterAudits.Constants;
 
 namespace Persistence.EntityConfigurations;
 
@@ -218,6 +220,61 @@ public class OperationClaimConfiguration : IEntityTypeConfiguration<OperationCla
         #endregion
 
 
+        #region LoginAudits CRUD
+        featureOperationClaims.AddRange(
+            [
+                new() { Id = ++lastId, Name = LoginAuditsOperationClaims.Admin },
+                new() { Id = ++lastId, Name = LoginAuditsOperationClaims.Read },
+                new() { Id = ++lastId, Name = LoginAuditsOperationClaims.Write },
+                new() { Id = ++lastId, Name = LoginAuditsOperationClaims.Create },
+                new() { Id = ++lastId, Name = LoginAuditsOperationClaims.Update },
+                new() { Id = ++lastId, Name = LoginAuditsOperationClaims.Delete },
+            ]
+        );
+        #endregion
+
+        
+        #region RegisterAudits CRUD
+        featureOperationClaims.AddRange(
+            [
+                new() { Id = ++lastId, Name = RegisterAuditsOperationClaims.Admin },
+                new() { Id = ++lastId, Name = RegisterAuditsOperationClaims.Read },
+                new() { Id = ++lastId, Name = RegisterAuditsOperationClaims.Write },
+                new() { Id = ++lastId, Name = RegisterAuditsOperationClaims.Create },
+                new() { Id = ++lastId, Name = RegisterAuditsOperationClaims.Update },
+                new() { Id = ++lastId, Name = RegisterAuditsOperationClaims.Delete },
+            ]
+        );
+        #endregion
+        
+        
+        #region RegisterAudits CRUD
+        featureOperationClaims.AddRange(
+            [
+                new() { Id = ++lastId, Name = RegisterAuditsOperationClaims.Admin },
+                new() { Id = ++lastId, Name = RegisterAuditsOperationClaims.Read },
+                new() { Id = ++lastId, Name = RegisterAuditsOperationClaims.Write },
+                new() { Id = ++lastId, Name = RegisterAuditsOperationClaims.Create },
+                new() { Id = ++lastId, Name = RegisterAuditsOperationClaims.Update },
+                new() { Id = ++lastId, Name = RegisterAuditsOperationClaims.Delete },
+            ]
+        );
+        #endregion
+        
+        
+        #region RegisterAudits CRUD
+        featureOperationClaims.AddRange(
+            [
+                new() { Id = ++lastId, Name = RegisterAuditsOperationClaims.Admin },
+                new() { Id = ++lastId, Name = RegisterAuditsOperationClaims.Read },
+                new() { Id = ++lastId, Name = RegisterAuditsOperationClaims.Write },
+                new() { Id = ++lastId, Name = RegisterAuditsOperationClaims.Create },
+                new() { Id = ++lastId, Name = RegisterAuditsOperationClaims.Update },
+                new() { Id = ++lastId, Name = RegisterAuditsOperationClaims.Delete },
+            ]
+        );
+        #endregion
+        
         return featureOperationClaims;
     }
 #pragma warning restore S1854 // Unused assignments should be removed

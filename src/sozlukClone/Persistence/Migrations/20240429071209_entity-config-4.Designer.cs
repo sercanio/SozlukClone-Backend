@@ -12,8 +12,8 @@ using Persistence.Contexts;
 namespace Persistence.Migrations
 {
     [DbContext(typeof(BaseDbContext))]
-    [Migration("20240428202711_entity-config-1")]
-    partial class entityconfig1
+    [Migration("20240429071209_entity-config-4")]
+    partial class entityconfig4
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -293,6 +293,66 @@ namespace Persistence.Migrations
                     b.HasIndex("FollowedId");
 
                     b.ToTable("Followings", (string)null);
+                });
+
+            modelBuilder.Entity("Domain.Entities.LoginAudit", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid")
+                        .HasColumnName("Id");
+
+                    b.Property<int>("AuthenticatorType")
+                        .HasColumnType("integer")
+                        .HasColumnName("AuthenticatorType");
+
+                    b.Property<long>("AuthorId")
+                        .HasColumnType("bigint")
+                        .HasColumnName("AuthorId");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("CreatedDate");
+
+                    b.Property<DateTime?>("DeletedDate")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("DeletedDate");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("Email");
+
+                    b.Property<string>("LastLoginIp")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("LastLoginIp");
+
+                    b.Property<string>("LastLoginLocation")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("LastLoginLocation");
+
+                    b.Property<DateTime?>("UpdatedDate")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("UpdatedDate");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("UserId");
+
+                    b.Property<string>("Username")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("Username");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AuthorId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("LoginAudits", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Entities.OperationClaim", b =>
@@ -751,6 +811,150 @@ namespace Persistence.Migrations
                             Id = 71,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Name = "PenaltyTypes.Delete"
+                        },
+                        new
+                        {
+                            Id = 72,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "LoginAudits.Admin"
+                        },
+                        new
+                        {
+                            Id = 73,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "LoginAudits.Read"
+                        },
+                        new
+                        {
+                            Id = 74,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "LoginAudits.Write"
+                        },
+                        new
+                        {
+                            Id = 75,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "LoginAudits.Create"
+                        },
+                        new
+                        {
+                            Id = 76,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "LoginAudits.Update"
+                        },
+                        new
+                        {
+                            Id = 77,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "LoginAudits.Delete"
+                        },
+                        new
+                        {
+                            Id = 78,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "RegisterAudits.Admin"
+                        },
+                        new
+                        {
+                            Id = 79,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "RegisterAudits.Read"
+                        },
+                        new
+                        {
+                            Id = 80,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "RegisterAudits.Write"
+                        },
+                        new
+                        {
+                            Id = 81,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "RegisterAudits.Create"
+                        },
+                        new
+                        {
+                            Id = 82,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "RegisterAudits.Update"
+                        },
+                        new
+                        {
+                            Id = 83,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "RegisterAudits.Delete"
+                        },
+                        new
+                        {
+                            Id = 84,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "RegisterAudits.Admin"
+                        },
+                        new
+                        {
+                            Id = 85,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "RegisterAudits.Read"
+                        },
+                        new
+                        {
+                            Id = 86,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "RegisterAudits.Write"
+                        },
+                        new
+                        {
+                            Id = 87,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "RegisterAudits.Create"
+                        },
+                        new
+                        {
+                            Id = 88,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "RegisterAudits.Update"
+                        },
+                        new
+                        {
+                            Id = 89,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "RegisterAudits.Delete"
+                        },
+                        new
+                        {
+                            Id = 90,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "RegisterAudits.Admin"
+                        },
+                        new
+                        {
+                            Id = 91,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "RegisterAudits.Read"
+                        },
+                        new
+                        {
+                            Id = 92,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "RegisterAudits.Write"
+                        },
+                        new
+                        {
+                            Id = 93,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "RegisterAudits.Create"
+                        },
+                        new
+                        {
+                            Id = 94,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "RegisterAudits.Update"
+                        },
+                        new
+                        {
+                            Id = 95,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "RegisterAudits.Delete"
                         });
                 });
 
@@ -945,6 +1149,51 @@ namespace Persistence.Migrations
                     b.ToTable("RefreshTokens", (string)null);
                 });
 
+            modelBuilder.Entity("Domain.Entities.RegisterAudit", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid")
+                        .HasColumnName("Id");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("CreatedDate");
+
+                    b.Property<DateTime?>("DeletedDate")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("DeletedDate");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("Email");
+
+                    b.Property<string>("Ip")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("Ip");
+
+                    b.Property<string>("Location")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("Location");
+
+                    b.Property<DateTime?>("UpdatedDate")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("UpdatedDate");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("UserId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("RegisterAudits", (string)null);
+                });
+
             modelBuilder.Entity("Domain.Entities.Title", b =>
                 {
                     b.Property<long>("Id")
@@ -1031,12 +1280,12 @@ namespace Persistence.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("81171f1d-681d-47b8-a0a0-6523c6fb5ebb"),
+                            Id = new Guid("7dbb75a6-14a0-4fda-98fa-f3d615d1c0d4"),
                             AuthenticatorType = 0,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "sozluk@email.com",
-                            PasswordHash = new byte[] { 18, 34, 240, 209, 67, 72, 203, 152, 12, 212, 7, 144, 9, 57, 78, 61, 0, 16, 230, 207, 216, 213, 47, 104, 239, 167, 234, 93, 145, 31, 117, 177, 4, 15, 136, 40, 218, 5, 142, 173, 33, 157, 149, 66, 145, 184, 137, 44, 123, 88, 13, 156, 11, 248, 247, 145, 102, 11, 58, 187, 232, 170, 133, 224 },
-                            PasswordSalt = new byte[] { 193, 120, 111, 117, 137, 206, 181, 176, 4, 208, 99, 194, 212, 212, 11, 37, 62, 72, 114, 191, 92, 95, 69, 204, 99, 6, 27, 244, 137, 250, 62, 148, 167, 55, 71, 123, 178, 219, 103, 162, 228, 13, 102, 219, 118, 138, 150, 3, 193, 55, 31, 85, 22, 228, 74, 161, 214, 230, 137, 45, 83, 54, 218, 94, 112, 40, 236, 115, 149, 44, 236, 16, 42, 231, 91, 37, 193, 180, 47, 210, 187, 65, 46, 124, 115, 218, 142, 70, 22, 229, 165, 239, 58, 161, 48, 201, 171, 176, 154, 43, 176, 111, 50, 91, 33, 109, 47, 93, 210, 83, 115, 2, 190, 102, 25, 125, 81, 161, 233, 22, 151, 149, 192, 187, 96, 172, 234, 194 }
+                            PasswordHash = new byte[] { 104, 58, 124, 243, 80, 205, 102, 175, 218, 141, 62, 157, 32, 251, 155, 9, 45, 33, 23, 169, 224, 15, 231, 194, 83, 157, 1, 40, 23, 245, 45, 253, 72, 168, 36, 43, 224, 220, 81, 246, 95, 92, 164, 187, 73, 244, 223, 123, 43, 223, 11, 133, 182, 85, 91, 13, 245, 47, 11, 82, 152, 141, 167, 29 },
+                            PasswordSalt = new byte[] { 20, 24, 134, 71, 163, 124, 125, 120, 225, 41, 9, 243, 49, 154, 87, 68, 150, 158, 16, 42, 119, 180, 193, 204, 141, 166, 93, 202, 168, 130, 196, 55, 164, 219, 168, 119, 254, 1, 194, 44, 140, 82, 244, 222, 230, 252, 8, 49, 130, 218, 82, 109, 117, 186, 47, 145, 75, 117, 92, 252, 43, 207, 127, 210, 123, 92, 52, 198, 88, 242, 208, 122, 128, 206, 152, 48, 177, 75, 146, 94, 166, 239, 200, 57, 36, 35, 128, 5, 177, 15, 48, 202, 88, 51, 248, 50, 53, 8, 155, 77, 63, 173, 221, 184, 227, 185, 132, 75, 189, 31, 243, 27, 143, 211, 68, 200, 211, 140, 123, 232, 56, 137, 56, 199, 32, 39, 205, 238 }
                         });
                 });
 
@@ -1078,10 +1327,10 @@ namespace Persistence.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("32705ba0-d89e-4a63-8b4f-d562e8b1f00a"),
+                            Id = new Guid("b05decce-f156-4da8-a79e-721bd69f21b7"),
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             OperationClaimId = 1,
-                            UserId = new Guid("81171f1d-681d-47b8-a0a0-6523c6fb5ebb")
+                            UserId = new Guid("7dbb75a6-14a0-4fda-98fa-f3d615d1c0d4")
                         });
                 });
 
@@ -1176,6 +1425,25 @@ namespace Persistence.Migrations
                     b.Navigation("Follower");
                 });
 
+            modelBuilder.Entity("Domain.Entities.LoginAudit", b =>
+                {
+                    b.HasOne("Domain.Entities.Author", "Author")
+                        .WithMany()
+                        .HasForeignKey("AuthorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Domain.Entities.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Author");
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("Domain.Entities.OtpAuthenticator", b =>
                 {
                     b.HasOne("Domain.Entities.User", "User")
@@ -1208,6 +1476,17 @@ namespace Persistence.Migrations
                 {
                     b.HasOne("Domain.Entities.User", "User")
                         .WithMany("RefreshTokens")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Domain.Entities.RegisterAudit", b =>
+                {
+                    b.HasOne("Domain.Entities.User", "User")
+                        .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
