@@ -4,7 +4,6 @@ using Application.Services.Authors;
 using Application.Services.AuthService;
 using Application.Services.Badges;
 using Application.Services.Entries;
-using Application.Services.Followings;
 using Application.Services.LoginAudits;
 using Application.Services.Penalties;
 using Application.Services.PenaltyTypes;
@@ -74,12 +73,11 @@ public static class ApplicationServiceRegistration
         services.AddScoped<IAuthorGroupService, AuthorGroupManager>();
         services.AddScoped<IBadgeService, BadgeManager>();
         services.AddScoped<IEntryService, EntryManager>();
-        services.AddScoped<IFollowingService, FollowingManager>();
         services.AddScoped<IPenaltyService, PenaltyManager>();
         services.AddScoped<ITitleService, TitleManager>();
-        services.AddScoped<IFollowingService, FollowingManager>();
         services.AddScoped<IPenaltyTypeService, PenaltyTypeManager>();
         services.AddScoped<ILoginAuditService, LoginAuditManager>();
+        services.AddScoped<IAuthorService, AuthorManager>();
         return services;
     }
 

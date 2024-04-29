@@ -18,7 +18,6 @@ public class BaseDbContext : DbContext
     public DbSet<AuthorGroup> AuthorGroups { get; set; }
     public DbSet<Badge> Badges { get; set; }
     public DbSet<Entry> Entries { get; set; }
-    public DbSet<Following> Followings { get; set; }
     public DbSet<Penalty> Penalties { get; set; }
     public DbSet<Title> Titles { get; set; }
     public DbSet<PenaltyType> PenaltyTypes { get; set; }

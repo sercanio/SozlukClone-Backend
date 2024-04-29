@@ -26,7 +26,6 @@ public static class PersistenceServiceRegistration
         services.AddScoped<IAuthorGroupRepository, AuthorGroupRepository>();
         services.AddScoped<IBadgeRepository, BadgeRepository>();
         services.AddScoped<IEntryRepository, EntryRepository>();
-        services.AddScoped<IFollowingRepository, FollowingRepository>();
         services.AddScoped<IPenaltyRepository, PenaltyRepository>();
         services.AddScoped<ITitleRepository, TitleRepository>();
 
@@ -36,6 +35,7 @@ public static class PersistenceServiceRegistration
         services.AddScoped<IPenaltyTypeRepository, PenaltyTypeRepository>();
         services.AddScoped<IAuthorRepository, AuthorRepository>();
         services.AddScoped<ILoginAuditRepository, LoginAuditRepository>();
+        services.AddScoped<IAuthorRepository, AuthorRepository>();
         return services;
     }
 }

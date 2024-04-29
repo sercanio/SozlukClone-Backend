@@ -47,22 +47,22 @@ namespace Persistence.Migrations
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
 
                     b.Property<long>("ActiveBadgeId")
-                        .HasColumnType("bigint");
+                        .HasColumnType("bigint")
+                        .HasColumnName("ActiveBadgeId");
 
                     b.Property<byte?>("Age")
-                        .HasColumnType("smallint");
+                        .HasColumnType("smallint")
+                        .HasColumnName("Age");
 
                     b.Property<long>("AuthorGroupId")
                         .HasColumnType("bigint")
                         .HasColumnName("AuthorGroupId");
 
                     b.Property<string>("Biography")
-                        .IsRequired()
                         .HasColumnType("text")
                         .HasColumnName("Biography");
 
                     b.Property<string>("CoverPictureUrl")
-                        .IsRequired()
                         .HasColumnType("text")
                         .HasColumnName("CoverPictureUrl");
 
@@ -75,10 +75,10 @@ namespace Persistence.Migrations
                         .HasColumnName("DeletedDate");
 
                     b.Property<int?>("Gender")
-                        .HasColumnType("integer");
+                        .HasColumnType("integer")
+                        .HasColumnName("Gender");
 
                     b.Property<string>("ProfilePictureUrl")
-                        .IsRequired()
                         .HasColumnType("text")
                         .HasColumnName("ProfilePictureUrl");
 
@@ -87,7 +87,8 @@ namespace Persistence.Migrations
                         .HasColumnName("UpdatedDate");
 
                     b.Property<Guid>("UserId")
-                        .HasColumnType("uuid");
+                        .HasColumnType("uuid")
+                        .HasColumnName("UserId");
 
                     b.Property<string>("UserName")
                         .IsRequired()
@@ -261,35 +262,6 @@ namespace Persistence.Migrations
                     b.HasIndex("TitleId");
 
                     b.ToTable("Entries", (string)null);
-                });
-
-            modelBuilder.Entity("Domain.Entities.Following", b =>
-                {
-                    b.Property<long>("FollowerId")
-                        .HasColumnType("bigint")
-                        .HasColumnName("FollowerId");
-
-                    b.Property<long>("FollowedId")
-                        .HasColumnType("bigint")
-                        .HasColumnName("FollowedId");
-
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("CreatedDate");
-
-                    b.Property<DateTime?>("DeletedDate")
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("DeletedDate");
-
-                    b.Property<DateTime?>("UpdatedDate")
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("UpdatedDate");
-
-                    b.HasKey("FollowerId", "FollowedId");
-
-                    b.HasIndex("FollowedId");
-
-                    b.ToTable("Followings", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Entities.LoginAudit", b =>
@@ -669,181 +641,181 @@ namespace Persistence.Migrations
                         {
                             Id = 48,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Followings.Admin"
+                            Name = "Penalties.Admin"
                         },
                         new
                         {
                             Id = 49,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Followings.Read"
+                            Name = "Penalties.Read"
                         },
                         new
                         {
                             Id = 50,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Followings.Write"
+                            Name = "Penalties.Write"
                         },
                         new
                         {
                             Id = 51,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Followings.Create"
+                            Name = "Penalties.Create"
                         },
                         new
                         {
                             Id = 52,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Followings.Update"
+                            Name = "Penalties.Update"
                         },
                         new
                         {
                             Id = 53,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Followings.Delete"
+                            Name = "Penalties.Delete"
                         },
                         new
                         {
                             Id = 54,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Penalties.Admin"
+                            Name = "Titles.Admin"
                         },
                         new
                         {
                             Id = 55,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Penalties.Read"
+                            Name = "Titles.Read"
                         },
                         new
                         {
                             Id = 56,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Penalties.Write"
+                            Name = "Titles.Write"
                         },
                         new
                         {
                             Id = 57,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Penalties.Create"
+                            Name = "Titles.Create"
                         },
                         new
                         {
                             Id = 58,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Penalties.Update"
+                            Name = "Titles.Update"
                         },
                         new
                         {
                             Id = 59,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Penalties.Delete"
+                            Name = "Titles.Delete"
                         },
                         new
                         {
                             Id = 60,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Titles.Admin"
+                            Name = "PenaltyTypes.Admin"
                         },
                         new
                         {
                             Id = 61,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Titles.Read"
+                            Name = "PenaltyTypes.Read"
                         },
                         new
                         {
                             Id = 62,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Titles.Write"
+                            Name = "PenaltyTypes.Write"
                         },
                         new
                         {
                             Id = 63,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Titles.Create"
+                            Name = "PenaltyTypes.Create"
                         },
                         new
                         {
                             Id = 64,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Titles.Update"
+                            Name = "PenaltyTypes.Update"
                         },
                         new
                         {
                             Id = 65,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Titles.Delete"
+                            Name = "PenaltyTypes.Delete"
                         },
                         new
                         {
                             Id = 66,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "PenaltyTypes.Admin"
+                            Name = "LoginAudits.Admin"
                         },
                         new
                         {
                             Id = 67,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "PenaltyTypes.Read"
+                            Name = "LoginAudits.Read"
                         },
                         new
                         {
                             Id = 68,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "PenaltyTypes.Write"
+                            Name = "LoginAudits.Write"
                         },
                         new
                         {
                             Id = 69,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "PenaltyTypes.Create"
+                            Name = "LoginAudits.Create"
                         },
                         new
                         {
                             Id = 70,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "PenaltyTypes.Update"
+                            Name = "LoginAudits.Update"
                         },
                         new
                         {
                             Id = 71,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "PenaltyTypes.Delete"
+                            Name = "LoginAudits.Delete"
                         },
                         new
                         {
                             Id = 72,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "LoginAudits.Admin"
+                            Name = "Authors.Admin"
                         },
                         new
                         {
                             Id = 73,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "LoginAudits.Read"
+                            Name = "Authors.Read"
                         },
                         new
                         {
                             Id = 74,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "LoginAudits.Write"
+                            Name = "Authors.Write"
                         },
                         new
                         {
                             Id = 75,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "LoginAudits.Create"
+                            Name = "Authors.Create"
                         },
                         new
                         {
                             Id = 76,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "LoginAudits.Update"
+                            Name = "Authors.Update"
                         },
                         new
                         {
                             Id = 77,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "LoginAudits.Delete"
+                            Name = "Authors.Delete"
                         });
                 });
 
@@ -1124,12 +1096,12 @@ namespace Persistence.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("2841d1e6-bdc6-42fe-aa4e-868dd16b8b08"),
+                            Id = new Guid("23a1e832-287f-436b-8c2d-453d22471c0b"),
                             AuthenticatorType = 0,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "sozluk@email.com",
-                            PasswordHash = new byte[] { 175, 64, 4, 0, 42, 197, 72, 87, 127, 22, 179, 99, 96, 194, 27, 242, 129, 240, 121, 239, 70, 209, 94, 253, 33, 140, 86, 186, 105, 225, 85, 152, 125, 173, 158, 172, 125, 178, 228, 122, 179, 119, 214, 41, 163, 36, 213, 252, 128, 234, 113, 122, 17, 246, 245, 130, 148, 200, 193, 5, 10, 21, 110, 71 },
-                            PasswordSalt = new byte[] { 187, 158, 18, 44, 167, 135, 184, 116, 61, 45, 187, 100, 234, 153, 124, 41, 164, 56, 186, 115, 3, 130, 215, 145, 254, 152, 134, 116, 94, 77, 49, 211, 143, 51, 149, 40, 36, 231, 116, 120, 178, 213, 183, 201, 120, 211, 36, 185, 172, 22, 165, 159, 118, 197, 107, 71, 1, 58, 128, 197, 196, 113, 212, 121, 8, 28, 196, 21, 236, 154, 22, 214, 141, 113, 77, 116, 205, 152, 104, 153, 76, 240, 10, 20, 210, 143, 97, 224, 35, 5, 107, 143, 24, 53, 200, 124, 0, 170, 123, 24, 247, 178, 96, 149, 128, 229, 125, 197, 97, 249, 196, 40, 131, 187, 90, 158, 33, 222, 11, 202, 112, 73, 132, 70, 128, 163, 246, 123 }
+                            PasswordHash = new byte[] { 58, 210, 112, 100, 145, 226, 245, 209, 161, 227, 89, 91, 149, 61, 5, 249, 81, 152, 0, 185, 89, 235, 17, 141, 220, 89, 45, 10, 100, 194, 124, 37, 91, 117, 253, 167, 91, 11, 149, 65, 192, 120, 88, 32, 254, 209, 90, 206, 36, 63, 79, 206, 17, 83, 18, 148, 4, 149, 246, 156, 147, 232, 78, 171 },
+                            PasswordSalt = new byte[] { 98, 171, 119, 88, 129, 196, 155, 36, 76, 238, 142, 6, 100, 55, 178, 166, 216, 96, 120, 220, 8, 218, 193, 53, 142, 180, 245, 191, 69, 208, 170, 185, 44, 5, 18, 18, 243, 247, 134, 34, 139, 90, 219, 128, 93, 207, 65, 140, 132, 91, 160, 47, 36, 151, 79, 194, 65, 244, 212, 248, 148, 204, 60, 221, 205, 72, 21, 156, 238, 97, 34, 96, 72, 187, 82, 58, 16, 210, 84, 52, 194, 174, 228, 217, 89, 28, 1, 205, 57, 39, 182, 205, 83, 199, 96, 81, 227, 51, 24, 36, 53, 72, 11, 95, 38, 17, 65, 95, 73, 223, 10, 134, 239, 12, 25, 146, 203, 85, 6, 225, 164, 185, 121, 255, 226, 157, 196, 186 }
                         });
                 });
 
@@ -1171,10 +1143,10 @@ namespace Persistence.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("389bc87f-856d-4a47-a929-92dfed57d4c1"),
+                            Id = new Guid("1df15b96-2190-440a-8d86-f84c922dce55"),
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             OperationClaimId = 1,
-                            UserId = new Guid("2841d1e6-bdc6-42fe-aa4e-868dd16b8b08")
+                            UserId = new Guid("23a1e832-287f-436b-8c2d-453d22471c0b")
                         });
                 });
 
@@ -1234,7 +1206,7 @@ namespace Persistence.Migrations
             modelBuilder.Entity("Domain.Entities.Entry", b =>
                 {
                     b.HasOne("Domain.Entities.Author", "Author")
-                        .WithMany()
+                        .WithMany("Entries")
                         .HasForeignKey("AuthorId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -1250,29 +1222,10 @@ namespace Persistence.Migrations
                     b.Navigation("Title");
                 });
 
-            modelBuilder.Entity("Domain.Entities.Following", b =>
-                {
-                    b.HasOne("Domain.Entities.Author", "Followed")
-                        .WithMany()
-                        .HasForeignKey("FollowedId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("Domain.Entities.Author", "Follower")
-                        .WithMany()
-                        .HasForeignKey("FollowerId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("Followed");
-
-                    b.Navigation("Follower");
-                });
-
             modelBuilder.Entity("Domain.Entities.LoginAudit", b =>
                 {
                     b.HasOne("Domain.Entities.Author", "Author")
-                        .WithMany()
+                        .WithMany("LoginAudits")
                         .HasForeignKey("AuthorId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -1330,7 +1283,7 @@ namespace Persistence.Migrations
             modelBuilder.Entity("Domain.Entities.Title", b =>
                 {
                     b.HasOne("Domain.Entities.Author", "Authors")
-                        .WithMany()
+                        .WithMany("Titles")
                         .HasForeignKey("AuthorId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -1359,7 +1312,13 @@ namespace Persistence.Migrations
 
             modelBuilder.Entity("Domain.Entities.Author", b =>
                 {
+                    b.Navigation("Entries");
+
+                    b.Navigation("LoginAudits");
+
                     b.Navigation("Penalties");
+
+                    b.Navigation("Titles");
                 });
 
             modelBuilder.Entity("Domain.Entities.AuthorGroup", b =>

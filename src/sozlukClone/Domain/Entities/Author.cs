@@ -19,4 +19,7 @@ public class Author : Entity<uint>
     public virtual Badge ActiveBadge { get; set; }
     public virtual AuthorGroup AuthorGroup { get; set; }
     public virtual ICollection<Penalty> Penalties { get; set; }
+    public virtual ICollection<Entry> Entries { get; set; }
+    public virtual ICollection<Title> Titles { get; set; }
+    public virtual ICollection<LoginAudit> LoginAudits { get; set; }
 }

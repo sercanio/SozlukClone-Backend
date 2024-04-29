@@ -7,6 +7,7 @@ using NArchitecture.Core.Application.Pipelines.Authorization;
 using NArchitecture.Core.Application.Pipelines.Logging;
 using NArchitecture.Core.Application.Pipelines.Transaction;
 using MediatR;
+using Domain.Enums;
 using static Application.Features.Authors.Constants.AuthorsOperationClaims;
 
 namespace Application.Features.Authors.Commands.Update;
@@ -16,9 +17,11 @@ public class UpdateAuthorCommand : IRequest<UpdatedAuthorResponse>, ISecuredRequ
     public uint Id { get; set; }
     public required Guid UserId { get; set; }
     public required string UserName { get; set; }
-    public required string Biography { get; set; }
-    public required string ProfilePictureUrl { get; set; }
-    public required string CoverPictureUrl { get; set; }
+    public string? Biography { get; set; }
+    public string? ProfilePictureUrl { get; set; }
+    public string? CoverPictureUrl { get; set; }
+    public byte? Age { get; set; }
+    public Gender? Gender { get; set; }
     public required uint AuthorGroupId { get; set; }
     public required uint ActiveBadgeId { get; set; }
 

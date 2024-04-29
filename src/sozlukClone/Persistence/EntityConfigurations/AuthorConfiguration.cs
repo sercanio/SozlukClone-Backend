@@ -11,11 +11,15 @@ public class AuthorConfiguration : IEntityTypeConfiguration<Author>
         builder.ToTable("Authors").HasKey(a => a.Id);
 
         builder.Property(a => a.Id).HasColumnName("Id").IsRequired();
+        builder.Property(a => a.UserId).HasColumnName("UserId").IsRequired();
         builder.Property(a => a.UserName).HasColumnName("UserName").IsRequired();
-        builder.Property(a => a.Biography).HasColumnName("Biography").IsRequired();
-        builder.Property(a => a.ProfilePictureUrl).HasColumnName("ProfilePictureUrl").IsRequired();
-        builder.Property(a => a.CoverPictureUrl).HasColumnName("CoverPictureUrl").IsRequired();
+        builder.Property(a => a.Biography).HasColumnName("Biography");
+        builder.Property(a => a.ProfilePictureUrl).HasColumnName("ProfilePictureUrl");
+        builder.Property(a => a.CoverPictureUrl).HasColumnName("CoverPictureUrl");
+        builder.Property(a => a.Age).HasColumnName("Age");
+        builder.Property(a => a.Gender).HasColumnName("Gender");
         builder.Property(a => a.AuthorGroupId).HasColumnName("AuthorGroupId").IsRequired();
+        builder.Property(a => a.ActiveBadgeId).HasColumnName("ActiveBadgeId").IsRequired();
         builder.Property(a => a.CreatedDate).HasColumnName("CreatedDate").IsRequired();
         builder.Property(a => a.UpdatedDate).HasColumnName("UpdatedDate");
         builder.Property(a => a.DeletedDate).HasColumnName("DeletedDate");

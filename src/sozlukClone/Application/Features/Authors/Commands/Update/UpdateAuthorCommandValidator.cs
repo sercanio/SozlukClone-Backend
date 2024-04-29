@@ -9,9 +9,6 @@ public class UpdateAuthorCommandValidator : AbstractValidator<UpdateAuthorComman
         RuleFor(c => c.Id).NotEmpty();
         RuleFor(c => c.UserId).NotEmpty();
         RuleFor(c => c.UserName).NotEmpty();
-        RuleFor(c => c.Biography).NotEmpty();
-        RuleFor(c => c.ProfilePictureUrl).NotEmpty();
-        RuleFor(c => c.CoverPictureUrl).NotEmpty();
         RuleFor(c => c.AuthorGroupId).NotEmpty();
         RuleFor(c => c.ActiveBadgeId).NotEmpty();
     }
