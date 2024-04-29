@@ -2,10 +2,12 @@ using Application.Features.Titles.Commands.Create;
 using Application.Features.Titles.Commands.Delete;
 using Application.Features.Titles.Commands.Update;
 using Application.Features.Titles.Queries.GetById;
+using Application.Features.Titles.Queries.GetDynamic;
 using Application.Features.Titles.Queries.GetList;
+using Microsoft.AspNetCore.Mvc;
 using NArchitecture.Core.Application.Requests;
 using NArchitecture.Core.Application.Responses;
-using Microsoft.AspNetCore.Mvc;
+using NArchitecture.Core.Persistence.Dynamic;
 
 namespace WebAPI.Controllers;
 
@@ -55,6 +57,16 @@ public class TitlesController : BaseController
         GetListTitleQuery query = new() { PageRequest = pageRequest };
 
         GetListResponse<GetListTitleListItemDto> response = await Mediator.Send(query);
+
+        return Ok(response);
+    }
+
+    [HttpPost("Dynamic")]
+    public async Task<ActionResult<GetListResponse<GetDynamicTitleItemDto>>> GetListDynamic([FromQuery] PageRequest pageRequest, [FromBody] DynamicQuery dynamic)
+    {
+        GetDynamicTitleQuery query = new() { DynamicQuery = dynamic, PageRequest = pageRequest };
+
+        GetListResponse<GetDynamicTitleItemDto> response = await Mediator.Send(query);
 
         return Ok(response);
     }
