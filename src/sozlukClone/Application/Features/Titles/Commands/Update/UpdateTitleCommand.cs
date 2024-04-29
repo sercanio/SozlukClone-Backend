@@ -5,13 +5,12 @@ using AutoMapper;
 using Domain.Entities;
 using NArchitecture.Core.Application.Pipelines.Authorization;
 using NArchitecture.Core.Application.Pipelines.Logging;
-using NArchitecture.Core.Application.Pipelines.Transaction;
 using MediatR;
 using static Application.Features.Titles.Constants.TitlesOperationClaims;
 
 namespace Application.Features.Titles.Commands.Update;
 
-public class UpdateTitleCommand : IRequest<UpdatedTitleResponse>, ISecuredRequest, ILoggableRequest, ITransactionalRequest
+public class UpdateTitleCommand : IRequest<UpdatedTitleResponse>, ISecuredRequest, ILoggableRequest
 {
     public uint Id { get; set; }
     public required string Name { get; set; }

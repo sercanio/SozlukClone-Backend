@@ -8,6 +8,5 @@ public class CreateTitleCommandValidator : AbstractValidator<CreateTitleCommand>
     {
         RuleFor(c => c.Name).NotEmpty();
         RuleFor(c => c.AuthorId).NotEmpty();
-        RuleFor(c => c.IsLocked).NotEmpty();
     }
 }

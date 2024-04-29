@@ -78,6 +78,7 @@ public static class ApplicationServiceRegistration
         services.AddScoped<IPenaltyTypeService, PenaltyTypeManager>();
         services.AddScoped<ILoginAuditService, LoginAuditManager>();
         services.AddScoped<IAuthorService, AuthorManager>();
+        services.AddScoped<ITitleService, TitleManager>();
         return services;
     }
 

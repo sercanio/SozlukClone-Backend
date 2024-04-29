@@ -5,7 +5,7 @@ public class Title : Entity<uint>
 {
     public string Name { get; set; }
     public uint AuthorId { get; set; }
-    public bool isLocked { get; set; }
+    public bool isLocked { get; set; } = false;
     public virtual ICollection<Entry> Entries { get; set; }
-    public virtual Author Authors { get; set; }
+    public virtual Author Author { get; set; }
 }
