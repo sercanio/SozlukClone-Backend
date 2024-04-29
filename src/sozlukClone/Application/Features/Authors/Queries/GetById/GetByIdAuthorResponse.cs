@@ -1,5 +1,6 @@
-using NArchitecture.Core.Application.Responses;
+using Application.Features.Titles.Queries.GetList;
 using Domain.Enums;
+using NArchitecture.Core.Application.Responses;
 
 namespace Application.Features.Authors.Queries.GetById;
 
@@ -15,4 +16,5 @@ public class GetByIdAuthorResponse : IResponse
     public Gender? Gender { get; set; }
     public uint AuthorGroupId { get; set; }
     public uint ActiveBadgeId { get; set; }
+    public ICollection<GetListTitleListItemDto> Titles { get; set; }
 }
