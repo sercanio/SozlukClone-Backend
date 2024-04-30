@@ -29,7 +29,7 @@ public class BadgeConfiguration : IEntityTypeConfiguration<Badge>
     {
         return new List<Badge>
         {
-            new Badge { Id = 1, Name = "Default", Description = "Default", IconUrl = "new-member.png" }
+            new Badge { Id = 1, Name = "Default", Description = "Default", IconUrl = "default-icon.png"},
         };
     }
 }
