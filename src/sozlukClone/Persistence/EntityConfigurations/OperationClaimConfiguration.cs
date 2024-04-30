@@ -1,6 +1,7 @@
 using Application.Features.Auth.Constants;
 using Application.Features.AuthorGroups.Constants;
 using Application.Features.Authors.Constants;
+using Application.Features.AuthorSettings.Constants;
 using Application.Features.Badges.Constants;
 using Application.Features.Entries.Constants;
 using Application.Features.LoginAudits.Constants;
@@ -8,13 +9,13 @@ using Application.Features.OperationClaims.Constants;
 using Application.Features.Penalties.Constants;
 using Application.Features.PenaltyTypes.Constants;
 using Application.Features.Titles.Constants;
+using Application.Features.TitleSettings.Constants;
 using Application.Features.UserOperationClaims.Constants;
 using Application.Features.Users.Constants;
 using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using NArchitecture.Core.Security.Constants;
-using Application.Features.TitleSettings.Constants;
 
 namespace Persistence.EntityConfigurations;
 
@@ -107,20 +108,6 @@ public class OperationClaimConfiguration : IEntityTypeConfiguration<OperationCla
         #endregion
 
 
-        #region Authors CRUD
-        featureOperationClaims.AddRange(
-            [
-                new() { Id = ++lastId, Name = AuthorsOperationClaims.Admin },
-                new() { Id = ++lastId, Name = AuthorsOperationClaims.Read },
-                new() { Id = ++lastId, Name = AuthorsOperationClaims.Write },
-                new() { Id = ++lastId, Name = AuthorsOperationClaims.Create },
-                new() { Id = ++lastId, Name = AuthorsOperationClaims.Update },
-                new() { Id = ++lastId, Name = AuthorsOperationClaims.Delete },
-            ]
-        );
-        #endregion
-
-
         #region AuthorGroups CRUD
         featureOperationClaims.AddRange(
             [
@@ -172,20 +159,6 @@ public class OperationClaimConfiguration : IEntityTypeConfiguration<OperationCla
                 new() { Id = ++lastId, Name = PenaltiesOperationClaims.Create },
                 new() { Id = ++lastId, Name = PenaltiesOperationClaims.Update },
                 new() { Id = ++lastId, Name = PenaltiesOperationClaims.Delete },
-            ]
-        );
-        #endregion
-
-
-        #region Titles CRUD
-        featureOperationClaims.AddRange(
-            [
-                new() { Id = ++lastId, Name = TitlesOperationClaims.Admin },
-                new() { Id = ++lastId, Name = TitlesOperationClaims.Read },
-                new() { Id = ++lastId, Name = TitlesOperationClaims.Write },
-                new() { Id = ++lastId, Name = TitlesOperationClaims.Create },
-                new() { Id = ++lastId, Name = TitlesOperationClaims.Update },
-                new() { Id = ++lastId, Name = TitlesOperationClaims.Delete },
             ]
         );
         #endregion
@@ -246,7 +219,7 @@ public class OperationClaimConfiguration : IEntityTypeConfiguration<OperationCla
         );
         #endregion
 
-        
+
         #region TitleSettings CRUD
         featureOperationClaims.AddRange(
             [
@@ -259,7 +232,21 @@ public class OperationClaimConfiguration : IEntityTypeConfiguration<OperationCla
             ]
         );
         #endregion
-        
+
+
+        #region AuthorSettings CRUD
+        featureOperationClaims.AddRange(
+            [
+                new() { Id = ++lastId, Name = AuthorSettingsOperationClaims.Admin },
+                new() { Id = ++lastId, Name = AuthorSettingsOperationClaims.Read },
+                new() { Id = ++lastId, Name = AuthorSettingsOperationClaims.Write },
+                new() { Id = ++lastId, Name = AuthorSettingsOperationClaims.Create },
+                new() { Id = ++lastId, Name = AuthorSettingsOperationClaims.Update },
+                new() { Id = ++lastId, Name = AuthorSettingsOperationClaims.Delete },
+            ]
+        );
+        #endregion
+
         return featureOperationClaims;
     }
 #pragma warning restore S1854 // Unused assignments should be removed

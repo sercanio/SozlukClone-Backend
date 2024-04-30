@@ -8,6 +8,7 @@ using Application.Services.LoginAudits;
 using Application.Services.Penalties;
 using Application.Services.PenaltyTypes;
 using Application.Services.Titles;
+using Application.Services.TitleSettings;
 using Application.Services.UsersService;
 using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
@@ -28,7 +29,7 @@ using NArchitecture.Core.Mailing.MailKit;
 using NArchitecture.Core.Security.DependencyInjection;
 using NArchitecture.Core.Security.JWT;
 using System.Reflection;
-using Application.Services.TitleSettings;
+using Application.Services.AuthorSettings;
 
 namespace Application;
 
@@ -75,13 +76,14 @@ public static class ApplicationServiceRegistration
         services.AddScoped<IBadgeService, BadgeManager>();
         services.AddScoped<IEntryService, EntryManager>();
         services.AddScoped<IPenaltyService, PenaltyManager>();
-        services.AddScoped<ITitleService, TitleManager>();
         services.AddScoped<IPenaltyTypeService, PenaltyTypeManager>();
         services.AddScoped<ILoginAuditService, LoginAuditManager>();
         services.AddScoped<IAuthorService, AuthorManager>();
         services.AddScoped<ITitleService, TitleManager>();
-        services.AddScoped<ITitleService, TitleManager>();
         services.AddScoped<ITitleSettingService, TitleSettingManager>();
+        services.AddScoped<IAuthorSettingService, AuthorSettingManager>();
+        services.AddScoped<IAuthorSettingService, AuthorSettingManager>();
+        services.AddScoped<IAuthorSettingService, AuthorSettingManager>();
         return services;
     }
 
