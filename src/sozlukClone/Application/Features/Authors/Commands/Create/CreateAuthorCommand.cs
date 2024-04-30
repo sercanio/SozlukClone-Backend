@@ -1,4 +1,5 @@
 using Application.Features.Authors.Rules;
+using Application.Services.AuthorSettings;
 using Application.Services.Repositories;
 using Application.Services.UsersService;
 using AutoMapper;
@@ -28,14 +29,16 @@ public class CreateAuthorCommand : IRequest<CreatedAuthorResponse>, ILoggableReq
         private readonly IAuthorRepository _authorRepository;
         private readonly AuthorBusinessRules _authorBusinessRules;
         private readonly IUserService _userService;
+        private readonly IAuthorSettingService _authorSettingService;
 
         public CreateAuthorCommandHandler(IMapper mapper, IAuthorRepository authorRepository,
-                                         AuthorBusinessRules authorBusinessRules, IUserService userService)
+                                         AuthorBusinessRules authorBusinessRules, IUserService userService, IAuthorSettingService authorSettingService)
         {
             _mapper = mapper;
             _authorRepository = authorRepository;
             _authorBusinessRules = authorBusinessRules;
             _userService = userService;
+            _authorSettingService = authorSettingService;
         }
 
         public async Task<CreatedAuthorResponse> Handle(CreateAuthorCommand request, CancellationToken cancellationToken)
@@ -50,10 +53,20 @@ public class CreateAuthorCommand : IRequest<CreatedAuthorResponse>, ILoggableReq
 
             User user = await _userService.Register(new UserForRegisterDto() { Email = request.Email, Password = request.Password });
 
+            AuthorSetting? authorSetting = await _authorSettingService.GetAsync(ast => ast.Id == 1);
+
+            if (authorSetting == null)
+            {
+                throw new Exception("AuthorSetting not found.");
+            }
+
             Author author = _mapper.Map<Author>(request);
+
             author.UserId = user.Id;
-            author.AuthorGroupId = 1; // Default author group id
-            author.ActiveBadgeId = 1; // Default active badge id
+            author.AuthorGroupId = authorSetting.AuthorGroupId;
+            author.ActiveBadgeId = authorSetting.ActiveBadgeId;
+            author.ProfilePictureUrl = authorSetting.ProfilePictureUrl;
+            author.CoverPictureUrl = authorSetting.CoverPictureUrl;
 
             var savedAuthor = await _authorRepository.AddAsync(author);
 
