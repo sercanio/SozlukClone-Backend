@@ -1,2 +1,6 @@
 TitleNotExists: Title don't exists.
 TitleAlreadyExists : Title already exists.
+TitleMinLength : Title must have more characters.
+TitleMaxLength : Title must have less characters.
+TitleCanNotHaveSpecialCharacters: Title can not have special characters.
+TitleCanNotHavePunctuations: Title can not have punctuations.

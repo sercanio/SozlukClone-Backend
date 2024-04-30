@@ -1,6 +1,7 @@
 using Application.Features.Titles.Rules;
 using Application.Services.Authors;
 using Application.Services.Repositories;
+using Application.Services.TitleSettings;
 using Application.Utils;
 using AutoMapper;
 using Domain.Entities;
@@ -21,14 +22,15 @@ public class CreateTitleCommand : IRequest<CreatedTitleResponse>, ILoggableReque
         private readonly ITitleRepository _titleRepository;
         private readonly TitleBusinessRules _titleBusinessRules;
         private readonly IAuthorService _authorService;
-
+        private readonly ITitleSettingService _titleSettingService;
         public CreateTitleCommandHandler(IMapper mapper, ITitleRepository titleRepository,
-                                         TitleBusinessRules titleBusinessRules, IAuthorService authorService)
+                                         TitleBusinessRules titleBusinessRules, IAuthorService authorService, ITitleSettingService titleSettingService)
         {
             _mapper = mapper;
             _titleRepository = titleRepository;
             _titleBusinessRules = titleBusinessRules;
             _authorService = authorService;
+            _titleSettingService = titleSettingService;
         }
 
         public async Task<CreatedTitleResponse> Handle(CreateTitleCommand request, CancellationToken cancellationToken)
@@ -37,6 +39,16 @@ public class CreateTitleCommand : IRequest<CreatedTitleResponse>, ILoggableReque
             title.slug = TitleUtils.GenerateSlug(title.Name);
 
             await _titleBusinessRules.TitleNameShouldNotExistsWhenInsert(title.Name);
+
+            TitleSetting? titleSettings = await _titleSettingService.GetAsync(predicate: s => s.Id == 1);
+            if (titleSettings == null)
+            {
+                throw new Exception("Title settings not found.");
+            }
+            await _titleBusinessRules.TitleShouldHaveMinLength(title.Name, titleSettings.MinTitleLength);
+            await _titleBusinessRules.TitleShouldHaveMaxLength(title.Name, titleSettings.MaxTitleLength);
+            await _titleBusinessRules.TitleCanHaveSpecialCharachters(title.Name, titleSettings.TitleCanHaveSpecialCharacter);
+            await _titleBusinessRules.TitleCanHavePunctuations(title.Name, titleSettings.TitleCanHavePunctuation);
 
             Author? author = await _authorService.GetAsync(predicate: a => a.Id == title.AuthorId);
 

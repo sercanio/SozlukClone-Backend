@@ -14,6 +14,7 @@ using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using NArchitecture.Core.Security.Constants;
+using Application.Features.TitleSettings.Constants;
 
 namespace Persistence.EntityConfigurations;
 
@@ -217,7 +218,7 @@ public class OperationClaimConfiguration : IEntityTypeConfiguration<OperationCla
         );
         #endregion
 
-        
+
         #region Authors CRUD
         featureOperationClaims.AddRange(
             [
@@ -230,8 +231,8 @@ public class OperationClaimConfiguration : IEntityTypeConfiguration<OperationCla
             ]
         );
         #endregion
-        
-        
+
+
         #region Titles CRUD
         featureOperationClaims.AddRange(
             [
@@ -244,17 +245,17 @@ public class OperationClaimConfiguration : IEntityTypeConfiguration<OperationCla
             ]
         );
         #endregion
+
         
-        
-        #region Titles CRUD
+        #region TitleSettings CRUD
         featureOperationClaims.AddRange(
             [
-                new() { Id = ++lastId, Name = TitlesOperationClaims.Admin },
-                new() { Id = ++lastId, Name = TitlesOperationClaims.Read },
-                new() { Id = ++lastId, Name = TitlesOperationClaims.Write },
-                new() { Id = ++lastId, Name = TitlesOperationClaims.Create },
-                new() { Id = ++lastId, Name = TitlesOperationClaims.Update },
-                new() { Id = ++lastId, Name = TitlesOperationClaims.Delete },
+                new() { Id = ++lastId, Name = TitleSettingsOperationClaims.Admin },
+                new() { Id = ++lastId, Name = TitleSettingsOperationClaims.Read },
+                new() { Id = ++lastId, Name = TitleSettingsOperationClaims.Write },
+                new() { Id = ++lastId, Name = TitleSettingsOperationClaims.Create },
+                new() { Id = ++lastId, Name = TitleSettingsOperationClaims.Update },
+                new() { Id = ++lastId, Name = TitleSettingsOperationClaims.Delete },
             ]
         );
         #endregion

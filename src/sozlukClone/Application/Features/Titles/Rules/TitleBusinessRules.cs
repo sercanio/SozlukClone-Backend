@@ -4,6 +4,7 @@ using Domain.Entities;
 using NArchitecture.Core.Application.Rules;
 using NArchitecture.Core.CrossCuttingConcerns.Exception.Types;
 using NArchitecture.Core.Localization.Abstraction;
+using System.Text.RegularExpressions;
 
 namespace Application.Features.Titles.Rules;
 
@@ -46,4 +47,44 @@ public class TitleBusinessRules : BaseBusinessRules
         if (doesExist)
             await throwBusinessException(TitlesBusinessMessages.TitleAlreadyExists);
     }
+
+    public async Task TitleShouldHaveMinLength(string title, byte minLength)
+    {
+        if (title.Length < minLength)
+            await throwBusinessException(TitlesBusinessMessages.TitleMinLength);
+    }
+
+    public async Task TitleShouldHaveMaxLength(string title, byte maxLength)
+    {
+        if (title.Length > maxLength)
+            await throwBusinessException(TitlesBusinessMessages.TitleMaxLength);
+    }
+
+    public async Task TitleCanHaveSpecialCharachters(string title, bool canHaveSpecialCharachters)
+    {
+        if (!canHaveSpecialCharachters)
+        {
+            Regex regex = new Regex("[^a-zA-Z0-9 ]"); // Allow only letters, numbers, and spaces
+
+            if (regex.IsMatch(title))
+            {
+                await throwBusinessException(TitlesBusinessMessages.TitleCanNotHaveSpecialCharacters);
+            }
+        }
+    }
+
+    public async Task TitleCanHavePunctuations(string title, bool canHavePunctuations)
+    {
+        if (!canHavePunctuations)
+        {
+            // Define a regular expression pattern to match punctuations
+            Regex regex = new Regex("[!\"#$%&'()*+,-./:;<=>?@[\\]^_`{|}~]"); // List of common punctuations
+
+            if (regex.IsMatch(title))
+            {
+                await throwBusinessException(TitlesBusinessMessages.TitleCanNotHavePunctuations);
+            }
+        }
+    }
+
 }

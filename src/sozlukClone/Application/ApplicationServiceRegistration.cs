@@ -28,6 +28,7 @@ using NArchitecture.Core.Mailing.MailKit;
 using NArchitecture.Core.Security.DependencyInjection;
 using NArchitecture.Core.Security.JWT;
 using System.Reflection;
+using Application.Services.TitleSettings;
 
 namespace Application;
 
@@ -80,6 +81,7 @@ public static class ApplicationServiceRegistration
         services.AddScoped<IAuthorService, AuthorManager>();
         services.AddScoped<ITitleService, TitleManager>();
         services.AddScoped<ITitleService, TitleManager>();
+        services.AddScoped<ITitleSettingService, TitleSettingManager>();
         return services;
     }
 
