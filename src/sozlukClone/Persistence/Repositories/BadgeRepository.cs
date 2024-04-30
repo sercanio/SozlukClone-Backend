@@ -5,7 +5,7 @@ using Persistence.Contexts;
 
 namespace Persistence.Repositories;
 
-public class BadgeRepository : EfRepositoryBase<Badge, uint, BaseDbContext>, IBadgeRepository
+public class BadgeRepository : EfRepositoryBase<Badge, int, BaseDbContext>, IBadgeRepository
 {
     public BadgeRepository(BaseDbContext context) : base(context)
     {

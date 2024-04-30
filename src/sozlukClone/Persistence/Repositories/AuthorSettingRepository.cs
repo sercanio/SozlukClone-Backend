@@ -5,7 +5,7 @@ using Persistence.Contexts;
 
 namespace Persistence.Repositories;
 
-public class AuthorSettingRepository : EfRepositoryBase<AuthorSetting, uint, BaseDbContext>, IAuthorSettingRepository
+public class AuthorSettingRepository : EfRepositoryBase<AuthorSetting, int, BaseDbContext>, IAuthorSettingRepository
 {
     public AuthorSettingRepository(BaseDbContext context) : base(context)
     {

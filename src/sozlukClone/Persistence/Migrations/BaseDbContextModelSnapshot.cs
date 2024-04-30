@@ -24,11 +24,11 @@ namespace Persistence.Migrations
 
             modelBuilder.Entity("AuthorBadge", b =>
                 {
-                    b.Property<long>("AuthorsId")
-                        .HasColumnType("bigint");
+                    b.Property<int>("AuthorsId")
+                        .HasColumnType("integer");
 
-                    b.Property<long>("BadgesId")
-                        .HasColumnType("bigint");
+                    b.Property<int>("BadgesId")
+                        .HasColumnType("integer");
 
                     b.HasKey("AuthorsId", "BadgesId");
 
@@ -39,23 +39,23 @@ namespace Persistence.Migrations
 
             modelBuilder.Entity("Domain.Entities.Author", b =>
                 {
-                    b.Property<long>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
+                        .HasColumnType("integer")
                         .HasColumnName("Id");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<long>("ActiveBadgeId")
-                        .HasColumnType("bigint")
+                    b.Property<int>("ActiveBadgeId")
+                        .HasColumnType("integer")
                         .HasColumnName("ActiveBadgeId");
 
                     b.Property<byte?>("Age")
                         .HasColumnType("smallint")
                         .HasColumnName("Age");
 
-                    b.Property<long>("AuthorGroupId")
-                        .HasColumnType("bigint")
+                    b.Property<int>("AuthorGroupId")
+                        .HasColumnType("integer")
                         .HasColumnName("AuthorGroupId");
 
                     b.Property<string>("Biography")
@@ -109,12 +109,12 @@ namespace Persistence.Migrations
 
             modelBuilder.Entity("Domain.Entities.AuthorGroup", b =>
                 {
-                    b.Property<long>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
+                        .HasColumnType("integer")
                         .HasColumnName("Id");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("timestamp with time zone")
@@ -147,91 +147,127 @@ namespace Persistence.Migrations
                     b.HasData(
                         new
                         {
-                            Id = 1L,
+                            Id = 1,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "Developer",
                             Name = "Developer"
                         },
                         new
                         {
-                            Id = 2L,
+                            Id = 2,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "SuperAdmin",
                             Name = "SuperAdmin"
                         },
                         new
                         {
-                            Id = 3L,
+                            Id = 3,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "Admin",
                             Name = "Admin"
                         },
                         new
                         {
-                            Id = 4L,
+                            Id = 4,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "SuperModerator",
                             Name = "SuperModerator"
                         },
                         new
                         {
-                            Id = 5L,
+                            Id = 5,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "Moderator",
                             Name = "Moderator"
                         },
                         new
                         {
-                            Id = 6L,
+                            Id = 6,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "Editor",
                             Name = "Editor"
                         },
                         new
                         {
-                            Id = 7L,
+                            Id = 7,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "Author",
                             Name = "Author"
                         },
                         new
                         {
-                            Id = 8L,
+                            Id = 8,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "Guest",
                             Name = "Noob"
                         },
                         new
                         {
-                            Id = 9L,
+                            Id = 9,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "Suspended",
                             Name = "Suspended"
                         },
                         new
                         {
-                            Id = 10L,
+                            Id = 10,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "Banned",
                             Name = "Banned"
                         });
                 });
 
-            modelBuilder.Entity("Domain.Entities.AuthorSetting", b =>
+            modelBuilder.Entity("Domain.Entities.AuthorGroupUserOperationClaim", b =>
                 {
-                    b.Property<long>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
+                        .HasColumnType("uuid")
                         .HasColumnName("Id");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+                    b.Property<int>("AuthorGroupId")
+                        .HasColumnType("integer")
+                        .HasColumnName("AuthorGroupId");
 
-                    b.Property<long>("ActiveBadgeId")
-                        .HasColumnType("bigint")
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("CreatedDate");
+
+                    b.Property<DateTime?>("DeletedDate")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("DeletedDate");
+
+                    b.Property<int>("OperationClaimId")
+                        .HasColumnType("integer")
+                        .HasColumnName("OperationClaimId");
+
+                    b.Property<DateTime?>("UpdatedDate")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("UpdatedDate");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AuthorGroupId");
+
+                    b.HasIndex("OperationClaimId");
+
+                    b.ToTable("AuthorGroupUserOperationClaims", (string)null);
+                });
+
+            modelBuilder.Entity("Domain.Entities.AuthorSetting", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasColumnName("Id");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("ActiveBadgeId")
+                        .HasColumnType("integer")
                         .HasColumnName("ActiveBadgeId");
 
-                    b.Property<long>("AuthorGroupId")
-                        .HasColumnType("bigint")
+                    b.Property<int>("AuthorGroupId")
+                        .HasColumnType("integer")
                         .HasColumnName("AuthorGroupId");
 
                     b.Property<string>("CoverPictureUrl")
@@ -263,9 +299,9 @@ namespace Persistence.Migrations
                     b.HasData(
                         new
                         {
-                            Id = 1L,
-                            ActiveBadgeId = 1L,
-                            AuthorGroupId = 8L,
+                            Id = 1,
+                            ActiveBadgeId = 1,
+                            AuthorGroupId = 8,
                             CoverPictureUrl = "default-cover.png",
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             ProfilePictureUrl = "default-profile.png"
@@ -274,12 +310,12 @@ namespace Persistence.Migrations
 
             modelBuilder.Entity("Domain.Entities.Badge", b =>
                 {
-                    b.Property<long>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
+                        .HasColumnType("integer")
                         .HasColumnName("Id");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("timestamp with time zone")
@@ -318,7 +354,7 @@ namespace Persistence.Migrations
                     b.HasData(
                         new
                         {
-                            Id = 1L,
+                            Id = 1,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "Default",
                             IconUrl = "default-icon.png",
@@ -366,16 +402,19 @@ namespace Persistence.Migrations
 
             modelBuilder.Entity("Domain.Entities.Entry", b =>
                 {
-                    b.Property<long>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
+                        .HasColumnType("integer")
                         .HasColumnName("Id");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<long>("AuthorId")
                         .HasColumnType("bigint")
                         .HasColumnName("AuthorId");
+
+                    b.Property<int>("AuthorId1")
+                        .HasColumnType("integer");
 
                     b.Property<string>("Content")
                         .IsRequired()
@@ -394,15 +433,18 @@ namespace Persistence.Migrations
                         .HasColumnType("bigint")
                         .HasColumnName("TitleId");
 
+                    b.Property<int>("TitleId1")
+                        .HasColumnType("integer");
+
                     b.Property<DateTime?>("UpdatedDate")
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("UpdatedDate");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AuthorId");
+                    b.HasIndex("AuthorId1");
 
-                    b.HasIndex("TitleId");
+                    b.HasIndex("TitleId1");
 
                     b.ToTable("Entries", (string)null);
                 });
@@ -418,8 +460,8 @@ namespace Persistence.Migrations
                         .HasColumnType("integer")
                         .HasColumnName("AuthenticatorType");
 
-                    b.Property<long>("AuthorId")
-                        .HasColumnType("bigint")
+                    b.Property<int>("AuthorId")
+                        .HasColumnType("integer")
                         .HasColumnName("AuthorId");
 
                     b.Property<DateTime>("CreatedDate")
@@ -995,6 +1037,42 @@ namespace Persistence.Migrations
                             Id = 83,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Name = "AuthorSettings.Delete"
+                        },
+                        new
+                        {
+                            Id = 84,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "AuthorGroupUserOperationClaims.Admin"
+                        },
+                        new
+                        {
+                            Id = 85,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "AuthorGroupUserOperationClaims.Read"
+                        },
+                        new
+                        {
+                            Id = 86,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "AuthorGroupUserOperationClaims.Write"
+                        },
+                        new
+                        {
+                            Id = 87,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "AuthorGroupUserOperationClaims.Create"
+                        },
+                        new
+                        {
+                            Id = 88,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "AuthorGroupUserOperationClaims.Update"
+                        },
+                        new
+                        {
+                            Id = 89,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "AuthorGroupUserOperationClaims.Delete"
                         });
                 });
 
@@ -1044,8 +1122,8 @@ namespace Persistence.Migrations
                         .HasColumnType("uuid")
                         .HasColumnName("Id");
 
-                    b.Property<long>("AuthorId")
-                        .HasColumnType("bigint")
+                    b.Property<int>("AuthorId")
+                        .HasColumnType("integer")
                         .HasColumnName("AuthorId");
 
                     b.Property<DateTime>("CreatedDate")
@@ -1060,8 +1138,8 @@ namespace Persistence.Migrations
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("EndDate");
 
-                    b.Property<long>("IssuerId")
-                        .HasColumnType("bigint")
+                    b.Property<int>("IssuerId")
+                        .HasColumnType("integer")
                         .HasColumnName("IssuerId");
 
                     b.Property<byte>("PenaltyTypeId")
@@ -1191,16 +1269,19 @@ namespace Persistence.Migrations
 
             modelBuilder.Entity("Domain.Entities.Title", b =>
                 {
-                    b.Property<long>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
+                        .HasColumnType("integer")
                         .HasColumnName("Id");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<long>("AuthorId")
                         .HasColumnType("bigint")
                         .HasColumnName("AuthorId");
+
+                    b.Property<int>("AuthorId1")
+                        .HasColumnType("integer");
 
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("timestamp with time zone")
@@ -1230,19 +1311,19 @@ namespace Persistence.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AuthorId");
+                    b.HasIndex("AuthorId1");
 
                     b.ToTable("Titles", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Entities.TitleSetting", b =>
                 {
-                    b.Property<long>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
+                        .HasColumnType("integer")
                         .HasColumnName("Id");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("timestamp with time zone")
@@ -1283,7 +1364,7 @@ namespace Persistence.Migrations
                     b.HasData(
                         new
                         {
-                            Id = 1L,
+                            Id = 1,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             MaxTitleLength = (byte)50,
                             MinTitleLength = (byte)1,
@@ -1338,12 +1419,12 @@ namespace Persistence.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("3df24ce1-64e8-4427-8eb4-5cc169aae311"),
+                            Id = new Guid("03e3b551-5d65-4407-acfd-efef9d44c078"),
                             AuthenticatorType = 0,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "sozluk@email.com",
-                            PasswordHash = new byte[] { 198, 188, 33, 238, 81, 17, 37, 32, 43, 255, 230, 191, 110, 160, 152, 32, 236, 143, 107, 247, 181, 119, 15, 199, 133, 92, 126, 184, 101, 196, 164, 155, 59, 141, 30, 174, 170, 149, 143, 77, 71, 51, 155, 19, 181, 29, 66, 27, 101, 81, 32, 186, 107, 70, 99, 94, 2, 70, 156, 74, 215, 225, 74, 140 },
-                            PasswordSalt = new byte[] { 163, 184, 41, 188, 69, 65, 40, 36, 65, 27, 57, 126, 123, 66, 86, 84, 233, 132, 145, 86, 214, 38, 252, 40, 215, 236, 5, 135, 71, 42, 205, 142, 55, 110, 7, 158, 245, 128, 138, 218, 198, 201, 162, 150, 1, 148, 4, 85, 3, 75, 91, 21, 144, 59, 87, 95, 78, 101, 210, 187, 187, 192, 191, 194, 116, 251, 211, 129, 72, 81, 9, 11, 85, 232, 201, 210, 161, 60, 100, 217, 26, 133, 210, 88, 3, 12, 185, 207, 93, 75, 11, 63, 59, 235, 125, 140, 113, 255, 90, 155, 29, 115, 241, 114, 187, 147, 95, 34, 122, 15, 19, 49, 233, 249, 17, 69, 212, 57, 204, 66, 156, 3, 251, 90, 136, 20, 219, 254 }
+                            PasswordHash = new byte[] { 136, 183, 175, 111, 90, 74, 193, 182, 198, 176, 119, 239, 40, 103, 190, 69, 199, 179, 126, 214, 170, 120, 2, 21, 53, 79, 231, 201, 153, 203, 113, 228, 139, 165, 139, 162, 72, 76, 241, 205, 77, 249, 220, 58, 1, 34, 225, 43, 240, 153, 225, 135, 88, 88, 208, 189, 136, 100, 229, 173, 70, 104, 91, 232 },
+                            PasswordSalt = new byte[] { 186, 118, 214, 191, 118, 244, 128, 237, 18, 221, 195, 123, 208, 233, 147, 219, 236, 24, 215, 59, 211, 86, 215, 138, 254, 47, 89, 14, 39, 91, 226, 34, 30, 1, 9, 248, 209, 73, 127, 99, 113, 57, 50, 152, 209, 130, 129, 95, 183, 20, 243, 223, 98, 212, 217, 77, 23, 82, 71, 245, 30, 85, 63, 119, 134, 65, 47, 227, 174, 27, 126, 13, 249, 151, 150, 233, 145, 214, 0, 89, 81, 173, 134, 27, 123, 43, 218, 255, 134, 152, 239, 166, 88, 189, 201, 16, 142, 23, 155, 54, 12, 79, 93, 17, 221, 147, 175, 2, 62, 27, 29, 169, 139, 134, 99, 206, 206, 236, 251, 14, 157, 207, 237, 132, 57, 25, 188, 49 }
                         });
                 });
 
@@ -1385,10 +1466,10 @@ namespace Persistence.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("c86d9a58-e392-4768-9324-ec3b403c4321"),
+                            Id = new Guid("ee653bf2-b47c-4cdc-b198-2e348d15a162"),
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             OperationClaimId = 1,
-                            UserId = new Guid("3df24ce1-64e8-4427-8eb4-5cc169aae311")
+                            UserId = new Guid("03e3b551-5d65-4407-acfd-efef9d44c078")
                         });
                 });
 
@@ -1434,6 +1515,25 @@ namespace Persistence.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("Domain.Entities.AuthorGroupUserOperationClaim", b =>
+                {
+                    b.HasOne("Domain.Entities.AuthorGroup", "AuthorGroup")
+                        .WithMany("AuthorGroupUserOperationClaim")
+                        .HasForeignKey("AuthorGroupId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Domain.Entities.OperationClaim", "OperationClaim")
+                        .WithMany()
+                        .HasForeignKey("OperationClaimId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("AuthorGroup");
+
+                    b.Navigation("OperationClaim");
+                });
+
             modelBuilder.Entity("Domain.Entities.EmailAuthenticator", b =>
                 {
                     b.HasOne("Domain.Entities.User", "User")
@@ -1449,13 +1549,13 @@ namespace Persistence.Migrations
                 {
                     b.HasOne("Domain.Entities.Author", "Author")
                         .WithMany("Entries")
-                        .HasForeignKey("AuthorId")
+                        .HasForeignKey("AuthorId1")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("Domain.Entities.Title", "Title")
                         .WithMany("Entries")
-                        .HasForeignKey("TitleId")
+                        .HasForeignKey("TitleId1")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -1526,7 +1626,7 @@ namespace Persistence.Migrations
                 {
                     b.HasOne("Domain.Entities.Author", "Author")
                         .WithMany("Titles")
-                        .HasForeignKey("AuthorId")
+                        .HasForeignKey("AuthorId1")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -1565,6 +1665,8 @@ namespace Persistence.Migrations
 
             modelBuilder.Entity("Domain.Entities.AuthorGroup", b =>
                 {
+                    b.Navigation("AuthorGroupUserOperationClaim");
+
                     b.Navigation("Authors");
                 });
 

@@ -1,7 +1,7 @@
 ﻿using NArchitecture.Core.Persistence.Repositories;
 
 namespace Domain.Entities;
-public class Badge : Entity<uint>
+public class Badge : Entity<int>
 {
     public string Name { get; set; }
     public string Description { get; set; }

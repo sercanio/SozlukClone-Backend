@@ -7,7 +7,7 @@ public class LoginAudit : Entity<Guid>
     public string LastLoginIp { get; set; }
     public string LastLoginLocation { get; set; }
     public Guid UserId { get; set; }
-    public uint AuthorId { get; set; }
+    public int AuthorId { get; set; }
     public string Username { get; set; }
     public string Email { get; set; }
     public AuthenticatorType AuthenticatorType { get; set; }

@@ -1,7 +1,7 @@
 ﻿using NArchitecture.Core.Persistence.Repositories;
 
 namespace Domain.Entities;
-public class TitleSetting : Entity<uint>
+public class TitleSetting : Entity<int>
 {
     public byte MinTitleLength { get; set; }
     public byte MaxTitleLength { get; set; }

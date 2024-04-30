@@ -30,6 +30,7 @@ using NArchitecture.Core.Security.DependencyInjection;
 using NArchitecture.Core.Security.JWT;
 using System.Reflection;
 using Application.Services.AuthorSettings;
+using Application.Services.AuthorGroupUserOperationClaims;
 
 namespace Application;
 
@@ -84,6 +85,7 @@ public static class ApplicationServiceRegistration
         services.AddScoped<IAuthorSettingService, AuthorSettingManager>();
         services.AddScoped<IAuthorSettingService, AuthorSettingManager>();
         services.AddScoped<IAuthorSettingService, AuthorSettingManager>();
+        services.AddScoped<IAuthorGroupUserOperationClaimService, AuthorGroupUserOperationClaimManager>();
         return services;
     }
 

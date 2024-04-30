@@ -3,6 +3,6 @@ using NArchitecture.Core.Persistence.Repositories;
 
 namespace Application.Services.Repositories;
 
-public interface IEntryRepository : IAsyncRepository<Entry, uint>, IRepository<Entry, uint>
+public interface IEntryRepository : IAsyncRepository<Entry, int>, IRepository<Entry, int>
 {
 }

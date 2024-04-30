@@ -1,7 +1,7 @@
 ﻿using NArchitecture.Core.Persistence.Repositories;
 
 namespace Domain.Entities;
-public class Entry : Entity<uint>
+public class Entry : Entity<int>
 {
     public string Content { get; set; }
     public uint AuthorId { get; set; }

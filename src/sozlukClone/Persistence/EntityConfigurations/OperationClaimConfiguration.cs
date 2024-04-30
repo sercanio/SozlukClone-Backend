@@ -16,6 +16,7 @@ using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using NArchitecture.Core.Security.Constants;
+using Application.Features.AuthorGroupUserOperationClaims.Constants;
 
 namespace Persistence.EntityConfigurations;
 
@@ -247,6 +248,20 @@ public class OperationClaimConfiguration : IEntityTypeConfiguration<OperationCla
         );
         #endregion
 
+        
+        #region AuthorGroupUserOperationClaims CRUD
+        featureOperationClaims.AddRange(
+            [
+                new() { Id = ++lastId, Name = AuthorGroupUserOperationClaimsOperationClaims.Admin },
+                new() { Id = ++lastId, Name = AuthorGroupUserOperationClaimsOperationClaims.Read },
+                new() { Id = ++lastId, Name = AuthorGroupUserOperationClaimsOperationClaims.Write },
+                new() { Id = ++lastId, Name = AuthorGroupUserOperationClaimsOperationClaims.Create },
+                new() { Id = ++lastId, Name = AuthorGroupUserOperationClaimsOperationClaims.Update },
+                new() { Id = ++lastId, Name = AuthorGroupUserOperationClaimsOperationClaims.Delete },
+            ]
+        );
+        #endregion
+        
         return featureOperationClaims;
     }
 #pragma warning restore S1854 // Unused assignments should be removed

@@ -7,7 +7,7 @@ public class Penalty : Entity<Guid>
     public DateTime StartDate { get; set; }
     public DateTime EndDate { get; set; }
     public byte PenaltyTypeId { get; set; }
-    public uint AuthorId { get; set; }
-    public uint IssuerId { get; set; }
+    public int AuthorId { get; set; }
+    public int IssuerId { get; set; }
     public virtual PenaltyType PenaltyType { get; set; }
 }

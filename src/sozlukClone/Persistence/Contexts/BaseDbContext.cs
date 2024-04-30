@@ -24,6 +24,7 @@ public class BaseDbContext : DbContext
     public DbSet<LoginAudit> LoginAudits { get; set; }
     public DbSet<TitleSetting> TitleSettings { get; set; }
     public DbSet<AuthorSetting> AuthorSettings { get; set; }
+    public DbSet<AuthorGroupUserOperationClaim> AuthorGroupUserOperationClaims { get; set; }
 
     public BaseDbContext(DbContextOptions dbContextOptions, IConfiguration configuration)
         : base(dbContextOptions)

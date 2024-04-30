@@ -42,6 +42,7 @@ public static class PersistenceServiceRegistration
         services.AddScoped<IAuthorSettingRepository, AuthorSettingRepository>();
         services.AddScoped<IAuthorSettingRepository, AuthorSettingRepository>();
         services.AddScoped<IAuthorSettingRepository, AuthorSettingRepository>();
+        services.AddScoped<IAuthorGroupUserOperationClaimRepository, AuthorGroupUserOperationClaimRepository>();
         return services;
     }
 }

@@ -2,7 +2,7 @@
 using NArchitecture.Core.Persistence.Repositories;
 
 namespace Domain.Entities;
-public class Author : Entity<uint>
+public class Author : Entity<int>
 {
     public Guid UserId { get; set; }
     public string UserName { get; set; }
@@ -11,8 +11,8 @@ public class Author : Entity<uint>
     public string? CoverPictureUrl { get; set; }
     public byte? Age { get; set; }
     public Gender? Gender { get; set; }
-    public uint AuthorGroupId { get; set; }
-    public uint ActiveBadgeId { get; set; }
+    public int AuthorGroupId { get; set; }
+    public int ActiveBadgeId { get; set; }
 
     public virtual User User { get; set; }
     public virtual ICollection<Badge>? Badges { get; set; }
