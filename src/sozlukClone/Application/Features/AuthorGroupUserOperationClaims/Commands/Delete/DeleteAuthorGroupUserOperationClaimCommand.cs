@@ -1,12 +1,11 @@
 using Application.Features.AuthorGroupUserOperationClaims.Constants;
-using Application.Features.AuthorGroupUserOperationClaims.Constants;
 using Application.Features.AuthorGroupUserOperationClaims.Rules;
 using Application.Services.Repositories;
 using AutoMapper;
 using Domain.Entities;
+using MediatR;
 using NArchitecture.Core.Application.Pipelines.Authorization;
 using NArchitecture.Core.Application.Pipelines.Logging;
-using MediatR;
 using static Application.Features.AuthorGroupUserOperationClaims.Constants.AuthorGroupUserOperationClaimsOperationClaims;
 
 namespace Application.Features.AuthorGroupUserOperationClaims.Commands.Delete;
@@ -36,7 +35,7 @@ public class DeleteAuthorGroupUserOperationClaimCommand : IRequest<DeletedAuthor
             AuthorGroupUserOperationClaim? authorGroupUserOperationClaim = await _authorGroupUserOperationClaimRepository.GetAsync(predicate: aguoc => aguoc.Id == request.Id, cancellationToken: cancellationToken);
             await _authorGroupUserOperationClaimBusinessRules.AuthorGroupUserOperationClaimShouldExistWhenSelected(authorGroupUserOperationClaim);
 
-            await _authorGroupUserOperationClaimRepository.DeleteAsync(authorGroupUserOperationClaim!);
+            await _authorGroupUserOperationClaimRepository.DeleteAsync(authorGroupUserOperationClaim!, true);
 
             DeletedAuthorGroupUserOperationClaimResponse response = _mapper.Map<DeletedAuthorGroupUserOperationClaimResponse>(authorGroupUserOperationClaim);
             return response;
