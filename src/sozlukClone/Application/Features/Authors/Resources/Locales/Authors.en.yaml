@@ -1,1 +1,6 @@
 AuthorNotExists: Author don't exists.
+AuthorUserNameShouldOnlyHaveLettersAndNumbers: Author username should only have letters and numbers.
+AuthorUserNameShouldHaveMinumumLength: Author username should have minimum length of 3.
+AuthorUserNameShouldHaveMaximumLength: Author username should have maximum length of 40.
+AuthorUserNameShouldBeUnique: Username exists.
+AuthorPasswordShouldHaveMinumumLength: Author password should have minimum length of 8.

@@ -18,6 +18,22 @@ public class BadgeConfiguration : IEntityTypeConfiguration<Badge>
         builder.Property(b => b.UpdatedDate).HasColumnName("UpdatedDate");
         builder.Property(b => b.DeletedDate).HasColumnName("DeletedDate");
 
+        builder.HasIndex(b => b.Name).IsUnique();
+
+        builder.HasData(_seeds);
+
         builder.HasQueryFilter(b => !b.DeletedDate.HasValue);
+    }
+
+    private IEnumerable<Badge> _seeds
+    {
+        get
+        {
+            return new List<Badge>
+            {
+                new Badge { Id = 1, Name = "Default", Description = "Default", IconUrl = "https://localhost:5001/images/badges/rookie.png"},
+
+            };
+        }
     }
 }
