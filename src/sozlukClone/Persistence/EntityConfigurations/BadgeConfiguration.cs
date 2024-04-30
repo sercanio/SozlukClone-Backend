@@ -24,4 +24,12 @@ public class BadgeConfiguration : IEntityTypeConfiguration<Badge>
 
         builder.HasQueryFilter(b => !b.DeletedDate.HasValue);
     }
+
+    private IEnumerable<Badge> _seeds()
+    {
+        return new List<Badge>
+        {
+            new Badge { Id = 1, Name = "Default", Description = "Default", IconUrl = "new-member.png" }
+        };
+    }
 }
