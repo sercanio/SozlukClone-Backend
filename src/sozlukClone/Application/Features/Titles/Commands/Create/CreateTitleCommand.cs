@@ -1,3 +1,4 @@
+using Application.Features.Titles.Constants;
 using Application.Features.Titles.Rules;
 using Application.Services.Authors;
 using Application.Services.Repositories;
@@ -6,15 +7,20 @@ using Application.Utils;
 using AutoMapper;
 using Domain.Entities;
 using MediatR;
+using NArchitecture.Core.Application.Pipelines.Authorization;
 using NArchitecture.Core.Application.Pipelines.Logging;
 using NArchitecture.Core.Application.Pipelines.Transaction;
+using static Application.Features.Entries.Constants.EntriesOperationClaims;
 
 namespace Application.Features.Titles.Commands.Create;
 
-public class CreateTitleCommand : IRequest<CreatedTitleResponse>, ILoggableRequest, ITransactionalRequest
+public class CreateTitleCommand : IRequest<CreatedTitleResponse>, ISecuredRequest, ILoggableRequest, ITransactionalRequest
 {
     public required string Name { get; set; }
     public required uint AuthorId { get; set; }
+
+    public string[] Roles => [Admin, Write, TitlesOperationClaims.Create];
+
 
     public class CreateTitleCommandHandler : IRequestHandler<CreateTitleCommand, CreatedTitleResponse>
     {
