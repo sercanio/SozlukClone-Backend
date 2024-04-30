@@ -1,5 +1,4 @@
 ﻿using Application.Features.Auth.Rules;
-using Application.Services.Authors;
 using Application.Services.AuthService;
 using Application.Services.Repositories;
 using Domain.Entities;
@@ -32,19 +31,15 @@ public class RegisterCommand : IRequest<RegisteredResponse>
         private readonly IUserRepository _userRepository;
         private readonly IAuthService _authService;
         private readonly AuthBusinessRules _authBusinessRules;
-        private readonly IAuthorService _authorService;
 
         public RegisterCommandHandler(
             IUserRepository userRepository,
             IAuthService authService,
-            AuthBusinessRules authBusinessRules
-,
-            IAuthorService authorService)
+            AuthBusinessRules authBusinessRules)
         {
             _userRepository = userRepository;
             _authService = authService;
             _authBusinessRules = authBusinessRules;
-            _authorService = authorService;
         }
 
         public async Task<RegisteredResponse> Handle(RegisterCommand request, CancellationToken cancellationToken)

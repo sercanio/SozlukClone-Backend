@@ -17,6 +17,27 @@ public class AuthorGroupConfiguration : IEntityTypeConfiguration<AuthorGroup>
         builder.Property(ag => ag.UpdatedDate).HasColumnName("UpdatedDate");
         builder.Property(ag => ag.DeletedDate).HasColumnName("DeletedDate");
 
+        builder.HasIndex(ag => ag.Name).IsUnique();
+
+        builder.HasData(_seeds());
+
         builder.HasQueryFilter(ag => !ag.DeletedDate.HasValue);
+    }
+
+    private IEnumerable<AuthorGroup> _seeds()
+    {
+        return new List<AuthorGroup>
+        {
+            new AuthorGroup { Id = 1, Name = "Developer", Description = "Developer"},
+            new AuthorGroup { Id = 2, Name = "SuperAdmin", Description = "SuperAdmin"},
+            new AuthorGroup { Id = 3, Name = "Admin", Description = "Admin" },
+            new AuthorGroup { Id = 4, Name = "SuperModerator", Description = "SuperModerator" },
+            new AuthorGroup { Id = 5, Name = "Moderator", Description = "Moderator" },
+            new AuthorGroup { Id = 6, Name = "Editor", Description = "Editor" },
+            new AuthorGroup { Id = 7, Name = "Author", Description = "Author" },
+            new AuthorGroup { Id = 8, Name = "Noob", Description = "Guest" },
+            new AuthorGroup { Id = 9, Name = "Suspended", Description = "Suspended" },
+            new AuthorGroup { Id = 10, Name = "Banned", Description = "Banned" },
+        };
     }
 }
