@@ -3,6 +3,7 @@ using Application.Features.Auth.Profiles;
 using Application.Features.Auth.Rules;
 using Application.Features.Users.Rules;
 using Application.Services.AuthenticatorService;
+using Application.Services.AuthorGroupUserOperationClaims;
 using Application.Services.Authors;
 using Application.Services.AuthService;
 using Application.Services.LoginAudits;
@@ -87,9 +88,10 @@ public class LoginTests
         );
         ILoginAuditService loginAuditService = new LoginAuditManager();
         IAuthorService authorService = new AuthorManager();
+        IAuthorGroupUserOperationClaimService authorGroupUserOperationClaimService = new AuthorGroupUserOperationClaimManager();
         _validator = new LoginCommandValidator();
         _loginCommand = new LoginCommand();
-        _loginCommandHandler = new LoginCommandHandler(_userService, _authService, authBusinessRules, _authententicatorService, loginAuditService, authorService);
+        _loginCommandHandler = new LoginCommandHandler(_userService, _authService, authBusinessRules, _authententicatorService, loginAuditService, authorService, authorGroupUserOperationClaimService);
     }
 
     [Fact]

@@ -1,4 +1,3 @@
-
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.32112.339
@@ -32,6 +31,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		README.md = README.md
 	EndProjectSection
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebUI", "src\sozlukClone\WebUI\WebUI.csproj", "{42867B3C-4BBF-4099-BEA5-4C2DAB8208CE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -62,6 +63,10 @@ Global
 		{A06975C0-631D-4E8B-8106-D1C8E3A05D19}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A06975C0-631D-4E8B-8106-D1C8E3A05D19}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A06975C0-631D-4E8B-8106-D1C8E3A05D19}.Release|Any CPU.Build.0 = Release|Any CPU
+		{42867B3C-4BBF-4099-BEA5-4C2DAB8208CE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{42867B3C-4BBF-4099-BEA5-4C2DAB8208CE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{42867B3C-4BBF-4099-BEA5-4C2DAB8208CE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{42867B3C-4BBF-4099-BEA5-4C2DAB8208CE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -74,6 +79,7 @@ Global
 		{5A5C5789-75A7-4773-AB44-13721819502A} = {F4CFDEC8-18F0-4A9C-A16B-3045B325FA69}
 		{8696C5CF-50A9-41A3-848F-414D39A8FB21} = {F4CFDEC8-18F0-4A9C-A16B-3045B325FA69}
 		{A06975C0-631D-4E8B-8106-D1C8E3A05D19} = {07E15C51-014F-4C05-B709-C273D2D4E78C}
+		{42867B3C-4BBF-4099-BEA5-4C2DAB8208CE} = {F4CFDEC8-18F0-4A9C-A16B-3045B325FA69}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {9208CFCE-156A-49CD-9E43-32CE67AAB957}

@@ -1,21 +1,18 @@
-using Application.Features.Authors.Constants;
 using Application.Services.Repositories;
 using AutoMapper;
 using Domain.Entities;
-using NArchitecture.Core.Application.Pipelines.Authorization;
+using MediatR;
 using NArchitecture.Core.Application.Requests;
 using NArchitecture.Core.Application.Responses;
 using NArchitecture.Core.Persistence.Paging;
-using MediatR;
-using static Application.Features.Authors.Constants.AuthorsOperationClaims;
 
 namespace Application.Features.Authors.Queries.GetList;
 
-public class GetListAuthorQuery : IRequest<GetListResponse<GetListAuthorListItemDto>>, ISecuredRequest
+public class GetListAuthorQuery : IRequest<GetListResponse<GetListAuthorListItemDto>>
 {
     public PageRequest PageRequest { get; set; }
 
-    public string[] Roles => [Admin, Read];
+    //public string[] Roles => [Admin, Read];
 
     public class GetListAuthorQueryHandler : IRequestHandler<GetListAuthorQuery, GetListResponse<GetListAuthorListItemDto>>
     {
@@ -32,7 +29,7 @@ public class GetListAuthorQuery : IRequest<GetListResponse<GetListAuthorListItem
         {
             IPaginate<Author> authors = await _authorRepository.GetListAsync(
                 index: request.PageRequest.PageIndex,
-                size: request.PageRequest.PageSize, 
+                size: request.PageRequest.PageSize,
                 cancellationToken: cancellationToken
             );
 

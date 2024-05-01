@@ -1,9 +1,9 @@
-﻿using System.Linq.Expressions;
-using Application.Features.UserOperationClaims.Rules;
+﻿using Application.Features.UserOperationClaims.Rules;
 using Application.Services.Repositories;
 using Domain.Entities;
 using Microsoft.EntityFrameworkCore.Query;
 using NArchitecture.Core.Persistence.Paging;
+using System.Linq.Expressions;
 
 namespace Application.Services.UserOperationClaims;
 
@@ -93,7 +93,7 @@ public class UserUserOperationClaimManager : IUserOperationClaimService
     public async Task<UserOperationClaim> DeleteAsync(UserOperationClaim userUserOperationClaim, bool permanent = false)
     {
         UserOperationClaim deletedUserOperationClaim = await _userUserOperationClaimRepository.DeleteAsync(
-            userUserOperationClaim
+            userUserOperationClaim, permanent
         );
 
         return deletedUserOperationClaim;

@@ -1,8 +1,8 @@
 using Application.Features.AuthorGroupUserOperationClaims.Rules;
 using Application.Services.Repositories;
-using NArchitecture.Core.Persistence.Paging;
 using Domain.Entities;
 using Microsoft.EntityFrameworkCore.Query;
+using NArchitecture.Core.Persistence.Paging;
 using System.Linq.Expressions;
 
 namespace Application.Services.AuthorGroupUserOperationClaims;
@@ -16,6 +16,10 @@ public class AuthorGroupUserOperationClaimManager : IAuthorGroupUserOperationCla
     {
         _authorGroupUserOperationClaimRepository = authorGroupUserOperationClaimRepository;
         _authorGroupUserOperationClaimBusinessRules = authorGroupUserOperationClaimBusinessRules;
+    }
+
+    public AuthorGroupUserOperationClaimManager()
+    {
     }
 
     public async Task<AuthorGroupUserOperationClaim?> GetAsync(
@@ -70,7 +74,7 @@ public class AuthorGroupUserOperationClaimManager : IAuthorGroupUserOperationCla
 
     public async Task<AuthorGroupUserOperationClaim> DeleteAsync(AuthorGroupUserOperationClaim authorGroupUserOperationClaim, bool permanent = false)
     {
-        AuthorGroupUserOperationClaim deletedAuthorGroupUserOperationClaim = await _authorGroupUserOperationClaimRepository.DeleteAsync(authorGroupUserOperationClaim);
+        AuthorGroupUserOperationClaim deletedAuthorGroupUserOperationClaim = await _authorGroupUserOperationClaimRepository.DeleteAsync(authorGroupUserOperationClaim, permanent);
 
         return deletedAuthorGroupUserOperationClaim;
     }

@@ -1,6 +1,8 @@
 using Application.Services.AuthenticatorService;
 using Application.Services.AuthorGroups;
+using Application.Services.AuthorGroupUserOperationClaims;
 using Application.Services.Authors;
+using Application.Services.AuthorSettings;
 using Application.Services.AuthService;
 using Application.Services.Badges;
 using Application.Services.Entries;
@@ -9,6 +11,7 @@ using Application.Services.Penalties;
 using Application.Services.PenaltyTypes;
 using Application.Services.Titles;
 using Application.Services.TitleSettings;
+using Application.Services.UserOperationClaims;
 using Application.Services.UsersService;
 using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
@@ -29,8 +32,6 @@ using NArchitecture.Core.Mailing.MailKit;
 using NArchitecture.Core.Security.DependencyInjection;
 using NArchitecture.Core.Security.JWT;
 using System.Reflection;
-using Application.Services.AuthorSettings;
-using Application.Services.AuthorGroupUserOperationClaims;
 
 namespace Application;
 
@@ -72,7 +73,6 @@ public static class ApplicationServiceRegistration
 
         services.AddSecurityServices<Guid, int, Guid>(tokenOptions);
 
-        services.AddScoped<IAuthorService, AuthorManager>();
         services.AddScoped<IAuthorGroupService, AuthorGroupManager>();
         services.AddScoped<IBadgeService, BadgeManager>();
         services.AddScoped<IEntryService, EntryManager>();
@@ -83,9 +83,9 @@ public static class ApplicationServiceRegistration
         services.AddScoped<ITitleService, TitleManager>();
         services.AddScoped<ITitleSettingService, TitleSettingManager>();
         services.AddScoped<IAuthorSettingService, AuthorSettingManager>();
-        services.AddScoped<IAuthorSettingService, AuthorSettingManager>();
-        services.AddScoped<IAuthorSettingService, AuthorSettingManager>();
         services.AddScoped<IAuthorGroupUserOperationClaimService, AuthorGroupUserOperationClaimManager>();
+        services.AddScoped<IUserOperationClaimService, UserUserOperationClaimManager>();
+
         return services;
     }
 
