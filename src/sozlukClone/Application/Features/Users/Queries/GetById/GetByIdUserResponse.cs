@@ -1,3 +1,4 @@
+using Domain.Entities;
 using NArchitecture.Core.Application.Responses;
 
 namespace Application.Features.Users.Queries.GetById;
@@ -12,6 +13,7 @@ public class GetByIdUserResponse : IResponse
     {
 
         Email = string.Empty;
+        Author = new Author();
     }
 
     public GetByIdUserResponse(Guid id, string email, bool status)
@@ -19,5 +21,8 @@ public class GetByIdUserResponse : IResponse
         Id = id;
         Email = email;
         Status = status;
+        Author = new Author();
     }
+
+    public Author Author { get; set; }
 }

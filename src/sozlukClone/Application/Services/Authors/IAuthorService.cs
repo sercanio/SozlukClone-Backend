@@ -1,6 +1,6 @@
-using NArchitecture.Core.Persistence.Paging;
 using Domain.Entities;
 using Microsoft.EntityFrameworkCore.Query;
+using NArchitecture.Core.Persistence.Paging;
 using System.Linq.Expressions;
 
 namespace Application.Services.Authors;
@@ -27,4 +27,5 @@ public interface IAuthorService
     Task<Author> AddAsync(Author author);
     Task<Author> UpdateAsync(Author author);
     Task<Author> DeleteAsync(Author author, bool permanent = false);
+    Task<Author?> GetAuthorByUserIdAsync(Guid userId, CancellationToken cancellationToken);
 }

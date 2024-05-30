@@ -1,8 +1,8 @@
 using Application.Features.Authors.Rules;
 using Application.Services.Repositories;
-using NArchitecture.Core.Persistence.Paging;
 using Domain.Entities;
 using Microsoft.EntityFrameworkCore.Query;
+using NArchitecture.Core.Persistence.Paging;
 using System.Linq.Expressions;
 
 namespace Application.Services.Authors;
@@ -77,5 +77,12 @@ public class AuthorManager : IAuthorService
         Author deletedAuthor = await _authorRepository.DeleteAsync(author);
 
         return deletedAuthor;
+    }
+
+    public async Task<Author?> GetAuthorByUserIdAsync(Guid userId, CancellationToken cancellationToken)
+    {
+        Author? author = await _authorRepository.GetAuthorByUserIdAsync(predicate: author => author.UserId == userId, cancellationToken: cancellationToken);
+
+        return author;
     }
 }

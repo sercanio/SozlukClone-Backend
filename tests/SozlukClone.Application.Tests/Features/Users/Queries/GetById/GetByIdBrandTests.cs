@@ -1,4 +1,6 @@
 ﻿using Application.Features.Users.Queries.GetById;
+using Application.Services.Authors;
+using Moq;
 using NArchitecture.Core.CrossCuttingConcerns.Exception.Types;
 using StarterProject.Application.Tests.Mocks.FakeDatas;
 using StarterProject.Application.Tests.Mocks.Repositories;
@@ -15,8 +17,10 @@ public class GetByIdUserTests : UserMockRepository
         : base(fakeData)
     {
         _query = query;
-        _handler = new GetByIdUserQueryHandler(MockRepository.Object, Mapper, BusinessRules);
+        var mockAuthorService = new Mock<IAuthorService>();
+        _handler = new GetByIdUserQueryHandler(MockRepository.Object, Mapper, BusinessRules, mockAuthorService.Object);
     }
+
 
     [Fact]
     public async Task GetByIdUserShouldSuccessfully()

@@ -1,4 +1,5 @@
 using Application.Features.Titles.Queries.GetList;
+using Domain.Entities;
 using Domain.Enums;
 using NArchitecture.Core.Application.Responses;
 
@@ -16,5 +17,6 @@ public class GetByIdAuthorResponse : IResponse
     public Gender? Gender { get; set; }
     public uint AuthorGroupId { get; set; }
     public uint ActiveBadgeId { get; set; }
+    public User User { get; set; }
     public ICollection<GetListTitleListItemDto> Titles { get; set; }
 }
