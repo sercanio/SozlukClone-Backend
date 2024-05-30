@@ -1276,11 +1276,7 @@ namespace Persistence.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<long>("AuthorId")
-                        .HasColumnType("bigint")
-                        .HasColumnName("AuthorId");
-
-                    b.Property<int>("AuthorId1")
+                    b.Property<int>("AuthorId")
                         .HasColumnType("integer");
 
                     b.Property<DateTime>("CreatedDate")
@@ -1311,7 +1307,7 @@ namespace Persistence.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AuthorId1");
+                    b.HasIndex("AuthorId");
 
                     b.ToTable("Titles", (string)null);
                 });
@@ -1419,12 +1415,12 @@ namespace Persistence.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("95c902c2-e769-4fed-9f19-e200eac94333"),
+                            Id = new Guid("f0dc3672-089a-4923-ae58-c2dd6c035969"),
                             AuthenticatorType = 0,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "sozluk@email.com",
-                            PasswordHash = new byte[] { 41, 107, 67, 162, 11, 109, 182, 245, 195, 72, 46, 109, 255, 228, 49, 162, 120, 210, 249, 8, 78, 76, 162, 4, 40, 105, 114, 119, 144, 94, 78, 248, 248, 13, 118, 140, 16, 23, 16, 63, 57, 188, 129, 6, 197, 140, 93, 67, 91, 72, 29, 72, 53, 66, 177, 127, 35, 11, 107, 171, 177, 126, 183, 109 },
-                            PasswordSalt = new byte[] { 97, 97, 130, 87, 163, 163, 58, 191, 208, 132, 190, 90, 87, 186, 235, 244, 222, 115, 84, 132, 191, 181, 92, 89, 217, 24, 206, 146, 179, 3, 66, 254, 157, 196, 124, 77, 50, 130, 144, 46, 168, 11, 226, 67, 177, 160, 24, 207, 161, 23, 114, 20, 42, 22, 13, 97, 254, 234, 111, 231, 200, 61, 223, 89, 17, 230, 128, 35, 210, 58, 131, 246, 253, 32, 62, 23, 38, 90, 211, 160, 96, 63, 136, 43, 96, 228, 63, 151, 156, 16, 171, 208, 160, 88, 141, 245, 229, 92, 34, 124, 180, 235, 24, 54, 164, 40, 220, 71, 3, 184, 67, 216, 170, 227, 19, 169, 39, 143, 43, 136, 250, 247, 105, 79, 207, 255, 153, 47 }
+                            PasswordHash = new byte[] { 122, 187, 153, 22, 30, 69, 235, 217, 101, 7, 142, 59, 46, 196, 58, 234, 35, 179, 45, 134, 169, 238, 36, 57, 119, 72, 234, 85, 91, 130, 222, 83, 33, 105, 31, 95, 16, 14, 215, 241, 2, 101, 89, 114, 141, 193, 143, 14, 155, 86, 144, 20, 227, 203, 134, 106, 194, 45, 160, 30, 30, 33, 49, 142 },
+                            PasswordSalt = new byte[] { 174, 83, 16, 123, 216, 68, 9, 203, 27, 93, 57, 230, 221, 42, 241, 200, 156, 225, 36, 171, 227, 142, 226, 35, 80, 58, 121, 172, 143, 120, 145, 168, 85, 65, 75, 144, 241, 53, 251, 212, 162, 15, 184, 166, 208, 42, 157, 64, 149, 149, 107, 55, 180, 197, 114, 179, 29, 97, 214, 96, 236, 216, 59, 217, 40, 90, 15, 217, 47, 104, 155, 80, 98, 78, 71, 242, 189, 163, 230, 194, 201, 237, 171, 230, 172, 26, 252, 225, 68, 206, 66, 91, 52, 48, 162, 213, 155, 79, 145, 9, 201, 71, 44, 1, 54, 252, 88, 64, 175, 129, 152, 38, 55, 69, 219, 130, 235, 227, 165, 249, 1, 186, 29, 118, 173, 208, 41, 107 }
                         });
                 });
 
@@ -1466,10 +1462,10 @@ namespace Persistence.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("8a591cb2-e8d3-4798-85de-0c3ab92c373f"),
+                            Id = new Guid("c163ac4e-4937-408b-a9f4-bf5b78d09f85"),
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             OperationClaimId = 1,
-                            UserId = new Guid("95c902c2-e769-4fed-9f19-e200eac94333")
+                            UserId = new Guid("f0dc3672-089a-4923-ae58-c2dd6c035969")
                         });
                 });
 
@@ -1626,7 +1622,7 @@ namespace Persistence.Migrations
                 {
                     b.HasOne("Domain.Entities.Author", "Author")
                         .WithMany("Titles")
-                        .HasForeignKey("AuthorId1")
+                        .HasForeignKey("AuthorId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

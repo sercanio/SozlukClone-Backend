@@ -408,10 +408,9 @@ namespace Persistence.Migrations
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     Name = table.Column<string>(type: "text", nullable: false),
-                    AuthorId = table.Column<long>(type: "bigint", nullable: false),
+                    AuthorId = table.Column<int>(type: "integer", nullable: false),
                     isLocked = table.Column<bool>(type: "boolean", nullable: false),
                     slug = table.Column<string>(type: "text", nullable: false),
-                    AuthorId1 = table.Column<int>(type: "integer", nullable: false),
                     CreatedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     UpdatedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
                     DeletedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
@@ -420,8 +419,8 @@ namespace Persistence.Migrations
                 {
                     table.PrimaryKey("PK_Titles", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Titles_Authors_AuthorId1",
-                        column: x => x.AuthorId1,
+                        name: "FK_Titles_Authors_AuthorId",
+                        column: x => x.AuthorId,
                         principalTable: "Authors",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -590,12 +589,12 @@ namespace Persistence.Migrations
             migrationBuilder.InsertData(
                 table: "Users",
                 columns: new[] { "Id", "AuthenticatorType", "CreatedDate", "DeletedDate", "Email", "PasswordHash", "PasswordSalt", "UpdatedDate" },
-                values: new object[] { new Guid("95c902c2-e769-4fed-9f19-e200eac94333"), 0, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "sozluk@email.com", new byte[] { 41, 107, 67, 162, 11, 109, 182, 245, 195, 72, 46, 109, 255, 228, 49, 162, 120, 210, 249, 8, 78, 76, 162, 4, 40, 105, 114, 119, 144, 94, 78, 248, 248, 13, 118, 140, 16, 23, 16, 63, 57, 188, 129, 6, 197, 140, 93, 67, 91, 72, 29, 72, 53, 66, 177, 127, 35, 11, 107, 171, 177, 126, 183, 109 }, new byte[] { 97, 97, 130, 87, 163, 163, 58, 191, 208, 132, 190, 90, 87, 186, 235, 244, 222, 115, 84, 132, 191, 181, 92, 89, 217, 24, 206, 146, 179, 3, 66, 254, 157, 196, 124, 77, 50, 130, 144, 46, 168, 11, 226, 67, 177, 160, 24, 207, 161, 23, 114, 20, 42, 22, 13, 97, 254, 234, 111, 231, 200, 61, 223, 89, 17, 230, 128, 35, 210, 58, 131, 246, 253, 32, 62, 23, 38, 90, 211, 160, 96, 63, 136, 43, 96, 228, 63, 151, 156, 16, 171, 208, 160, 88, 141, 245, 229, 92, 34, 124, 180, 235, 24, 54, 164, 40, 220, 71, 3, 184, 67, 216, 170, 227, 19, 169, 39, 143, 43, 136, 250, 247, 105, 79, 207, 255, 153, 47 }, null });
+                values: new object[] { new Guid("f0dc3672-089a-4923-ae58-c2dd6c035969"), 0, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "sozluk@email.com", new byte[] { 122, 187, 153, 22, 30, 69, 235, 217, 101, 7, 142, 59, 46, 196, 58, 234, 35, 179, 45, 134, 169, 238, 36, 57, 119, 72, 234, 85, 91, 130, 222, 83, 33, 105, 31, 95, 16, 14, 215, 241, 2, 101, 89, 114, 141, 193, 143, 14, 155, 86, 144, 20, 227, 203, 134, 106, 194, 45, 160, 30, 30, 33, 49, 142 }, new byte[] { 174, 83, 16, 123, 216, 68, 9, 203, 27, 93, 57, 230, 221, 42, 241, 200, 156, 225, 36, 171, 227, 142, 226, 35, 80, 58, 121, 172, 143, 120, 145, 168, 85, 65, 75, 144, 241, 53, 251, 212, 162, 15, 184, 166, 208, 42, 157, 64, 149, 149, 107, 55, 180, 197, 114, 179, 29, 97, 214, 96, 236, 216, 59, 217, 40, 90, 15, 217, 47, 104, 155, 80, 98, 78, 71, 242, 189, 163, 230, 194, 201, 237, 171, 230, 172, 26, 252, 225, 68, 206, 66, 91, 52, 48, 162, 213, 155, 79, 145, 9, 201, 71, 44, 1, 54, 252, 88, 64, 175, 129, 152, 38, 55, 69, 219, 130, 235, 227, 165, 249, 1, 186, 29, 118, 173, 208, 41, 107 }, null });
 
             migrationBuilder.InsertData(
                 table: "UserOperationClaims",
                 columns: new[] { "Id", "CreatedDate", "DeletedDate", "OperationClaimId", "UpdatedDate", "UserId" },
-                values: new object[] { new Guid("8a591cb2-e8d3-4798-85de-0c3ab92c373f"), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, 1, null, new Guid("95c902c2-e769-4fed-9f19-e200eac94333") });
+                values: new object[] { new Guid("c163ac4e-4937-408b-a9f4-bf5b78d09f85"), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, 1, null, new Guid("f0dc3672-089a-4923-ae58-c2dd6c035969") });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AuthorBadge_BadgesId",
@@ -686,9 +685,9 @@ namespace Persistence.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Titles_AuthorId1",
+                name: "IX_Titles_AuthorId",
                 table: "Titles",
-                column: "AuthorId1");
+                column: "AuthorId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_UserOperationClaims_OperationClaimId",

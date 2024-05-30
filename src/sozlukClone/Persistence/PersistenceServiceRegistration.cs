@@ -22,25 +22,16 @@ public static class PersistenceServiceRegistration
         services.AddScoped<IUserRepository, UserRepository>();
         services.AddScoped<IUserOperationClaimRepository, UserOperationClaimRepository>();
 
-        services.AddScoped<IAuthorRepository, AuthorRepository>();
         services.AddScoped<IAuthorGroupRepository, AuthorGroupRepository>();
         services.AddScoped<IBadgeRepository, BadgeRepository>();
         services.AddScoped<IEntryRepository, EntryRepository>();
         services.AddScoped<IPenaltyRepository, PenaltyRepository>();
         services.AddScoped<ITitleRepository, TitleRepository>();
 
-        services.AddScoped<IAuthorRepository, AuthorRepository>();
-        services.AddScoped<IAuthorGroupRepository, AuthorGroupRepository>();
-        services.AddScoped<IBadgeRepository, BadgeRepository>();
         services.AddScoped<IPenaltyTypeRepository, PenaltyTypeRepository>();
-        services.AddScoped<IAuthorRepository, AuthorRepository>();
         services.AddScoped<ILoginAuditRepository, LoginAuditRepository>();
         services.AddScoped<IAuthorRepository, AuthorRepository>();
-        services.AddScoped<ITitleRepository, TitleRepository>();
-        services.AddScoped<ITitleRepository, TitleRepository>();
         services.AddScoped<ITitleSettingRepository, TitleSettingRepository>();
-        services.AddScoped<IAuthorSettingRepository, AuthorSettingRepository>();
-        services.AddScoped<IAuthorSettingRepository, AuthorSettingRepository>();
         services.AddScoped<IAuthorSettingRepository, AuthorSettingRepository>();
         services.AddScoped<IAuthorGroupUserOperationClaimRepository, AuthorGroupUserOperationClaimRepository>();
         return services;
