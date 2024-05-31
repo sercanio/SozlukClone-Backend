@@ -262,6 +262,8 @@ public class OperationClaimConfiguration : IEntityTypeConfiguration<OperationCla
         );
         #endregion
         
+        
+        featureOperationClaims.Add(new() { Id = ++lastId, Name = AuthorsOperationClaims.GetByUserName });
         return featureOperationClaims;
     }
 #pragma warning restore S1854 // Unused assignments should be removed

@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 using NArchitecture.Core.Application.Requests;
 using NArchitecture.Core.Application.Responses;
 using NArchitecture.Core.Persistence.Dynamic;
+using Application.Features.Authors.Queries.GetByUserName;
 
 namespace WebAPI.Controllers;
 
@@ -69,6 +70,13 @@ public class AuthorsController : BaseController
 
         GetListResponse<GetDynamicAuthorItemDto> response = await Mediator.Send(query);
 
+        return Ok(response);
+    }
+    
+    [HttpGet("GetByUserName")]
+    public async Task<ActionResult<GetByUserNameResponse>> GetByUserName([FromQuery] GetByUserNameQuery getByUserNameQuery)
+    {
+        GetByUserNameResponse response = await Mediator.Send(getByUserNameQuery);
         return Ok(response);
     }
 }
