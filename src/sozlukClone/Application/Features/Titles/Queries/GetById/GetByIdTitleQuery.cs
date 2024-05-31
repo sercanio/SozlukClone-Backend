@@ -1,20 +1,14 @@
-using Application.Features.Titles.Constants;
 using Application.Features.Titles.Rules;
 using Application.Services.Repositories;
 using AutoMapper;
 using Domain.Entities;
-using NArchitecture.Core.Application.Pipelines.Authorization;
 using MediatR;
-using static Application.Features.Titles.Constants.TitlesOperationClaims;
 
 namespace Application.Features.Titles.Queries.GetById;
 
-public class GetByIdTitleQuery : IRequest<GetByIdTitleResponse>, ISecuredRequest
+public class GetByIdTitleQuery : IRequest<GetByIdTitleResponse>
 {
     public uint Id { get; set; }
-
-    public string[] Roles => [Admin, Read];
-
     public class GetByIdTitleQueryHandler : IRequestHandler<GetByIdTitleQuery, GetByIdTitleResponse>
     {
         private readonly IMapper _mapper;

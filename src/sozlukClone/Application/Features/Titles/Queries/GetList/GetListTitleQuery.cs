@@ -1,21 +1,16 @@
-using Application.Features.Titles.Constants;
 using Application.Services.Repositories;
 using AutoMapper;
 using Domain.Entities;
-using NArchitecture.Core.Application.Pipelines.Authorization;
+using MediatR;
 using NArchitecture.Core.Application.Requests;
 using NArchitecture.Core.Application.Responses;
 using NArchitecture.Core.Persistence.Paging;
-using MediatR;
-using static Application.Features.Titles.Constants.TitlesOperationClaims;
 
 namespace Application.Features.Titles.Queries.GetList;
 
-public class GetListTitleQuery : IRequest<GetListResponse<GetListTitleListItemDto>>, ISecuredRequest
+public class GetListTitleQuery : IRequest<GetListResponse<GetListTitleListItemDto>>
 {
     public PageRequest PageRequest { get; set; }
-
-    public string[] Roles => [Admin, Read];
 
     public class GetListTitleQueryHandler : IRequestHandler<GetListTitleQuery, GetListResponse<GetListTitleListItemDto>>
     {
@@ -32,7 +27,7 @@ public class GetListTitleQuery : IRequest<GetListResponse<GetListTitleListItemDt
         {
             IPaginate<Title> titles = await _titleRepository.GetListAsync(
                 index: request.PageRequest.PageIndex,
-                size: request.PageRequest.PageSize, 
+                size: request.PageRequest.PageSize,
                 cancellationToken: cancellationToken
             );
 
