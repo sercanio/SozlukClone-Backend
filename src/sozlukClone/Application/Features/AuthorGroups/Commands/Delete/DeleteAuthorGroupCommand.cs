@@ -5,16 +5,14 @@ using Application.Services.Repositories;
 using AutoMapper;
 using Domain.Entities;
 using NArchitecture.Core.Application.Pipelines.Authorization;
-using NArchitecture.Core.Application.Pipelines.Logging;
-using NArchitecture.Core.Application.Pipelines.Transaction;
 using MediatR;
 using static Application.Features.AuthorGroups.Constants.AuthorGroupsOperationClaims;
 
 namespace Application.Features.AuthorGroups.Commands.Delete;
 
-public class DeleteAuthorGroupCommand : IRequest<DeletedAuthorGroupResponse>, ISecuredRequest, ILoggableRequest, ITransactionalRequest
+public class DeleteAuthorGroupCommand : IRequest<DeletedAuthorGroupResponse>, ISecuredRequest
 {
-    public uint Id { get; set; }
+    public int Id { get; set; }
 
     public string[] Roles => [Admin, Write, AuthorGroupsOperationClaims.Delete];
 

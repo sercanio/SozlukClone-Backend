@@ -11,7 +11,7 @@ namespace Application.Features.AuthorGroups.Queries.GetById;
 
 public class GetByIdAuthorGroupQuery : IRequest<GetByIdAuthorGroupResponse>, ISecuredRequest
 {
-    public uint Id { get; set; }
+    public int Id { get; set; }
 
     public string[] Roles => [Admin, Read];
 

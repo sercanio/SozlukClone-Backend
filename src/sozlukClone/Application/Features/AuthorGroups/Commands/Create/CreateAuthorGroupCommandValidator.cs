@@ -7,5 +7,6 @@ public class CreateAuthorGroupCommandValidator : AbstractValidator<CreateAuthorG
     public CreateAuthorGroupCommandValidator()
     {
         RuleFor(c => c.Name).NotEmpty();
+        RuleFor(c => c.Color).NotEmpty();
     }
 }

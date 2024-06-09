@@ -86,6 +86,7 @@ public static class ApplicationServiceRegistration
         services.AddScoped<IAuthorGroupUserOperationClaimService, AuthorGroupUserOperationClaimManager>();
         services.AddScoped<IUserOperationClaimService, UserUserOperationClaimManager>();
 
+        services.AddScoped<IAuthorGroupService, AuthorGroupManager>();
         return services;
     }
 

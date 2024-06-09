@@ -30,7 +30,7 @@ public class AuthorGroupsController : BaseController
     }
 
     [HttpDelete("{id}")]
-    public async Task<ActionResult<DeletedAuthorGroupResponse>> Delete([FromRoute] uint id)
+    public async Task<ActionResult<DeletedAuthorGroupResponse>> Delete([FromRoute] int id)
     {
         DeleteAuthorGroupCommand command = new() { Id = id };
 
@@ -40,7 +40,7 @@ public class AuthorGroupsController : BaseController
     }
 
     [HttpGet("{id}")]
-    public async Task<ActionResult<GetByIdAuthorGroupResponse>> GetById([FromRoute] uint id)
+    public async Task<ActionResult<GetByIdAuthorGroupResponse>> GetById([FromRoute] int id)
     {
         GetByIdAuthorGroupQuery query = new() { Id = id };
 

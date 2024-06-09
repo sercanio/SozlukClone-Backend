@@ -4,5 +4,5 @@ namespace Application.Features.AuthorGroups.Commands.Delete;
 
 public class DeletedAuthorGroupResponse : IResponse
 {
-    public uint Id { get; set; }
+    public int Id { get; set; }
 }

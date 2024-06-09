@@ -8,5 +8,6 @@ public class UpdateAuthorGroupCommandValidator : AbstractValidator<UpdateAuthorG
     {
         RuleFor(c => c.Id).NotEmpty();
         RuleFor(c => c.Name).NotEmpty();
+        RuleFor(c => c.Color).NotEmpty();
     }
 }

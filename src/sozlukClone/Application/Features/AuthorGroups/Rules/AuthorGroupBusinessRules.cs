@@ -30,7 +30,7 @@ public class AuthorGroupBusinessRules : BaseBusinessRules
             await throwBusinessException(AuthorGroupsBusinessMessages.AuthorGroupNotExists);
     }
 
-    public async Task AuthorGroupIdShouldExistWhenSelected(uint id, CancellationToken cancellationToken)
+    public async Task AuthorGroupIdShouldExistWhenSelected(int id, CancellationToken cancellationToken)
     {
         AuthorGroup? authorGroup = await _authorGroupRepository.GetAsync(
             predicate: ag => ag.Id == id,

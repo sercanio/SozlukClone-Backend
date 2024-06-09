@@ -264,6 +264,20 @@ public class OperationClaimConfiguration : IEntityTypeConfiguration<OperationCla
         
         
         featureOperationClaims.Add(new() { Id = ++lastId, Name = AuthorsOperationClaims.GetByUserName });
+        
+        #region AuthorGroups CRUD
+        featureOperationClaims.AddRange(
+            [
+                new() { Id = ++lastId, Name = AuthorGroupsOperationClaims.Admin },
+                new() { Id = ++lastId, Name = AuthorGroupsOperationClaims.Read },
+                new() { Id = ++lastId, Name = AuthorGroupsOperationClaims.Write },
+                new() { Id = ++lastId, Name = AuthorGroupsOperationClaims.Create },
+                new() { Id = ++lastId, Name = AuthorGroupsOperationClaims.Update },
+                new() { Id = ++lastId, Name = AuthorGroupsOperationClaims.Delete },
+            ]
+        );
+        #endregion
+        
         return featureOperationClaims;
     }
 #pragma warning restore S1854 // Unused assignments should be removed

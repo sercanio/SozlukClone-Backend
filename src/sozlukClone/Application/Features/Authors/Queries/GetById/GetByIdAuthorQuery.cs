@@ -27,7 +27,8 @@ public class GetByIdAuthorQuery : IRequest<GetByIdAuthorResponse>
         public async Task<GetByIdAuthorResponse> Handle(GetByIdAuthorQuery request, CancellationToken cancellationToken)
         {
             Author? author = await _authorRepository.GetAsync(
-                 include: a => a.Include(a => a.Titles),
+                 include: a => a.Include(a => a.Titles)
+                                .Include(a => a.User),
                 predicate: a => a.Id == request.Id, cancellationToken: cancellationToken);
 
             await _authorBusinessRules.AuthorShouldExistWhenSelected(author);

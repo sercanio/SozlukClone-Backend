@@ -1,21 +1,21 @@
+using Application.Features.AuthorGroups.Constants;
 using Application.Features.AuthorGroups.Rules;
 using Application.Services.Repositories;
 using AutoMapper;
 using Domain.Entities;
 using MediatR;
 using NArchitecture.Core.Application.Pipelines.Authorization;
-using NArchitecture.Core.Application.Pipelines.Logging;
-using NArchitecture.Core.Application.Pipelines.Transaction;
 using static Application.Features.AuthorGroups.Constants.AuthorGroupsOperationClaims;
 
 namespace Application.Features.AuthorGroups.Commands.Create;
 
-public class CreateAuthorGroupCommand : IRequest<CreatedAuthorGroupResponse>, ISecuredRequest, ILoggableRequest, ITransactionalRequest
+public class CreateAuthorGroupCommand : IRequest<CreatedAuthorGroupResponse>, ISecuredRequest
 {
     public required string Name { get; set; }
     public string? Description { get; set; }
+    public required string Color { get; set; }
 
-    public string[] Roles => [Admin];
+    public string[] Roles => [Admin, Write, AuthorGroupsOperationClaims.Create];
 
     public class CreateAuthorGroupCommandHandler : IRequestHandler<CreateAuthorGroupCommand, CreatedAuthorGroupResponse>
     {

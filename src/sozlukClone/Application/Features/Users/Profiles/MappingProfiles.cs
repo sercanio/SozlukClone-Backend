@@ -1,3 +1,4 @@
+using Application.Features.OperationClaims.Queries.GetById;
 using Application.Features.Users.Commands.Create;
 using Application.Features.Users.Commands.Delete;
 using Application.Features.Users.Commands.Update;
@@ -24,7 +25,11 @@ public class MappingProfiles : Profile
         CreateMap<User, DeleteUserCommand>().ReverseMap();
         CreateMap<User, DeletedUserResponse>().ReverseMap();
         CreateMap<User, GetByIdUserResponse>().ReverseMap();
+        CreateMap<User, GetByIdUserInAuthorResponse>().ReverseMap();
         CreateMap<User, GetListUserListItemDto>().ReverseMap();
         CreateMap<IPaginate<User>, GetListResponse<GetListUserListItemDto>>().ReverseMap();
+
+        CreateMap<OperationClaim, GetByIdOperationClaimResponse>().ReverseMap();
+
     }
 }
