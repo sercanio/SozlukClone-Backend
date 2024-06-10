@@ -9,7 +9,6 @@ public class UpdateAuthorSettingCommandValidator : AbstractValidator<UpdateAutho
         RuleFor(c => c.Id).NotEmpty();
         RuleFor(c => c.ProfilePictureUrl).NotEmpty();
         RuleFor(c => c.CoverPictureUrl).NotEmpty();
-        RuleFor(c => c.AuthorGroupId).NotEmpty();
         RuleFor(c => c.ActiveBadgeId).NotEmpty();
     }
 }

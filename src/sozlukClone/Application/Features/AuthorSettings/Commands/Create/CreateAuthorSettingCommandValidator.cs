@@ -8,7 +8,6 @@ public class CreateAuthorSettingCommandValidator : AbstractValidator<CreateAutho
     {
         RuleFor(c => c.ProfilePictureUrl).NotEmpty();
         RuleFor(c => c.CoverPictureUrl).NotEmpty();
-        RuleFor(c => c.AuthorGroupId).NotEmpty();
         RuleFor(c => c.ActiveBadgeId).NotEmpty();
     }
 }

@@ -13,7 +13,6 @@ public class AuthorSettingConfiguration : IEntityTypeConfiguration<AuthorSetting
         builder.Property(ast => ast.Id).HasColumnName("Id").IsRequired();
         builder.Property(ast => ast.ProfilePictureUrl).HasColumnName("ProfilePictureUrl").IsRequired();
         builder.Property(ast => ast.CoverPictureUrl).HasColumnName("CoverPictureUrl").IsRequired();
-        builder.Property(ast => ast.AuthorGroupId).HasColumnName("AuthorGroupId").IsRequired();
         builder.Property(ast => ast.ActiveBadgeId).HasColumnName("ActiveBadgeId").IsRequired();
         builder.Property(ast => ast.CreatedDate).HasColumnName("CreatedDate").IsRequired();
         builder.Property(ast => ast.UpdatedDate).HasColumnName("UpdatedDate");
@@ -28,7 +27,7 @@ public class AuthorSettingConfiguration : IEntityTypeConfiguration<AuthorSetting
     {
         return new List<AuthorSetting>
         {
-            new AuthorSetting { Id = 1, ProfilePictureUrl = "default-profile.png", CoverPictureUrl = "default-cover.png", AuthorGroupId = 8, ActiveBadgeId = 1 },
+            new AuthorSetting { Id = 1, ProfilePictureUrl = "default-profile.png", CoverPictureUrl = "default-cover.png", ActiveBadgeId = 1 },
         };
     }
 }

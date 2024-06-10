@@ -1,7 +1,6 @@
 using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Newtonsoft.Json;
 
 namespace Persistence.EntityConfigurations;
 
@@ -20,7 +19,6 @@ public class GlobalSettingConfiguration : IEntityTypeConfiguration<GlobalSetting
         builder.Property(gs => gs.SiteLogoMobile).HasColumnName("SiteLogoMobile");
         builder.Property(gs => gs.MaxTitleLength).HasColumnName("MaxTitleLength");
         builder.Property(gs => gs.DefaultAuthorGroupId).HasColumnName("DefaultAuthorGroupId");
-        builder.Property(gs => gs.DefaultAuthorGroup).HasColumnName("DefaultAuthorGroup");
         builder.Property(gs => gs.IsAuthorRegistrationAllowed).HasColumnName("IsAuthorRegistrationAllowed");
         builder.Property(gs => gs.MaxEntryLength).HasColumnName("MaxEntryLength");
         builder.Property(gs => gs.CreatedDate).HasColumnName("CreatedDate").IsRequired();
@@ -29,28 +27,23 @@ public class GlobalSettingConfiguration : IEntityTypeConfiguration<GlobalSetting
 
         builder.HasQueryFilter(gs => !gs.DeletedDate.HasValue);
 
-        builder.Property(gs => gs.DefaultAuthorGroupId).HasColumnName("DefaultAuthorGroupId");
-        builder.Property(gs => gs.DefaultAuthorGroup).HasColumnName("DefaultAuthorGroup")
-            .HasConversion(
-                v => JsonConvert.SerializeObject(v), 
-                v => JsonConvert.DeserializeObject<AuthorGroup>(v) 
-            );
-
-        // Seed data
         builder.HasData(
             new GlobalSetting
             {
                 Id = 1,
-                SiteName = "SozlukClone",
-                SiteDescription = "?çsel Bilgi Kayna??",
-                SiteFavIcon = "favicon.ico",
-                SiteLogo = "logo.png",
-                SiteLogoFooter = "footer-logo.png",
-                SiteLogoMobile = "mobile-logo.png",
-                MaxTitleLength = 200,
-                DefaultAuthorGroupId = 10, // Noobs
+                SiteName = "Default Site",
+                SiteDescription = "Default Description",
+                SiteFavIcon = "default-favicon.ico",
+                SiteLogo = "default-logo.png",
+                SiteLogoFooter = "default-footer-logo.png",
+                SiteLogoMobile = "default-mobile-logo.png",
+                MaxTitleLength = 50,
+                DefaultAuthorGroupId = 8, // Noob
                 IsAuthorRegistrationAllowed = true,
                 MaxEntryLength = 5000,
+                CreatedDate = DateTime.UtcNow,
+                UpdatedDate = null,
+                DeletedDate = null
             }
         );
     }

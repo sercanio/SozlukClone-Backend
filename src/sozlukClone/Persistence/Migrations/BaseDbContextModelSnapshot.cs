@@ -145,6 +145,88 @@ namespace Persistence.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("AuthorGroups", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Color = "#FFFFFF",
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "Developer",
+                            Name = "Developer"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Color = "#FFFFFF",
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "SuperAdmin",
+                            Name = "SuperAdmin"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Color = "#FFFFFF",
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "Admin",
+                            Name = "Admin"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Color = "#FFFFFF",
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "SuperModerator",
+                            Name = "SuperModerator"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Color = "#FFFFFF",
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "Moderator",
+                            Name = "Moderator"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Color = "#FFFFFF",
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "Editor",
+                            Name = "Editor"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            Color = "#FFFFFF",
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "Author",
+                            Name = "Author"
+                        },
+                        new
+                        {
+                            Id = 8,
+                            Color = "#FFFFFF",
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "Guest",
+                            Name = "Noob"
+                        },
+                        new
+                        {
+                            Id = 9,
+                            Color = "#FFFFFF",
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "Suspended",
+                            Name = "Suspended"
+                        },
+                        new
+                        {
+                            Id = 10,
+                            Color = "#FFFFFF",
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "Banned",
+                            Name = "Banned"
+                        });
                 });
 
             modelBuilder.Entity("Domain.Entities.AuthorGroupUserOperationClaim", b =>
@@ -196,10 +278,6 @@ namespace Persistence.Migrations
                         .HasColumnType("integer")
                         .HasColumnName("ActiveBadgeId");
 
-                    b.Property<int>("AuthorGroupId")
-                        .HasColumnType("integer")
-                        .HasColumnName("AuthorGroupId");
-
                     b.Property<string>("CoverPictureUrl")
                         .IsRequired()
                         .HasColumnType("text")
@@ -231,7 +309,6 @@ namespace Persistence.Migrations
                         {
                             Id = 1,
                             ActiveBadgeId = 1,
-                            AuthorGroupId = 8,
                             CoverPictureUrl = "default-cover.png",
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             ProfilePictureUrl = "default-profile.png"
@@ -392,10 +469,6 @@ namespace Persistence.Migrations
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("CreatedDate");
 
-                    b.Property<string>("DefaultAuthorGroup")
-                        .HasColumnType("text")
-                        .HasColumnName("DefaultAuthorGroup");
-
                     b.Property<int>("DefaultAuthorGroupId")
                         .HasColumnType("integer")
                         .HasColumnName("DefaultAuthorGroupId");
@@ -446,23 +519,25 @@ namespace Persistence.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("DefaultAuthorGroupId");
+
                     b.ToTable("GlobalSettings", (string)null);
 
                     b.HasData(
                         new
                         {
                             Id = 1,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            DefaultAuthorGroupId = 10,
+                            CreatedDate = new DateTime(2024, 6, 10, 17, 27, 3, 990, DateTimeKind.Utc).AddTicks(1435),
+                            DefaultAuthorGroupId = 8,
                             IsAuthorRegistrationAllowed = true,
                             MaxEntryLength = 5000,
-                            MaxTitleLength = 200,
-                            SiteDescription = "?çsel Bilgi Kayna??",
-                            SiteFavIcon = "favicon.ico",
-                            SiteLogo = "logo.png",
-                            SiteLogoFooter = "footer-logo.png",
-                            SiteLogoMobile = "mobile-logo.png",
-                            SiteName = "SozlukClone"
+                            MaxTitleLength = 50,
+                            SiteDescription = "Default Description",
+                            SiteFavIcon = "default-favicon.ico",
+                            SiteLogo = "default-logo.png",
+                            SiteLogoFooter = "default-footer-logo.png",
+                            SiteLogoMobile = "default-mobile-logo.png",
+                            SiteName = "Default Site"
                         });
                 });
 
@@ -1474,12 +1549,12 @@ namespace Persistence.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("9462522d-ac8e-48e9-806e-6aba60df7e1b"),
+                            Id = new Guid("6920bb2a-44c6-48ee-b532-fd1db7f97375"),
                             AuthenticatorType = 0,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "sozluk@email.com",
-                            PasswordHash = new byte[] { 252, 230, 188, 240, 129, 45, 157, 146, 143, 248, 24, 140, 193, 115, 186, 172, 212, 203, 15, 198, 159, 210, 164, 124, 208, 186, 70, 97, 235, 95, 73, 112, 254, 19, 15, 240, 0, 42, 52, 195, 102, 65, 47, 29, 84, 2, 45, 72, 182, 154, 94, 250, 214, 178, 239, 141, 200, 80, 46, 44, 1, 14, 6, 235 },
-                            PasswordSalt = new byte[] { 178, 235, 155, 224, 222, 231, 121, 251, 54, 64, 133, 12, 91, 145, 238, 97, 209, 41, 4, 235, 194, 2, 171, 217, 53, 69, 35, 228, 174, 96, 223, 240, 68, 102, 220, 109, 77, 163, 101, 63, 109, 36, 189, 221, 102, 156, 244, 134, 147, 216, 166, 171, 232, 53, 131, 223, 51, 94, 113, 214, 158, 76, 140, 195, 113, 91, 14, 97, 51, 165, 116, 181, 211, 31, 135, 228, 176, 164, 120, 75, 34, 73, 65, 77, 98, 125, 25, 31, 45, 3, 13, 146, 97, 254, 198, 82, 35, 53, 71, 131, 97, 190, 125, 117, 87, 221, 138, 151, 76, 129, 62, 0, 37, 38, 40, 5, 112, 153, 157, 199, 223, 241, 182, 218, 189, 109, 165, 15 }
+                            PasswordHash = new byte[] { 205, 121, 165, 216, 39, 254, 122, 166, 158, 151, 176, 217, 35, 12, 80, 73, 216, 150, 138, 78, 215, 203, 168, 92, 0, 174, 106, 69, 192, 247, 66, 237, 167, 176, 185, 12, 130, 47, 37, 178, 195, 92, 157, 159, 110, 41, 157, 133, 137, 21, 180, 228, 30, 112, 137, 152, 232, 121, 21, 69, 21, 206, 43, 90 },
+                            PasswordSalt = new byte[] { 146, 32, 153, 100, 74, 245, 18, 10, 116, 253, 210, 250, 109, 201, 202, 7, 8, 88, 89, 146, 245, 212, 220, 222, 48, 182, 52, 195, 168, 212, 69, 194, 175, 205, 157, 124, 188, 27, 81, 19, 1, 12, 201, 96, 134, 205, 62, 236, 175, 158, 7, 109, 224, 215, 42, 168, 70, 105, 37, 212, 12, 57, 64, 198, 222, 22, 190, 78, 192, 124, 46, 118, 58, 109, 237, 204, 87, 255, 186, 24, 217, 106, 182, 40, 40, 119, 56, 14, 118, 4, 204, 213, 111, 10, 227, 97, 230, 196, 215, 248, 124, 120, 114, 168, 135, 91, 244, 118, 121, 59, 90, 233, 237, 8, 183, 159, 110, 55, 48, 63, 135, 187, 51, 53, 137, 252, 143, 178 }
                         });
                 });
 
@@ -1521,10 +1596,10 @@ namespace Persistence.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("5905d39d-b690-4666-b9f4-c345f23aefdb"),
+                            Id = new Guid("94b3dfcf-1cd2-46c7-a928-85f0c5bc953f"),
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             OperationClaimId = 1,
-                            UserId = new Guid("9462522d-ac8e-48e9-806e-6aba60df7e1b")
+                            UserId = new Guid("6920bb2a-44c6-48ee-b532-fd1db7f97375")
                         });
                 });
 
@@ -1617,6 +1692,17 @@ namespace Persistence.Migrations
                     b.Navigation("Author");
 
                     b.Navigation("Title");
+                });
+
+            modelBuilder.Entity("Domain.Entities.GlobalSetting", b =>
+                {
+                    b.HasOne("Domain.Entities.AuthorGroup", "DefaultAuthorGroup")
+                        .WithMany()
+                        .HasForeignKey("DefaultAuthorGroupId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("DefaultAuthorGroup");
                 });
 
             modelBuilder.Entity("Domain.Entities.LoginAudit", b =>

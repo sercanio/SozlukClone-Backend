@@ -1,5 +1,6 @@
 using Application.Features.Authors.Rules;
 using Application.Services.AuthorSettings;
+using Application.Services.GlobalSettings;
 using Application.Services.Repositories;
 using Application.Services.UsersService;
 using AutoMapper;
@@ -30,15 +31,17 @@ public class CreateAuthorCommand : IRequest<CreatedAuthorResponse>, ILoggableReq
         private readonly AuthorBusinessRules _authorBusinessRules;
         private readonly IUserService _userService;
         private readonly IAuthorSettingService _authorSettingService;
+        private readonly IGlobalSettingService _globalSettingService;
 
         public CreateAuthorCommandHandler(IMapper mapper, IAuthorRepository authorRepository,
-                                         AuthorBusinessRules authorBusinessRules, IUserService userService, IAuthorSettingService authorSettingService)
+                                         AuthorBusinessRules authorBusinessRules, IUserService userService, IAuthorSettingService authorSettingService, IGlobalSettingService globalSettingService)
         {
             _mapper = mapper;
             _authorRepository = authorRepository;
             _authorBusinessRules = authorBusinessRules;
             _userService = userService;
             _authorSettingService = authorSettingService;
+            _globalSettingService = globalSettingService;
         }
 
         public async Task<CreatedAuthorResponse> Handle(CreateAuthorCommand request, CancellationToken cancellationToken)
@@ -62,8 +65,15 @@ public class CreateAuthorCommand : IRequest<CreatedAuthorResponse>, ILoggableReq
 
             Author author = _mapper.Map<Author>(request);
 
+            GlobalSetting? globalSetting = await _globalSettingService.GetAsync(gs => gs.Id == 1);
+
+            if (globalSetting == null)
+            {
+                throw new Exception("GlobalSetting not found.");
+            }
+
             author.UserId = user.Id;
-            author.AuthorGroupId = authorSetting.AuthorGroupId;
+            author.AuthorGroupId = globalSetting.DefaultAuthorGroupId;
             author.ActiveBadgeId = authorSetting.ActiveBadgeId;
             author.ProfilePictureUrl = authorSetting.ProfilePictureUrl;
             author.CoverPictureUrl = authorSetting.CoverPictureUrl;

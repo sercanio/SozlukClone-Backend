@@ -15,7 +15,6 @@ public class UpdateAuthorSettingCommand : IRequest<UpdatedAuthorSettingResponse>
     public uint Id { get; set; }
     public required string ProfilePictureUrl { get; set; }
     public required string CoverPictureUrl { get; set; }
-    public required uint AuthorGroupId { get; set; }
     public required uint ActiveBadgeId { get; set; }
 
     public string[] Roles => [Admin, Write, AuthorSettingsOperationClaims.Update];
