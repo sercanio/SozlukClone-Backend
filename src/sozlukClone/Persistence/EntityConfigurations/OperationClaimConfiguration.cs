@@ -1,5 +1,6 @@
 using Application.Features.Auth.Constants;
 using Application.Features.AuthorGroups.Constants;
+using Application.Features.AuthorGroupUserOperationClaims.Constants;
 using Application.Features.Authors.Constants;
 using Application.Features.AuthorSettings.Constants;
 using Application.Features.Badges.Constants;
@@ -16,7 +17,7 @@ using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using NArchitecture.Core.Security.Constants;
-using Application.Features.AuthorGroupUserOperationClaims.Constants;
+using Application.Features.GlobalSettings.Constants;
 
 namespace Persistence.EntityConfigurations;
 
@@ -104,20 +105,6 @@ public class OperationClaimConfiguration : IEntityTypeConfiguration<OperationCla
                 new() { Id = ++lastId, Name = UsersOperationClaims.Create },
                 new() { Id = ++lastId, Name = UsersOperationClaims.Update },
                 new() { Id = ++lastId, Name = UsersOperationClaims.Delete },
-            ]
-        );
-        #endregion
-
-
-        #region AuthorGroups CRUD
-        featureOperationClaims.AddRange(
-            [
-                new() { Id = ++lastId, Name = AuthorGroupsOperationClaims.Admin },
-                new() { Id = ++lastId, Name = AuthorGroupsOperationClaims.Read },
-                new() { Id = ++lastId, Name = AuthorGroupsOperationClaims.Write },
-                new() { Id = ++lastId, Name = AuthorGroupsOperationClaims.Create },
-                new() { Id = ++lastId, Name = AuthorGroupsOperationClaims.Update },
-                new() { Id = ++lastId, Name = AuthorGroupsOperationClaims.Delete },
             ]
         );
         #endregion
@@ -248,7 +235,7 @@ public class OperationClaimConfiguration : IEntityTypeConfiguration<OperationCla
         );
         #endregion
 
-        
+
         #region AuthorGroupUserOperationClaims CRUD
         featureOperationClaims.AddRange(
             [
@@ -261,10 +248,10 @@ public class OperationClaimConfiguration : IEntityTypeConfiguration<OperationCla
             ]
         );
         #endregion
-        
-        
+
+
         featureOperationClaims.Add(new() { Id = ++lastId, Name = AuthorsOperationClaims.GetByUserName });
-        
+
         #region AuthorGroups CRUD
         featureOperationClaims.AddRange(
             [
@@ -274,6 +261,22 @@ public class OperationClaimConfiguration : IEntityTypeConfiguration<OperationCla
                 new() { Id = ++lastId, Name = AuthorGroupsOperationClaims.Create },
                 new() { Id = ++lastId, Name = AuthorGroupsOperationClaims.Update },
                 new() { Id = ++lastId, Name = AuthorGroupsOperationClaims.Delete },
+            ]
+        );
+        #endregion
+
+
+
+        
+        #region GlobalSettings CRUD
+        featureOperationClaims.AddRange(
+            [
+                new() { Id = ++lastId, Name = GlobalSettingsOperationClaims.Admin },
+                new() { Id = ++lastId, Name = GlobalSettingsOperationClaims.Read },
+                new() { Id = ++lastId, Name = GlobalSettingsOperationClaims.Write },
+                new() { Id = ++lastId, Name = GlobalSettingsOperationClaims.Create },
+                new() { Id = ++lastId, Name = GlobalSettingsOperationClaims.Update },
+                new() { Id = ++lastId, Name = GlobalSettingsOperationClaims.Delete },
             ]
         );
         #endregion

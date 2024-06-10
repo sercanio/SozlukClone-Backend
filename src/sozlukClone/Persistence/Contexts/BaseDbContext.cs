@@ -25,6 +25,8 @@ public class BaseDbContext : DbContext
     public DbSet<TitleSetting> TitleSettings { get; set; }
     public DbSet<AuthorSetting> AuthorSettings { get; set; }
     public DbSet<AuthorGroupUserOperationClaim> AuthorGroupUserOperationClaims { get; set; }
+    public DbSet<GlobalSetting> Settings { get; set; }
+    public DbSet<GlobalSetting> GlobalSettings { get; set; }
 
     public BaseDbContext(DbContextOptions dbContextOptions, IConfiguration configuration)
         : base(dbContextOptions)

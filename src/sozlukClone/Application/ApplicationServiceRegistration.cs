@@ -32,6 +32,7 @@ using NArchitecture.Core.Mailing.MailKit;
 using NArchitecture.Core.Security.DependencyInjection;
 using NArchitecture.Core.Security.JWT;
 using System.Reflection;
+using Application.Services.GlobalSettings;
 
 namespace Application;
 
@@ -85,8 +86,7 @@ public static class ApplicationServiceRegistration
         services.AddScoped<IAuthorSettingService, AuthorSettingManager>();
         services.AddScoped<IAuthorGroupUserOperationClaimService, AuthorGroupUserOperationClaimManager>();
         services.AddScoped<IUserOperationClaimService, UserUserOperationClaimManager>();
-
-        services.AddScoped<IAuthorGroupService, AuthorGroupManager>();
+        services.AddScoped<IGlobalSettingService, GlobalSettingManager>();
         return services;
     }
 
