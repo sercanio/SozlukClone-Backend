@@ -3,9 +3,9 @@ using Application.Features.GlobalSettings.Commands.Delete;
 using Application.Features.GlobalSettings.Commands.Update;
 using Application.Features.GlobalSettings.Queries.GetById;
 using Application.Features.GlobalSettings.Queries.GetList;
+using Microsoft.AspNetCore.Mvc;
 using NArchitecture.Core.Application.Requests;
 using NArchitecture.Core.Application.Responses;
-using Microsoft.AspNetCore.Mvc;
 
 namespace WebAPI.Controllers;
 
@@ -21,13 +21,22 @@ public class GlobalSettingsController : BaseController
         return CreatedAtAction(nameof(GetById), new { response.Id }, response);
     }
 
+    //[HttpPut]
+    //public async Task<ActionResult<UpdatedGlobalSettingResponse>> Update([FromBody] UpdateGlobalSettingCommand command)
+    //{
+    //    UpdatedGlobalSettingResponse response = await Mediator.Send(command);
+
+    //    return Ok(response);
+    //}
+
     [HttpPut]
-    public async Task<ActionResult<UpdatedGlobalSettingResponse>> Update([FromBody] UpdateGlobalSettingCommand command)
+    public async Task<ActionResult<UpdatedGlobalSettingResponse>> Update([FromForm] UpdateGlobalSettingCommand command)
     {
         UpdatedGlobalSettingResponse response = await Mediator.Send(command);
 
         return Ok(response);
     }
+
 
     [HttpDelete("{id}")]
     public async Task<ActionResult<DeletedGlobalSettingResponse>> Delete([FromRoute] int id)

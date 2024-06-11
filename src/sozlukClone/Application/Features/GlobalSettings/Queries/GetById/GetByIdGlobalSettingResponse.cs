@@ -1,4 +1,3 @@
-using Domain.Entities;
 using NArchitecture.Core.Application.Responses;
 
 namespace Application.Features.GlobalSettings.Queries.GetById;
@@ -14,7 +13,6 @@ public class GetByIdGlobalSettingResponse : IResponse
     public string? SiteLogoMobile { get; set; }
     public int? MaxTitleLength { get; set; }
     public int? DefaultAuthorGroupId { get; set; }
-    public AuthorGroup? DefaultAuthorGroup { get; set; }
     public bool? IsAuthorRegistrationAllowed { get; set; }
     public int? MaxEntryLength { get; set; }
 }
