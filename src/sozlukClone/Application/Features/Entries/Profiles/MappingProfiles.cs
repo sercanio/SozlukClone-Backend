@@ -16,8 +16,11 @@ public class MappingProfiles : Profile
     {
         CreateMap<CreateEntryCommand, Entry>().ReverseMap();
         CreateMap<UpdateEntryCommand, Entry>().ReverseMap();
+        CreateMap<UpdatedEntryResponse, Entry>().ReverseMap();
         CreateMap<DeleteEntryCommand, Entry>().ReverseMap();
         CreateMap<GetByIdEntryResponse, Entry>().ReverseMap();
+        CreateMap<CreatedEntryResponse, Entry>().ReverseMap();
+
         CreateMap<GetListEntryInTitleListItemDTO, Entry>().ForMember(opt => opt.Author, opt => opt.MapFrom(a => a.Author)).ReverseMap();
 
         CreateMap<GetListEntryListItemDto, Entry>().ForMember(opt => opt.Author, opt => opt.MapFrom(a => a.Author)).ReverseMap();

@@ -43,8 +43,8 @@ public class CreateEntryCommand : IRequest<CreatedEntryResponse>, ISecuredReques
             Entry entry = _mapper.Map<Entry>(request);
             await _entryBusinessRules.EntryContentCannotBeEmpty(entry);
 
-            //Title? title = await _titleService.GetAsync(predicate: t => t.Id == request.TitleId);
-            //await _titleBusinessRules.TitleIdShouldExistWhenSelected(title.Id, cancellationToken);
+            Title? title = await _titleService.GetAsync(predicate: t => t.Id == request.TitleId);
+            await _titleBusinessRules.TitleIdShouldExistWhenSelected(title.Id, cancellationToken);
 
             await _entryRepository.AddAsync(entry);
 

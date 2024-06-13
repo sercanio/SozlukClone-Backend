@@ -3,9 +3,9 @@ using Application.Features.Entries.Rules;
 using Application.Services.Repositories;
 using AutoMapper;
 using Domain.Entities;
+using MediatR;
 using NArchitecture.Core.Application.Pipelines.Authorization;
 using NArchitecture.Core.Application.Pipelines.Transaction;
-using MediatR;
 using static Application.Features.Entries.Constants.EntriesOperationClaims;
 
 namespace Application.Features.Entries.Commands.Update;
@@ -37,7 +37,8 @@ public class UpdateEntryCommand : IRequest<UpdatedEntryResponse>, ISecuredReques
         {
             Entry? entry = await _entryRepository.GetAsync(predicate: e => e.Id == request.Id, cancellationToken: cancellationToken);
             await _entryBusinessRules.EntryShouldExistWhenSelected(entry);
-            entry = _mapper.Map(request, entry);
+
+            entry = _mapper.Map(request, entry!);
 
             await _entryRepository.UpdateAsync(entry!);
 
