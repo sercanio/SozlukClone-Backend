@@ -9,7 +9,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Persistence.Migrations
 {
     /// <inheritdoc />
-    public partial class AddSiteSettings : Migration
+    public partial class initial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -40,7 +40,6 @@ namespace Persistence.Migrations
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     ProfilePictureUrl = table.Column<string>(type: "text", nullable: false),
                     CoverPictureUrl = table.Column<string>(type: "text", nullable: false),
-                    AuthorGroupId = table.Column<int>(type: "integer", nullable: false),
                     ActiveBadgeId = table.Column<int>(type: "integer", nullable: false),
                     CreatedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     UpdatedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
@@ -465,10 +464,8 @@ namespace Persistence.Migrations
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     Content = table.Column<string>(type: "text", nullable: false),
-                    AuthorId = table.Column<long>(type: "bigint", nullable: false),
-                    TitleId = table.Column<long>(type: "bigint", nullable: false),
-                    AuthorId1 = table.Column<int>(type: "integer", nullable: false),
-                    TitleId1 = table.Column<int>(type: "integer", nullable: false),
+                    AuthorId = table.Column<int>(type: "integer", nullable: false),
+                    TitleId = table.Column<int>(type: "integer", nullable: false),
                     CreatedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     UpdatedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
                     DeletedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
@@ -477,14 +474,14 @@ namespace Persistence.Migrations
                 {
                     table.PrimaryKey("PK_Entries", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Entries_Authors_AuthorId1",
-                        column: x => x.AuthorId1,
+                        name: "FK_Entries_Authors_AuthorId",
+                        column: x => x.AuthorId,
                         principalTable: "Authors",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Entries_Titles_TitleId1",
-                        column: x => x.TitleId1,
+                        name: "FK_Entries_Titles_TitleId",
+                        column: x => x.TitleId,
                         principalTable: "Titles",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -509,8 +506,8 @@ namespace Persistence.Migrations
 
             migrationBuilder.InsertData(
                 table: "AuthorSettings",
-                columns: new[] { "Id", "ActiveBadgeId", "AuthorGroupId", "CoverPictureUrl", "CreatedDate", "DeletedDate", "ProfilePictureUrl", "UpdatedDate" },
-                values: new object[] { 1, 1, 8, "default-cover.png", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "default-profile.png", null });
+                columns: new[] { "Id", "ActiveBadgeId", "CoverPictureUrl", "CreatedDate", "DeletedDate", "ProfilePictureUrl", "UpdatedDate" },
+                values: new object[] { 1, 1, "default-cover.png", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "default-profile.png", null });
 
             migrationBuilder.InsertData(
                 table: "Badges",
@@ -617,7 +614,55 @@ namespace Persistence.Migrations
                     { 93, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "GlobalSettings.Write", null },
                     { 94, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "GlobalSettings.Create", null },
                     { 95, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "GlobalSettings.Update", null },
-                    { 96, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "GlobalSettings.Delete", null }
+                    { 96, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "GlobalSettings.Delete", null },
+                    { 97, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Entries.Admin", null },
+                    { 98, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Entries.Read", null },
+                    { 99, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Entries.Write", null },
+                    { 100, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Entries.Create", null },
+                    { 101, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Entries.Update", null },
+                    { 102, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Entries.Delete", null },
+                    { 103, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Entries.Admin", null },
+                    { 104, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Entries.Read", null },
+                    { 105, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Entries.Write", null },
+                    { 106, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Entries.Create", null },
+                    { 107, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Entries.Update", null },
+                    { 108, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Entries.Delete", null },
+                    { 109, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Entries.Admin", null },
+                    { 110, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Entries.Read", null },
+                    { 111, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Entries.Write", null },
+                    { 112, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Entries.Create", null },
+                    { 113, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Entries.Update", null },
+                    { 114, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Entries.Delete", null },
+                    { 115, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Entries.Admin", null },
+                    { 116, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Entries.Read", null },
+                    { 117, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Entries.Write", null },
+                    { 118, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Entries.Create", null },
+                    { 119, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Entries.Update", null },
+                    { 120, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Entries.Delete", null },
+                    { 121, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Titles.Admin", null },
+                    { 122, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Titles.Read", null },
+                    { 123, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Titles.Write", null },
+                    { 124, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Titles.Create", null },
+                    { 125, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Titles.Update", null },
+                    { 126, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Titles.Delete", null },
+                    { 127, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Entries.Admin", null },
+                    { 128, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Entries.Read", null },
+                    { 129, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Entries.Write", null },
+                    { 130, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Entries.Create", null },
+                    { 131, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Entries.Update", null },
+                    { 132, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Entries.Delete", null },
+                    { 133, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Titles.Admin", null },
+                    { 134, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Titles.Read", null },
+                    { 135, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Titles.Write", null },
+                    { 136, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Titles.Create", null },
+                    { 137, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Titles.Update", null },
+                    { 138, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Titles.Delete", null },
+                    { 139, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Entries.Admin", null },
+                    { 140, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Entries.Read", null },
+                    { 141, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Entries.Write", null },
+                    { 142, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Entries.Create", null },
+                    { 143, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Entries.Update", null },
+                    { 144, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Entries.Delete", null }
                 });
 
             migrationBuilder.InsertData(
@@ -628,12 +673,17 @@ namespace Persistence.Migrations
             migrationBuilder.InsertData(
                 table: "Users",
                 columns: new[] { "Id", "AuthenticatorType", "CreatedDate", "DeletedDate", "Email", "PasswordHash", "PasswordSalt", "UpdatedDate" },
-                values: new object[] { new Guid("41ade561-4c4e-4133-a049-bd5f9fa07a1d"), 0, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "sozluk@email.com", new byte[] { 137, 192, 89, 211, 148, 173, 112, 143, 208, 153, 178, 178, 203, 211, 167, 197, 183, 209, 123, 210, 129, 40, 249, 104, 118, 9, 158, 120, 46, 243, 23, 131, 226, 175, 123, 119, 106, 79, 55, 66, 44, 90, 40, 34, 245, 41, 150, 124, 71, 58, 121, 212, 141, 169, 223, 80, 25, 30, 6, 245, 167, 255, 24, 97 }, new byte[] { 168, 63, 4, 155, 25, 220, 243, 247, 35, 74, 199, 127, 185, 245, 35, 54, 117, 239, 149, 82, 76, 177, 115, 141, 15, 68, 236, 74, 16, 35, 1, 166, 158, 247, 207, 205, 120, 102, 147, 130, 53, 5, 59, 184, 94, 214, 126, 138, 40, 127, 178, 175, 82, 50, 216, 107, 10, 69, 74, 8, 64, 30, 72, 21, 8, 144, 173, 159, 59, 228, 185, 47, 238, 25, 236, 91, 63, 66, 215, 63, 223, 203, 182, 32, 223, 197, 138, 184, 96, 58, 232, 44, 104, 181, 249, 121, 154, 6, 81, 95, 90, 9, 195, 130, 101, 123, 212, 224, 253, 8, 32, 29, 116, 16, 158, 204, 68, 13, 85, 53, 7, 97, 174, 222, 221, 226, 219, 120 }, null });
+                values: new object[] { new Guid("efa85720-19fc-4c17-8f61-8873b59b3080"), 0, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "sozluk@email.com", new byte[] { 184, 78, 174, 217, 132, 137, 152, 35, 202, 196, 11, 204, 137, 134, 182, 172, 201, 62, 88, 85, 68, 61, 24, 198, 159, 239, 183, 16, 62, 168, 250, 124, 202, 189, 166, 139, 191, 58, 204, 152, 149, 101, 133, 68, 93, 47, 161, 219, 194, 89, 101, 188, 143, 103, 184, 17, 179, 29, 162, 44, 29, 146, 240, 148 }, new byte[] { 246, 221, 48, 17, 135, 8, 74, 30, 32, 229, 248, 40, 8, 43, 255, 10, 228, 153, 192, 74, 207, 99, 41, 144, 4, 11, 101, 230, 238, 234, 194, 200, 143, 68, 36, 194, 163, 207, 89, 182, 217, 152, 5, 197, 195, 180, 48, 105, 62, 66, 133, 235, 114, 138, 93, 255, 185, 42, 92, 13, 158, 151, 95, 41, 77, 48, 177, 15, 187, 216, 98, 15, 98, 235, 152, 169, 39, 61, 71, 112, 254, 162, 10, 90, 172, 27, 185, 247, 162, 85, 136, 225, 136, 109, 24, 168, 61, 63, 4, 160, 136, 61, 111, 59, 245, 218, 182, 218, 193, 117, 197, 61, 17, 159, 33, 73, 6, 183, 26, 94, 242, 128, 132, 237, 52, 45, 189, 32 }, null });
+
+            migrationBuilder.InsertData(
+                table: "GlobalSettings",
+                columns: new[] { "Id", "CreatedDate", "DefaultAuthorGroupId", "DeletedDate", "IsAuthorRegistrationAllowed", "MaxEntryLength", "MaxTitleLength", "SiteDescription", "SiteFavIcon", "SiteLogo", "SiteLogoFooter", "SiteLogoMobile", "SiteName", "UpdatedDate" },
+                values: new object[] { 1, new DateTime(2024, 6, 12, 23, 6, 57, 25, DateTimeKind.Utc).AddTicks(4851), 8, null, true, 5000, 50, "Default Description", "default-favicon.ico", "default-logo.png", "default-footer-logo.png", "default-mobile-logo.png", "Default Site", null });
 
             migrationBuilder.InsertData(
                 table: "UserOperationClaims",
                 columns: new[] { "Id", "CreatedDate", "DeletedDate", "OperationClaimId", "UpdatedDate", "UserId" },
-                values: new object[] { new Guid("d98126b4-c083-47bb-b7ae-58b2736978d9"), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, 1, null, new Guid("41ade561-4c4e-4133-a049-bd5f9fa07a1d") });
+                values: new object[] { new Guid("7cd871d5-e2da-4b49-aa8b-f815b476a4ab"), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, 1, null, new Guid("efa85720-19fc-4c17-8f61-8873b59b3080") });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AuthorBadge_BadgesId",
@@ -678,14 +728,14 @@ namespace Persistence.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Entries_AuthorId1",
+                name: "IX_Entries_AuthorId",
                 table: "Entries",
-                column: "AuthorId1");
+                column: "AuthorId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Entries_TitleId1",
+                name: "IX_Entries_TitleId",
                 table: "Entries",
-                column: "TitleId1");
+                column: "TitleId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_GlobalSettings_DefaultAuthorGroupId",

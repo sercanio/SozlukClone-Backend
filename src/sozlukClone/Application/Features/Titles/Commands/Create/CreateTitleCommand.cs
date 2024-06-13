@@ -17,7 +17,7 @@ namespace Application.Features.Titles.Commands.Create;
 public class CreateTitleCommand : IRequest<CreatedTitleResponse>, ISecuredRequest, ILoggableRequest, ITransactionalRequest
 {
     public required string Name { get; set; }
-    public required uint AuthorId { get; set; }
+    public required int AuthorId { get; set; }
 
     public string[] Roles => [Admin, Write, TitlesOperationClaims.Create];
 

@@ -416,12 +416,9 @@ namespace Persistence.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<long>("AuthorId")
-                        .HasColumnType("bigint")
+                    b.Property<int>("AuthorId")
+                        .HasColumnType("integer")
                         .HasColumnName("AuthorId");
-
-                    b.Property<int>("AuthorId1")
-                        .HasColumnType("integer");
 
                     b.Property<string>("Content")
                         .IsRequired()
@@ -436,12 +433,9 @@ namespace Persistence.Migrations
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("DeletedDate");
 
-                    b.Property<long>("TitleId")
-                        .HasColumnType("bigint")
+                    b.Property<int>("TitleId")
+                        .HasColumnType("integer")
                         .HasColumnName("TitleId");
-
-                    b.Property<int>("TitleId1")
-                        .HasColumnType("integer");
 
                     b.Property<DateTime?>("UpdatedDate")
                         .HasColumnType("timestamp with time zone")
@@ -449,9 +443,9 @@ namespace Persistence.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AuthorId1");
+                    b.HasIndex("AuthorId");
 
-                    b.HasIndex("TitleId1");
+                    b.HasIndex("TitleId");
 
                     b.ToTable("Entries", (string)null);
                 });
@@ -527,7 +521,7 @@ namespace Persistence.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedDate = new DateTime(2024, 6, 10, 17, 27, 3, 990, DateTimeKind.Utc).AddTicks(1435),
+                            CreatedDate = new DateTime(2024, 6, 12, 23, 6, 57, 25, DateTimeKind.Utc).AddTicks(4851),
                             DefaultAuthorGroupId = 8,
                             IsAuthorRegistrationAllowed = true,
                             MaxEntryLength = 5000,
@@ -1207,6 +1201,294 @@ namespace Persistence.Migrations
                             Id = 96,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Name = "GlobalSettings.Delete"
+                        },
+                        new
+                        {
+                            Id = 97,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Entries.Admin"
+                        },
+                        new
+                        {
+                            Id = 98,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Entries.Read"
+                        },
+                        new
+                        {
+                            Id = 99,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Entries.Write"
+                        },
+                        new
+                        {
+                            Id = 100,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Entries.Create"
+                        },
+                        new
+                        {
+                            Id = 101,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Entries.Update"
+                        },
+                        new
+                        {
+                            Id = 102,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Entries.Delete"
+                        },
+                        new
+                        {
+                            Id = 103,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Entries.Admin"
+                        },
+                        new
+                        {
+                            Id = 104,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Entries.Read"
+                        },
+                        new
+                        {
+                            Id = 105,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Entries.Write"
+                        },
+                        new
+                        {
+                            Id = 106,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Entries.Create"
+                        },
+                        new
+                        {
+                            Id = 107,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Entries.Update"
+                        },
+                        new
+                        {
+                            Id = 108,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Entries.Delete"
+                        },
+                        new
+                        {
+                            Id = 109,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Entries.Admin"
+                        },
+                        new
+                        {
+                            Id = 110,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Entries.Read"
+                        },
+                        new
+                        {
+                            Id = 111,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Entries.Write"
+                        },
+                        new
+                        {
+                            Id = 112,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Entries.Create"
+                        },
+                        new
+                        {
+                            Id = 113,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Entries.Update"
+                        },
+                        new
+                        {
+                            Id = 114,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Entries.Delete"
+                        },
+                        new
+                        {
+                            Id = 115,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Entries.Admin"
+                        },
+                        new
+                        {
+                            Id = 116,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Entries.Read"
+                        },
+                        new
+                        {
+                            Id = 117,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Entries.Write"
+                        },
+                        new
+                        {
+                            Id = 118,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Entries.Create"
+                        },
+                        new
+                        {
+                            Id = 119,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Entries.Update"
+                        },
+                        new
+                        {
+                            Id = 120,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Entries.Delete"
+                        },
+                        new
+                        {
+                            Id = 121,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Titles.Admin"
+                        },
+                        new
+                        {
+                            Id = 122,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Titles.Read"
+                        },
+                        new
+                        {
+                            Id = 123,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Titles.Write"
+                        },
+                        new
+                        {
+                            Id = 124,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Titles.Create"
+                        },
+                        new
+                        {
+                            Id = 125,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Titles.Update"
+                        },
+                        new
+                        {
+                            Id = 126,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Titles.Delete"
+                        },
+                        new
+                        {
+                            Id = 127,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Entries.Admin"
+                        },
+                        new
+                        {
+                            Id = 128,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Entries.Read"
+                        },
+                        new
+                        {
+                            Id = 129,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Entries.Write"
+                        },
+                        new
+                        {
+                            Id = 130,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Entries.Create"
+                        },
+                        new
+                        {
+                            Id = 131,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Entries.Update"
+                        },
+                        new
+                        {
+                            Id = 132,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Entries.Delete"
+                        },
+                        new
+                        {
+                            Id = 133,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Titles.Admin"
+                        },
+                        new
+                        {
+                            Id = 134,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Titles.Read"
+                        },
+                        new
+                        {
+                            Id = 135,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Titles.Write"
+                        },
+                        new
+                        {
+                            Id = 136,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Titles.Create"
+                        },
+                        new
+                        {
+                            Id = 137,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Titles.Update"
+                        },
+                        new
+                        {
+                            Id = 138,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Titles.Delete"
+                        },
+                        new
+                        {
+                            Id = 139,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Entries.Admin"
+                        },
+                        new
+                        {
+                            Id = 140,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Entries.Read"
+                        },
+                        new
+                        {
+                            Id = 141,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Entries.Write"
+                        },
+                        new
+                        {
+                            Id = 142,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Entries.Create"
+                        },
+                        new
+                        {
+                            Id = 143,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Entries.Update"
+                        },
+                        new
+                        {
+                            Id = 144,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Entries.Delete"
                         });
                 });
 
@@ -1411,7 +1693,8 @@ namespace Persistence.Migrations
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<int>("AuthorId")
-                        .HasColumnType("integer");
+                        .HasColumnType("integer")
+                        .HasColumnName("AuthorId");
 
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("timestamp with time zone")
@@ -1549,12 +1832,12 @@ namespace Persistence.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("6920bb2a-44c6-48ee-b532-fd1db7f97375"),
+                            Id = new Guid("efa85720-19fc-4c17-8f61-8873b59b3080"),
                             AuthenticatorType = 0,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "sozluk@email.com",
-                            PasswordHash = new byte[] { 205, 121, 165, 216, 39, 254, 122, 166, 158, 151, 176, 217, 35, 12, 80, 73, 216, 150, 138, 78, 215, 203, 168, 92, 0, 174, 106, 69, 192, 247, 66, 237, 167, 176, 185, 12, 130, 47, 37, 178, 195, 92, 157, 159, 110, 41, 157, 133, 137, 21, 180, 228, 30, 112, 137, 152, 232, 121, 21, 69, 21, 206, 43, 90 },
-                            PasswordSalt = new byte[] { 146, 32, 153, 100, 74, 245, 18, 10, 116, 253, 210, 250, 109, 201, 202, 7, 8, 88, 89, 146, 245, 212, 220, 222, 48, 182, 52, 195, 168, 212, 69, 194, 175, 205, 157, 124, 188, 27, 81, 19, 1, 12, 201, 96, 134, 205, 62, 236, 175, 158, 7, 109, 224, 215, 42, 168, 70, 105, 37, 212, 12, 57, 64, 198, 222, 22, 190, 78, 192, 124, 46, 118, 58, 109, 237, 204, 87, 255, 186, 24, 217, 106, 182, 40, 40, 119, 56, 14, 118, 4, 204, 213, 111, 10, 227, 97, 230, 196, 215, 248, 124, 120, 114, 168, 135, 91, 244, 118, 121, 59, 90, 233, 237, 8, 183, 159, 110, 55, 48, 63, 135, 187, 51, 53, 137, 252, 143, 178 }
+                            PasswordHash = new byte[] { 184, 78, 174, 217, 132, 137, 152, 35, 202, 196, 11, 204, 137, 134, 182, 172, 201, 62, 88, 85, 68, 61, 24, 198, 159, 239, 183, 16, 62, 168, 250, 124, 202, 189, 166, 139, 191, 58, 204, 152, 149, 101, 133, 68, 93, 47, 161, 219, 194, 89, 101, 188, 143, 103, 184, 17, 179, 29, 162, 44, 29, 146, 240, 148 },
+                            PasswordSalt = new byte[] { 246, 221, 48, 17, 135, 8, 74, 30, 32, 229, 248, 40, 8, 43, 255, 10, 228, 153, 192, 74, 207, 99, 41, 144, 4, 11, 101, 230, 238, 234, 194, 200, 143, 68, 36, 194, 163, 207, 89, 182, 217, 152, 5, 197, 195, 180, 48, 105, 62, 66, 133, 235, 114, 138, 93, 255, 185, 42, 92, 13, 158, 151, 95, 41, 77, 48, 177, 15, 187, 216, 98, 15, 98, 235, 152, 169, 39, 61, 71, 112, 254, 162, 10, 90, 172, 27, 185, 247, 162, 85, 136, 225, 136, 109, 24, 168, 61, 63, 4, 160, 136, 61, 111, 59, 245, 218, 182, 218, 193, 117, 197, 61, 17, 159, 33, 73, 6, 183, 26, 94, 242, 128, 132, 237, 52, 45, 189, 32 }
                         });
                 });
 
@@ -1596,10 +1879,10 @@ namespace Persistence.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("94b3dfcf-1cd2-46c7-a928-85f0c5bc953f"),
+                            Id = new Guid("7cd871d5-e2da-4b49-aa8b-f815b476a4ab"),
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             OperationClaimId = 1,
-                            UserId = new Guid("6920bb2a-44c6-48ee-b532-fd1db7f97375")
+                            UserId = new Guid("efa85720-19fc-4c17-8f61-8873b59b3080")
                         });
                 });
 
@@ -1679,13 +1962,13 @@ namespace Persistence.Migrations
                 {
                     b.HasOne("Domain.Entities.Author", "Author")
                         .WithMany("Entries")
-                        .HasForeignKey("AuthorId1")
+                        .HasForeignKey("AuthorId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("Domain.Entities.Title", "Title")
                         .WithMany("Entries")
-                        .HasForeignKey("TitleId1")
+                        .HasForeignKey("TitleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

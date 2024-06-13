@@ -31,7 +31,7 @@ public class TitleBusinessRules : BaseBusinessRules
             await throwBusinessException(TitlesBusinessMessages.TitleNotExists);
     }
 
-    public async Task TitleIdShouldExistWhenSelected(uint id, CancellationToken cancellationToken)
+    public async Task TitleIdShouldExistWhenSelected(int id, CancellationToken cancellationToken)
     {
         Title? title = await _titleRepository.GetAsync(
             predicate: t => t.Id == id,

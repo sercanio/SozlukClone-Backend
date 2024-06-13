@@ -5,16 +5,15 @@ using Application.Services.Repositories;
 using AutoMapper;
 using Domain.Entities;
 using NArchitecture.Core.Application.Pipelines.Authorization;
-using NArchitecture.Core.Application.Pipelines.Logging;
 using NArchitecture.Core.Application.Pipelines.Transaction;
 using MediatR;
 using static Application.Features.Entries.Constants.EntriesOperationClaims;
 
 namespace Application.Features.Entries.Commands.Delete;
 
-public class DeleteEntryCommand : IRequest<DeletedEntryResponse>, ISecuredRequest, ILoggableRequest, ITransactionalRequest
+public class DeleteEntryCommand : IRequest<DeletedEntryResponse>, ISecuredRequest, ITransactionalRequest
 {
-    public uint Id { get; set; }
+    public int Id { get; set; }
 
     public string[] Roles => [Admin, Write, EntriesOperationClaims.Delete];
 

@@ -16,23 +16,19 @@ public class MappingProfiles : Profile
 {
     public MappingProfiles()
     {
-        CreateMap<CreateAuthorCommand, Author>();
-        CreateMap<Author, CreatedAuthorResponse>();
+        CreateMap<CreateAuthorCommand, Author>().ReverseMap();
+        CreateMap<UpdateAuthorCommand, Author>().ReverseMap();
+        CreateMap<DeleteAuthorCommand, Author>().ReverseMap();
+        CreateMap<Author, GetByIdAuthorResponse>().ReverseMap();
 
-        CreateMap<UpdateAuthorCommand, Author>();
-        CreateMap<Author, UpdatedAuthorResponse>();
+        CreateMap<Author, GetListAuthorListItemDto>().ReverseMap();
+        CreateMap<IPaginate<Author>, GetListResponse<GetListAuthorListItemDto>>().ReverseMap();
 
-        CreateMap<DeleteAuthorCommand, Author>();
-        CreateMap<Author, DeletedAuthorResponse>();
+        CreateMap<Author, GetDynamicAuthorItemDto>().ReverseMap();
+        CreateMap<IPaginate<Author>, GetListResponse<GetDynamicAuthorItemDto>>().ReverseMap();
 
-        CreateMap<Author, GetByIdAuthorResponse>();
+        CreateMap<Author, GetByUserNameResponse>().ReverseMap();
 
-        CreateMap<Author, GetListAuthorListItemDto>();
-        CreateMap<IPaginate<Author>, GetListResponse<GetListAuthorListItemDto>>();
-
-        CreateMap<Author, GetDynamicAuthorItemDto>();
-        CreateMap<IPaginate<Author>, GetListResponse<GetDynamicAuthorItemDto>>();
-
-        CreateMap<Author, GetByUserNameResponse>();
+        CreateMap<Author, GetListAuthorInEntryListItemDto>().ReverseMap();
     }
 }

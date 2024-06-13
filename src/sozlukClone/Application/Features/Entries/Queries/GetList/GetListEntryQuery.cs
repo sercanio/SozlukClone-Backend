@@ -1,12 +1,11 @@
-using Application.Features.Entries.Constants;
 using Application.Services.Repositories;
 using AutoMapper;
 using Domain.Entities;
+using MediatR;
 using NArchitecture.Core.Application.Pipelines.Authorization;
 using NArchitecture.Core.Application.Requests;
 using NArchitecture.Core.Application.Responses;
 using NArchitecture.Core.Persistence.Paging;
-using MediatR;
 using static Application.Features.Entries.Constants.EntriesOperationClaims;
 
 namespace Application.Features.Entries.Queries.GetList;
@@ -32,7 +31,7 @@ public class GetListEntryQuery : IRequest<GetListResponse<GetListEntryListItemDt
         {
             IPaginate<Entry> entries = await _entryRepository.GetListAsync(
                 index: request.PageRequest.PageIndex,
-                size: request.PageRequest.PageSize, 
+                size: request.PageRequest.PageSize,
                 cancellationToken: cancellationToken
             );
 

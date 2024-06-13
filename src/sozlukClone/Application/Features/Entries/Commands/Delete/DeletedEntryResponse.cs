@@ -4,5 +4,5 @@ namespace Application.Features.Entries.Commands.Delete;
 
 public class DeletedEntryResponse : IResponse
 {
-    public uint Id { get; set; }
+    public int Id { get; set; }
 }

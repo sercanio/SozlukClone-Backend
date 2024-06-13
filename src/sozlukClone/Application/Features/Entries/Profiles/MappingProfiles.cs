@@ -4,8 +4,8 @@ using Application.Features.Entries.Commands.Update;
 using Application.Features.Entries.Queries.GetById;
 using Application.Features.Entries.Queries.GetList;
 using AutoMapper;
-using NArchitecture.Core.Application.Responses;
 using Domain.Entities;
+using NArchitecture.Core.Application.Responses;
 using NArchitecture.Core.Persistence.Paging;
 
 namespace Application.Features.Entries.Profiles;
@@ -14,18 +14,14 @@ public class MappingProfiles : Profile
 {
     public MappingProfiles()
     {
-        CreateMap<CreateEntryCommand, Entry>();
-        CreateMap<Entry, CreatedEntryResponse>();
+        CreateMap<CreateEntryCommand, Entry>().ReverseMap();
+        CreateMap<UpdateEntryCommand, Entry>().ReverseMap();
+        CreateMap<DeleteEntryCommand, Entry>().ReverseMap();
+        CreateMap<GetByIdEntryResponse, Entry>().ReverseMap();
+        CreateMap<GetListEntryInTitleListItemDTO, Entry>().ForMember(opt => opt.Author, opt => opt.MapFrom(a => a.Author)).ReverseMap();
 
-        CreateMap<UpdateEntryCommand, Entry>();
-        CreateMap<Entry, UpdatedEntryResponse>();
+        CreateMap<GetListEntryListItemDto, Entry>().ForMember(opt => opt.Author, opt => opt.MapFrom(a => a.Author)).ReverseMap();
 
-        CreateMap<DeleteEntryCommand, Entry>();
-        CreateMap<Entry, DeletedEntryResponse>();
-
-        CreateMap<Entry, GetByIdEntryResponse>();
-
-        CreateMap<Entry, GetListEntryListItemDto>();
-        CreateMap<IPaginate<Entry>, GetListResponse<GetListEntryListItemDto>>();
+        CreateMap<IPaginate<Entry>, GetListResponse<GetListEntryListItemDto>>().ReverseMap();
     }
 }

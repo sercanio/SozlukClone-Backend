@@ -27,5 +27,6 @@ public class MappingProfiles : Profile
 
         CreateMap<GlobalSetting, GetListGlobalSettingListItemDto>();
         CreateMap<IPaginate<GlobalSetting>, GetListResponse<GetListGlobalSettingListItemDto>>();
+
     }
 }

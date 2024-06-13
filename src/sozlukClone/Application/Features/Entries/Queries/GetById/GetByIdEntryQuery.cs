@@ -1,17 +1,16 @@
-using Application.Features.Entries.Constants;
 using Application.Features.Entries.Rules;
 using Application.Services.Repositories;
 using AutoMapper;
 using Domain.Entities;
-using NArchitecture.Core.Application.Pipelines.Authorization;
 using MediatR;
+using NArchitecture.Core.Application.Pipelines.Authorization;
 using static Application.Features.Entries.Constants.EntriesOperationClaims;
 
 namespace Application.Features.Entries.Queries.GetById;
 
 public class GetByIdEntryQuery : IRequest<GetByIdEntryResponse>, ISecuredRequest
 {
-    public uint Id { get; set; }
+    public int Id { get; set; }
 
     public string[] Roles => [Admin, Read];
 

@@ -281,6 +281,120 @@ public class OperationClaimConfiguration : IEntityTypeConfiguration<OperationCla
         );
         #endregion
         
+        
+        #region Entries CRUD
+        featureOperationClaims.AddRange(
+            [
+                new() { Id = ++lastId, Name = EntriesOperationClaims.Admin },
+                new() { Id = ++lastId, Name = EntriesOperationClaims.Read },
+                new() { Id = ++lastId, Name = EntriesOperationClaims.Write },
+                new() { Id = ++lastId, Name = EntriesOperationClaims.Create },
+                new() { Id = ++lastId, Name = EntriesOperationClaims.Update },
+                new() { Id = ++lastId, Name = EntriesOperationClaims.Delete },
+            ]
+        );
+        #endregion
+        
+        
+        #region Entries CRUD
+        featureOperationClaims.AddRange(
+            [
+                new() { Id = ++lastId, Name = EntriesOperationClaims.Admin },
+                new() { Id = ++lastId, Name = EntriesOperationClaims.Read },
+                new() { Id = ++lastId, Name = EntriesOperationClaims.Write },
+                new() { Id = ++lastId, Name = EntriesOperationClaims.Create },
+                new() { Id = ++lastId, Name = EntriesOperationClaims.Update },
+                new() { Id = ++lastId, Name = EntriesOperationClaims.Delete },
+            ]
+        );
+        #endregion
+        
+        
+        #region Entries CRUD
+        featureOperationClaims.AddRange(
+            [
+                new() { Id = ++lastId, Name = EntriesOperationClaims.Admin },
+                new() { Id = ++lastId, Name = EntriesOperationClaims.Read },
+                new() { Id = ++lastId, Name = EntriesOperationClaims.Write },
+                new() { Id = ++lastId, Name = EntriesOperationClaims.Create },
+                new() { Id = ++lastId, Name = EntriesOperationClaims.Update },
+                new() { Id = ++lastId, Name = EntriesOperationClaims.Delete },
+            ]
+        );
+        #endregion
+        
+        
+        #region Entries CRUD
+        featureOperationClaims.AddRange(
+            [
+                new() { Id = ++lastId, Name = EntriesOperationClaims.Admin },
+                new() { Id = ++lastId, Name = EntriesOperationClaims.Read },
+                new() { Id = ++lastId, Name = EntriesOperationClaims.Write },
+                new() { Id = ++lastId, Name = EntriesOperationClaims.Create },
+                new() { Id = ++lastId, Name = EntriesOperationClaims.Update },
+                new() { Id = ++lastId, Name = EntriesOperationClaims.Delete },
+            ]
+        );
+        #endregion
+        
+        
+        #region Titles CRUD
+        featureOperationClaims.AddRange(
+            [
+                new() { Id = ++lastId, Name = TitlesOperationClaims.Admin },
+                new() { Id = ++lastId, Name = TitlesOperationClaims.Read },
+                new() { Id = ++lastId, Name = TitlesOperationClaims.Write },
+                new() { Id = ++lastId, Name = TitlesOperationClaims.Create },
+                new() { Id = ++lastId, Name = TitlesOperationClaims.Update },
+                new() { Id = ++lastId, Name = TitlesOperationClaims.Delete },
+            ]
+        );
+        #endregion
+        
+        
+        #region Entries CRUD
+        featureOperationClaims.AddRange(
+            [
+                new() { Id = ++lastId, Name = EntriesOperationClaims.Admin },
+                new() { Id = ++lastId, Name = EntriesOperationClaims.Read },
+                new() { Id = ++lastId, Name = EntriesOperationClaims.Write },
+                new() { Id = ++lastId, Name = EntriesOperationClaims.Create },
+                new() { Id = ++lastId, Name = EntriesOperationClaims.Update },
+                new() { Id = ++lastId, Name = EntriesOperationClaims.Delete },
+            ]
+        );
+        #endregion
+        
+        
+        #region Titles CRUD
+        featureOperationClaims.AddRange(
+            [
+                new() { Id = ++lastId, Name = TitlesOperationClaims.Admin },
+                new() { Id = ++lastId, Name = TitlesOperationClaims.Read },
+                new() { Id = ++lastId, Name = TitlesOperationClaims.Write },
+                new() { Id = ++lastId, Name = TitlesOperationClaims.Create },
+                new() { Id = ++lastId, Name = TitlesOperationClaims.Update },
+                new() { Id = ++lastId, Name = TitlesOperationClaims.Delete },
+            ]
+        );
+        #endregion
+        
+        
+        #region Entries CRUD
+        featureOperationClaims.AddRange(
+            [
+                new() { Id = ++lastId, Name = EntriesOperationClaims.Admin },
+                new() { Id = ++lastId, Name = EntriesOperationClaims.Read },
+                new() { Id = ++lastId, Name = EntriesOperationClaims.Write },
+                new() { Id = ++lastId, Name = EntriesOperationClaims.Create },
+                new() { Id = ++lastId, Name = EntriesOperationClaims.Update },
+                new() { Id = ++lastId, Name = EntriesOperationClaims.Delete },
+            ]
+        );
+        #endregion
+        
+        
+        featureOperationClaims.Add(new() { Id = ++lastId, Name = TitlesOperationClaims.GetBySlug });
         return featureOperationClaims;
     }
 #pragma warning restore S1854 // Unused assignments should be removed

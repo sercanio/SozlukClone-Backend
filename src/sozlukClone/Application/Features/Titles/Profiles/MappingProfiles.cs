@@ -2,6 +2,7 @@ using Application.Features.Titles.Commands.Create;
 using Application.Features.Titles.Commands.Delete;
 using Application.Features.Titles.Commands.Update;
 using Application.Features.Titles.Queries.GetById;
+using Application.Features.Titles.Queries.GetBySlug;
 using Application.Features.Titles.Queries.GetDynamic;
 using Application.Features.Titles.Queries.GetList;
 using AutoMapper;
@@ -9,27 +10,30 @@ using Domain.Entities;
 using NArchitecture.Core.Application.Responses;
 using NArchitecture.Core.Persistence.Paging;
 
-namespace Application.Features.Titles.Profiles;
-
-public class MappingProfiles : Profile
+namespace Application.Features.Titles.Profiles
 {
-    public MappingProfiles()
+    public class MappingProfiles : Profile
     {
-        CreateMap<CreateTitleCommand, Title>();
-        CreateMap<Title, CreatedTitleResponse>();
+        public MappingProfiles()
+        {
+            CreateMap<CreateTitleCommand, Title>().ReverseMap();
 
-        CreateMap<UpdateTitleCommand, Title>();
-        CreateMap<Title, UpdatedTitleResponse>();
+            CreateMap<UpdateTitleCommand, Title>().ReverseMap();
 
-        CreateMap<DeleteTitleCommand, Title>();
-        CreateMap<Title, DeletedTitleResponse>();
+            CreateMap<DeleteTitleCommand, Title>().ReverseMap();
 
-        CreateMap<Title, GetByIdTitleResponse>();
+            CreateMap<GetByIdTitleQuery, Title>().ReverseMap();
 
-        CreateMap<Title, GetListTitleListItemDto>();
-        CreateMap<IPaginate<Title>, GetListResponse<GetListTitleListItemDto>>();
+            CreateMap<GetTitleBySlugResponse, Title>().ReverseMap();
 
-        CreateMap<Title, GetDynamicTitleItemDto>();
-        CreateMap<IPaginate<Title>, GetListResponse<GetDynamicTitleItemDto>>();
+            CreateMap<GetByIdTitleResponse, Title>().ReverseMap();
+
+            CreateMap<Title, GetListTitleListItemDto>().ReverseMap();
+            CreateMap<IPaginate<Title>, GetListResponse<GetListTitleListItemDto>>().ReverseMap();
+
+
+            CreateMap<Title, GetDynamicTitleItemDto>().ReverseMap();
+            CreateMap<IPaginate<Title>, GetListResponse<GetListTitleListItemDto>>().ReverseMap();
+        }
     }
 }

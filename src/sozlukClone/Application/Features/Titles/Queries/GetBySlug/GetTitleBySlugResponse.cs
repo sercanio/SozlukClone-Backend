@@ -1,9 +1,9 @@
 using Application.Features.Entries.Queries.GetList;
 using NArchitecture.Core.Application.Responses;
 
-namespace Application.Features.Titles.Queries.GetById;
+namespace Application.Features.Titles.Queries.GetBySlug;
 
-public class GetByIdTitleResponse : IResponse
+public class GetTitleBySlugResponse : IResponse
 {
     public uint Id { get; set; }
     public string Name { get; set; }
@@ -11,5 +11,6 @@ public class GetByIdTitleResponse : IResponse
     public bool IsLocked { get; set; }
     public string Slug { get; set; }
 
-    public List<GetListEntryListItemDto> Entries { get; set; }
+    public ICollection<GetListEntryInTitleListItemDTO> Entries { get; set; }
+    //public GetListAuthorListItemDto Author { get; set; }
 }

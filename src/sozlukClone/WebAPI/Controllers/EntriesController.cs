@@ -3,9 +3,9 @@ using Application.Features.Entries.Commands.Delete;
 using Application.Features.Entries.Commands.Update;
 using Application.Features.Entries.Queries.GetById;
 using Application.Features.Entries.Queries.GetList;
+using Microsoft.AspNetCore.Mvc;
 using NArchitecture.Core.Application.Requests;
 using NArchitecture.Core.Application.Responses;
-using Microsoft.AspNetCore.Mvc;
 
 namespace WebAPI.Controllers;
 
@@ -30,7 +30,7 @@ public class EntriesController : BaseController
     }
 
     [HttpDelete("{id}")]
-    public async Task<ActionResult<DeletedEntryResponse>> Delete([FromRoute] uint id)
+    public async Task<ActionResult<DeletedEntryResponse>> Delete([FromRoute] int id)
     {
         DeleteEntryCommand command = new() { Id = id };
 
@@ -40,7 +40,7 @@ public class EntriesController : BaseController
     }
 
     [HttpGet("{id}")]
-    public async Task<ActionResult<GetByIdEntryResponse>> GetById([FromRoute] uint id)
+    public async Task<ActionResult<GetByIdEntryResponse>> GetById([FromRoute] int id)
     {
         GetByIdEntryQuery query = new() { Id = id };
 

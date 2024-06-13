@@ -2,6 +2,7 @@ using Application.Features.Titles.Commands.Create;
 using Application.Features.Titles.Commands.Delete;
 using Application.Features.Titles.Commands.Update;
 using Application.Features.Titles.Queries.GetById;
+using Application.Features.Titles.Queries.GetBySlug;
 using Application.Features.Titles.Queries.GetDynamic;
 using Application.Features.Titles.Queries.GetList;
 using Microsoft.AspNetCore.Mvc;
@@ -32,7 +33,7 @@ public class TitlesController : BaseController
     }
 
     [HttpDelete("{id}")]
-    public async Task<ActionResult<DeletedTitleResponse>> Delete([FromRoute] uint id)
+    public async Task<ActionResult<DeletedTitleResponse>> Delete([FromRoute] int id)
     {
         DeleteTitleCommand command = new() { Id = id };
 
@@ -42,7 +43,7 @@ public class TitlesController : BaseController
     }
 
     [HttpGet("{id}")]
-    public async Task<ActionResult<GetByIdTitleResponse>> GetById([FromRoute] uint id)
+    public async Task<ActionResult<GetByIdTitleResponse>> GetById([FromRoute] int id)
     {
         GetByIdTitleQuery query = new() { Id = id };
 
@@ -68,6 +69,13 @@ public class TitlesController : BaseController
 
         GetListResponse<GetDynamicTitleItemDto> response = await Mediator.Send(query);
 
+        return Ok(response);
+    }
+
+    [HttpGet("GetBySlug")]
+    public async Task<ActionResult<GetTitleBySlugResponse>> GetBySlug([FromQuery] GetBySlugQuery getBySlugQuery)
+    {
+        GetTitleBySlugResponse response = await Mediator.Send(getBySlugQuery);
         return Ok(response);
     }
 }

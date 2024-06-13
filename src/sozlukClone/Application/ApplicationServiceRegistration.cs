@@ -87,6 +87,14 @@ public static class ApplicationServiceRegistration
         services.AddScoped<IAuthorGroupUserOperationClaimService, AuthorGroupUserOperationClaimManager>();
         services.AddScoped<IUserOperationClaimService, UserUserOperationClaimManager>();
         services.AddScoped<IGlobalSettingService, GlobalSettingManager>();
+        services.AddScoped<IEntryService, EntryManager>();
+        services.AddScoped<IEntryService, EntryManager>();
+        services.AddScoped<IEntryService, EntryManager>();
+        services.AddScoped<IEntryService, EntryManager>();
+        services.AddScoped<ITitleService, TitleManager>();
+        services.AddScoped<IEntryService, EntryManager>();
+        services.AddScoped<ITitleService, TitleManager>();
+        services.AddScoped<IEntryService, EntryManager>();
         return services;
     }
 

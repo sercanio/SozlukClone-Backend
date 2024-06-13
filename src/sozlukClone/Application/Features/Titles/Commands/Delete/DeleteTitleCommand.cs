@@ -1,20 +1,19 @@
 using Application.Features.Titles.Constants;
-using Application.Features.Titles.Constants;
 using Application.Features.Titles.Rules;
 using Application.Services.Repositories;
 using AutoMapper;
 using Domain.Entities;
+using MediatR;
 using NArchitecture.Core.Application.Pipelines.Authorization;
 using NArchitecture.Core.Application.Pipelines.Logging;
 using NArchitecture.Core.Application.Pipelines.Transaction;
-using MediatR;
 using static Application.Features.Titles.Constants.TitlesOperationClaims;
 
 namespace Application.Features.Titles.Commands.Delete;
 
 public class DeleteTitleCommand : IRequest<DeletedTitleResponse>, ISecuredRequest, ILoggableRequest, ITransactionalRequest
 {
-    public uint Id { get; set; }
+    public int Id { get; set; }
 
     public string[] Roles => [Admin, Write, TitlesOperationClaims.Delete];
 

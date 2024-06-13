@@ -1,4 +1,5 @@
 ﻿using System.Globalization;
+using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
 
@@ -16,7 +17,10 @@ namespace Application.Utils
 
             slug = slug.Trim('-');
 
-            return slug;
+            string uniqueIdentifier = GenerateUniqueIdentifier();
+            string uniqueSlug = $"{slug}--{uniqueIdentifier}";
+
+            return uniqueSlug;
         }
 
         private static string RemoveDiacritics(string text)
@@ -37,6 +41,18 @@ namespace Application.Utils
             }
 
             return stringBuilder.ToString().Normalize(NormalizationForm.FormC);
+        }
+
+
+        private static string GenerateUniqueIdentifier()
+        {
+            using (var rng = RandomNumberGenerator.Create())
+            {
+                var randomNumber = new byte[4];
+                rng.GetBytes(randomNumber);
+                int result = BitConverter.ToInt32(randomNumber, 0) & 0x7FFFFFFF; // Ensure it's non-negative
+                return (result % 9999999 + 1).ToString(); // Range from 1 to 9999999
+            }
         }
     }
 }
