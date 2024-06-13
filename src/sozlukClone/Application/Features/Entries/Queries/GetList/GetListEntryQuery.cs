@@ -2,6 +2,7 @@ using Application.Services.Repositories;
 using AutoMapper;
 using Domain.Entities;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 using NArchitecture.Core.Application.Pipelines.Authorization;
 using NArchitecture.Core.Application.Requests;
 using NArchitecture.Core.Application.Responses;
@@ -30,6 +31,7 @@ public class GetListEntryQuery : IRequest<GetListResponse<GetListEntryListItemDt
         public async Task<GetListResponse<GetListEntryListItemDto>> Handle(GetListEntryQuery request, CancellationToken cancellationToken)
         {
             IPaginate<Entry> entries = await _entryRepository.GetListAsync(
+                include: e => e.Include(e => e.Author),
                 index: request.PageRequest.PageIndex,
                 size: request.PageRequest.PageSize,
                 cancellationToken: cancellationToken

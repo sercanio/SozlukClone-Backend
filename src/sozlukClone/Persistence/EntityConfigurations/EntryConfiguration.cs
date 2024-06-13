@@ -1,4 +1,4 @@
-using Domain.Entities;
+﻿using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -17,6 +17,10 @@ public class EntryConfiguration : IEntityTypeConfiguration<Entry>
         builder.Property(e => e.CreatedDate).HasColumnName("CreatedDate").IsRequired();
         builder.Property(e => e.UpdatedDate).HasColumnName("UpdatedDate");
         builder.Property(e => e.DeletedDate).HasColumnName("DeletedDate");
+
+        builder.HasData(
+            new Entry { Id = 1, Content = "ASP.Net ve Nextjs ile geliştirilmiş bir sözlük klonudur.", AuthorId = 1, TitleId = 1, CreatedDate = DateTime.UtcNow }
+            );
 
         builder.HasQueryFilter(e => !e.DeletedDate.HasValue);
     }

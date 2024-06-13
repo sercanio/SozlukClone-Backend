@@ -20,6 +20,15 @@ public class AuthorGroupUserOperationClaimConfiguration : IEntityTypeConfigurati
         builder.HasOne(aguoc => aguoc.AuthorGroup);
         builder.HasOne(aguoc => aguoc.OperationClaim);
 
+        builder.HasData(
+            new AuthorGroupUserOperationClaim
+            {
+                Id = Guid.NewGuid(),
+                OperationClaimId = 1,
+                AuthorGroupId = 1,
+                CreatedDate = DateTime.UtcNow
+            }
+        );
 
         builder.HasQueryFilter(aguoc => !aguoc.DeletedDate.HasValue);
     }

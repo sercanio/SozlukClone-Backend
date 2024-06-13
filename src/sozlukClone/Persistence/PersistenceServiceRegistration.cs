@@ -35,14 +35,6 @@ public static class PersistenceServiceRegistration
         services.AddScoped<IAuthorSettingRepository, AuthorSettingRepository>();
         services.AddScoped<IAuthorGroupUserOperationClaimRepository, AuthorGroupUserOperationClaimRepository>();
         services.AddScoped<IGlobalSettingRepository, GlobalSettingRepository>();
-        services.AddScoped<IEntryRepository, EntryRepository>();
-        services.AddScoped<IEntryRepository, EntryRepository>();
-        services.AddScoped<IEntryRepository, EntryRepository>();
-        services.AddScoped<IEntryRepository, EntryRepository>();
-        services.AddScoped<ITitleRepository, TitleRepository>();
-        services.AddScoped<IEntryRepository, EntryRepository>();
-        services.AddScoped<ITitleRepository, TitleRepository>();
-        services.AddScoped<IEntryRepository, EntryRepository>();
         return services;
     }
 }

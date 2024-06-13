@@ -14,17 +14,24 @@ public class MappingProfiles : Profile
 {
     public MappingProfiles()
     {
-        CreateMap<CreateEntryCommand, Entry>().ReverseMap();
-        CreateMap<UpdateEntryCommand, Entry>().ReverseMap();
-        CreateMap<UpdatedEntryResponse, Entry>().ReverseMap();
-        CreateMap<DeleteEntryCommand, Entry>().ReverseMap();
-        CreateMap<GetByIdEntryResponse, Entry>().ReverseMap();
-        CreateMap<CreatedEntryResponse, Entry>().ReverseMap();
 
-        CreateMap<GetListEntryInTitleListItemDTO, Entry>().ForMember(opt => opt.Author, opt => opt.MapFrom(a => a.Author)).ReverseMap();
+        CreateMap<CreateEntryCommand, Entry>();
+        CreateMap<Entry, CreatedEntryResponse>();
 
-        CreateMap<GetListEntryListItemDto, Entry>().ForMember(opt => opt.Author, opt => opt.MapFrom(a => a.Author)).ReverseMap();
+        CreateMap<UpdateEntryCommand, Entry>();
+        CreateMap<Entry, UpdatedEntryResponse>();
 
-        CreateMap<IPaginate<Entry>, GetListResponse<GetListEntryListItemDto>>().ReverseMap();
+        CreateMap<DeleteEntryCommand, Entry>();
+        CreateMap<Entry, DeletedEntryResponse>();
+
+        CreateMap<Entry, GetByIdEntryResponse>();
+        CreateMap<GetByIdEntryResponse, Entry>();
+
+        CreateMap<Entry, GetListEntryListItemDto>();
+        CreateMap<IPaginate<Entry>, GetListResponse<GetListEntryListItemDto>>();
+
+        CreateMap<Entry, GetListEntryInTitleListItemDTO>();
+        CreateMap<GetListEntryInTitleListItemDTO, Entry>();
+
     }
 }

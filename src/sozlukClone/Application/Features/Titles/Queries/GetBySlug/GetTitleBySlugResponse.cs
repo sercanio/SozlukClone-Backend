@@ -1,3 +1,4 @@
+using Application.Features.Authors.Queries.GetList;
 using Application.Features.Entries.Queries.GetList;
 using NArchitecture.Core.Application.Responses;
 
@@ -12,5 +13,5 @@ public class GetTitleBySlugResponse : IResponse
     public string Slug { get; set; }
 
     public ICollection<GetListEntryInTitleListItemDTO> Entries { get; set; }
-    //public GetListAuthorListItemDto Author { get; set; }
+    public GetListAuthorInEntryListItemDto Author { get; set; }
 }

@@ -19,6 +19,10 @@ public class TitleConfiguration : IEntityTypeConfiguration<Title>
         builder.Property(t => t.UpdatedDate).HasColumnName("UpdatedDate");
         builder.Property(t => t.DeletedDate).HasColumnName("DeletedDate");
 
+        builder.HasData(
+            new Title { Id = 1, Name = "SozlukClone", AuthorId = 1, isLocked = false, slug = "sozlukclone-1", CreatedDate = DateTime.UtcNow }
+            );
+
         builder.HasQueryFilter(t => !t.DeletedDate.HasValue);
     }
 }

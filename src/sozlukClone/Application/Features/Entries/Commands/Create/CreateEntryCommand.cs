@@ -1,6 +1,8 @@
+using Application.Features.Authors.Rules;
 using Application.Features.Entries.Constants;
 using Application.Features.Entries.Rules;
 using Application.Features.Titles.Rules;
+using Application.Services.Authors;
 using Application.Services.Repositories;
 using Application.Services.Titles;
 using AutoMapper;
@@ -25,26 +27,27 @@ public class CreateEntryCommand : IRequest<CreatedEntryResponse>, ISecuredReques
         private readonly IMapper _mapper;
         private readonly IEntryRepository _entryRepository;
         private readonly ITitleService _titleService;
+        private readonly IAuthorService _authorService;
         private readonly EntryBusinessRules _entryBusinessRules;
         private readonly TitleBusinessRules _titleBusinessRules;
+        private readonly AuthorBusinessRules _authorBusinessRules;
 
         public CreateEntryCommandHandler(IMapper mapper, IEntryRepository entryRepository,
-                                         EntryBusinessRules entryBusinessRules, ITitleService titleService, TitleBusinessRules titleBusinessRules)
+                                         EntryBusinessRules entryBusinessRules, ITitleService titleService, TitleBusinessRules titleBusinessRules, AuthorBusinessRules authorBusinessRules, IAuthorService authorService)
         {
             _mapper = mapper;
             _entryRepository = entryRepository;
             _entryBusinessRules = entryBusinessRules;
             _titleService = titleService;
             _titleBusinessRules = titleBusinessRules;
+            _authorBusinessRules = authorBusinessRules;
+            _authorService = authorService;
         }
 
         public async Task<CreatedEntryResponse> Handle(CreateEntryCommand request, CancellationToken cancellationToken)
         {
             Entry entry = _mapper.Map<Entry>(request);
             await _entryBusinessRules.EntryContentCannotBeEmpty(entry);
-
-            Title? title = await _titleService.GetAsync(predicate: t => t.Id == request.TitleId);
-            await _titleBusinessRules.TitleIdShouldExistWhenSelected(title.Id, cancellationToken);
 
             await _entryRepository.AddAsync(entry);
 

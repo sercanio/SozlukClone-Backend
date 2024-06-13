@@ -34,5 +34,15 @@ public class AuthorConfiguration : IEntityTypeConfiguration<Author>
                .OnDelete(DeleteBehavior.Restrict);
 
         builder.HasQueryFilter(a => !a.DeletedDate.HasValue);
+
+        builder.HasData(new Author
+        {
+            Id = 1,
+            UserId = UserConfiguration.AdminId,
+            UserName = "sozluk",
+            AuthorGroupId = 1,
+            ActiveBadgeId = 1,
+            CreatedDate = DateTime.UtcNow,
+        });
     }
 }

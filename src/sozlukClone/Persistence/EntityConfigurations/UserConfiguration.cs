@@ -32,7 +32,7 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
         builder.HasBaseType((string)null!);
     }
 
-    public static Guid AdminId { get; } = Guid.NewGuid();
+    public static Guid AdminId { get; } = Guid.Parse("029bf0d3942944d79c3051655e583ab6");
     private IEnumerable<User> _seeds
     {
         get
