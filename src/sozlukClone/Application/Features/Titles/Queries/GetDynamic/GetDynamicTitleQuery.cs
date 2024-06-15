@@ -24,7 +24,11 @@ public class GetDynamicTitleQuery : IRequest<GetListResponse<GetDynamicTitleItem
 
         public async Task<GetListResponse<GetDynamicTitleItemDto>> Handle(GetDynamicTitleQuery request, CancellationToken cancellationToken)
         {
-            var titles = await _titleRepository.GetListByDynamicAsync(request.DynamicQuery, index: request.PageRequest.PageIndex, size: request.PageRequest.PageSize);
+            var titles = await _titleRepository.GetListByDynamicAsync(request.DynamicQuery,
+                predicate: t => t.Entries.Count > 0,
+                index: request.PageRequest.PageIndex,
+                size: request.PageRequest.PageSize
+                );
 
             var response = _mapper.Map<GetListResponse<GetDynamicTitleItemDto>>(titles);
 
