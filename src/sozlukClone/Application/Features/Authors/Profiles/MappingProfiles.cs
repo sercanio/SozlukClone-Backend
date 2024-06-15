@@ -31,8 +31,6 @@ public class MappingProfiles : Profile
         CreateMap<Author, GetListAuthorListItemDto>();
         CreateMap<IPaginate<Author>, GetListResponse<GetListAuthorListItemDto>>();
 
-
-
         CreateMap<Author, GetDynamicAuthorItemDto>();
         CreateMap<IPaginate<Author>, GetListResponse<GetDynamicAuthorItemDto>>();
 

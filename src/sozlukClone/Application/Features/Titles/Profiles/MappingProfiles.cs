@@ -39,8 +39,8 @@ namespace Application.Features.Titles.Profiles
                     .ForMember(dest => dest.Entries, opt => opt.MapFrom(src => src.Entries))
                     .ForMember(dest => dest.Author, opt => opt.MapFrom(src => src.Author));
 
-                CreateMap<Title, GetDynamicTitleItemDto>().ReverseMap();
-                CreateMap<IPaginate<Title>, GetListResponse<GetListTitleListItemDto>>();
+                CreateMap<Title, GetDynamicTitleItemDto>();
+                CreateMap<IPaginate<Title>, GetListResponse<GetDynamicTitleItemDto>>();
 
                 CreateMap<Author, GetListAuthorInEntryListItemDto>()
                     .ForMember(dest => dest.AuthorGroup, opt => opt.MapFrom(src => src.AuthorGroup));
