@@ -31,6 +31,7 @@ public class GetListTitleQuery : IRequest<GetListResponse<GetListTitleListItemDt
                 predicate: t => t.Entries.Count > 0,
                 index: request.PageRequest.PageIndex,
                 size: request.PageRequest.PageSize,
+                orderBy: q => q.OrderByDescending(t => t.Entries.Max(e => e.CreatedDate)),
                 cancellationToken: cancellationToken
             );
 
