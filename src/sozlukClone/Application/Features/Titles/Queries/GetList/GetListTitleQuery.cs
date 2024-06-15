@@ -2,6 +2,7 @@ using Application.Services.Repositories;
 using AutoMapper;
 using Domain.Entities;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 using NArchitecture.Core.Application.Requests;
 using NArchitecture.Core.Application.Responses;
 using NArchitecture.Core.Persistence.Paging;
@@ -26,12 +27,27 @@ public class GetListTitleQuery : IRequest<GetListResponse<GetListTitleListItemDt
         public async Task<GetListResponse<GetListTitleListItemDto>> Handle(GetListTitleQuery request, CancellationToken cancellationToken)
         {
             IPaginate<Title> titles = await _titleRepository.GetListAsync(
+                include: t => t.Include(e => e.Entries),
+                predicate: t => t.Entries.Count > 0,
                 index: request.PageRequest.PageIndex,
                 size: request.PageRequest.PageSize,
                 cancellationToken: cancellationToken
             );
 
-            GetListResponse<GetListTitleListItemDto> response = _mapper.Map<GetListResponse<GetListTitleListItemDto>>(titles);
+            GetListResponse<GetListTitleListItemDto> titlesToMap = _mapper.Map<GetListResponse<GetListTitleListItemDto>>(titles);
+
+            foreach (var item in titlesToMap.Items)
+            {
+                item.EntryCount = item.Entries.Count;
+            }
+
+            foreach (var item in titlesToMap.Items)
+            {
+                item.Entries = null;
+            }
+
+            GetListResponse<GetListTitleListItemDto> response = _mapper.Map<GetListResponse<GetListTitleListItemDto>>(titlesToMap);
+
             return response;
         }
     }
