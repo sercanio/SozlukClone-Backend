@@ -4,8 +4,8 @@ using Application.Features.AuthorGroups.Commands.Update;
 using Application.Features.AuthorGroups.Queries.GetById;
 using Application.Features.AuthorGroups.Queries.GetList;
 using AutoMapper;
-using NArchitecture.Core.Application.Responses;
 using Domain.Entities;
+using NArchitecture.Core.Application.Responses;
 using NArchitecture.Core.Persistence.Paging;
 
 namespace Application.Features.AuthorGroups.Profiles;
@@ -27,5 +27,8 @@ public class MappingProfiles : Profile
 
         CreateMap<AuthorGroup, GetListAuthorGroupListItemDto>();
         CreateMap<IPaginate<AuthorGroup>, GetListResponse<GetListAuthorGroupListItemDto>>();
+
+        CreateMap<AuthorGroup, GetListAuthorGroupListItemInEntryDto>();
+        CreateMap<GetListAuthorGroupListItemInEntryDto, AuthorGroup>();
     }
 }

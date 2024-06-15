@@ -26,8 +26,14 @@ public class GetBySlugQuery : IRequest<GetTitleBySlugResponse>
 
         public async Task<GetTitleBySlugResponse> Handle(GetBySlugQuery request, CancellationToken cancellationToken)
         {
-            Title? title = await _titleRepository.GetAsync(predicate: t => t.slug == request.Slug,
-                include: t => t.Include(t => t.Entries).Include(t => t.Author),
+            Title? title = await _titleRepository.GetAsync(
+                predicate: t => t.slug == request.Slug,
+                include: t => t
+                    .Include(t => t.Entries)
+                        .ThenInclude(e => e.Author)
+                            .ThenInclude(a => a.AuthorGroup)
+                    .Include(t => t.Author)
+                        .ThenInclude(a => a.AuthorGroup),
                 cancellationToken: cancellationToken);
 
             await _titleBusinessRules.TitleShouldExistWhenSelected(title);
@@ -37,4 +43,5 @@ public class GetBySlugQuery : IRequest<GetTitleBySlugResponse>
             return response;
         }
     }
+
 }

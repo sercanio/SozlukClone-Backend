@@ -1,3 +1,4 @@
+using Application.Features.AuthorGroups.Queries.GetList;
 using NArchitecture.Core.Application.Dtos;
 
 namespace Application.Features.Authors.Queries.GetList;
@@ -9,4 +10,6 @@ public class GetListAuthorInEntryListItemDto : IDto
     public string UserName { get; set; }
     public string? ProfilePictureUrl { get; set; }
     public int AuthorGroupId { get; set; }
+
+    public GetListAuthorGroupListItemInEntryDto AuthorGroup { get; set; }
 }

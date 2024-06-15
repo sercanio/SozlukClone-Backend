@@ -17,8 +17,8 @@ public class EntriesController : BaseController
     public async Task<ActionResult<CreatedEntryResponse>> Add([FromBody] CreateEntryCommand command)
     {
         CreatedEntryResponse response = await Mediator.Send(command);
-
-        return CreatedAtAction(nameof(GetById), new { response.Id }, response);
+        return Ok(response);
+        //return CreatedAtAction(nameof(GetById), new { response.Id }, response);
     }
 
     [HttpPut]

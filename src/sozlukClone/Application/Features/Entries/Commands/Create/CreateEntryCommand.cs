@@ -49,9 +49,9 @@ public class CreateEntryCommand : IRequest<CreatedEntryResponse>, ISecuredReques
             Entry entry = _mapper.Map<Entry>(request);
             await _entryBusinessRules.EntryContentCannotBeEmpty(entry);
 
-            await _entryRepository.AddAsync(entry);
+            Entry entrySaved = await _entryRepository.AddAsync(entry);
 
-            CreatedEntryResponse response = _mapper.Map<CreatedEntryResponse>(entry);
+            CreatedEntryResponse response = _mapper.Map<CreatedEntryResponse>(entrySaved);
             return response;
         }
     }

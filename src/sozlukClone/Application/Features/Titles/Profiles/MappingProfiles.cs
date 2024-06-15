@@ -1,3 +1,4 @@
+using Application.Features.Authors.Queries.GetList;
 using Application.Features.Titles.Commands.Create;
 using Application.Features.Titles.Commands.Delete;
 using Application.Features.Titles.Commands.Update;
@@ -40,6 +41,9 @@ namespace Application.Features.Titles.Profiles
 
                 CreateMap<Title, GetDynamicTitleItemDto>().ReverseMap();
                 CreateMap<IPaginate<Title>, GetListResponse<GetListTitleListItemDto>>();
+
+                CreateMap<Author, GetListAuthorInEntryListItemDto>()
+                    .ForMember(dest => dest.AuthorGroup, opt => opt.MapFrom(src => src.AuthorGroup));
 
             }
         }
