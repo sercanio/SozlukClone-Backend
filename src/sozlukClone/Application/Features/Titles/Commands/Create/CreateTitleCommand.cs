@@ -61,7 +61,6 @@ public class CreateTitleCommand : IRequest<CreatedTitleResponse>, ISecuredReques
 
             if (author is not null)
             {
-                //var savedTitle = await _titleRepository.AddAsync(title);
                 var savedTitle = await _titleRepository.AddAsync(title, cancellationToken);
                 author.Titles.Add(savedTitle);
                 await _authorService.UpdateAsync(author);
