@@ -49,7 +49,7 @@ public class CreateEntryCommand : IRequest<CreatedEntryResponse>, ISecuredReques
             Entry entry = _mapper.Map<Entry>(request);
             await _entryBusinessRules.EntryContentCannotBeEmpty(entry);
 
-            entry.Content = entry.Content.ToLower().Trim();
+            //entry.Content = entry.Content.ToLower().Trim();
 
             Entry entrySaved = await _entryRepository.AddAsync(entry);
 

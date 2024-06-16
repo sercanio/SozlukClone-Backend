@@ -1,4 +1,5 @@
 using Application.Features.Entries.Queries.GetList;
+using Application.Features.Entries.Queries.GetListEntryForHomePage;
 using NArchitecture.Core.Application.Responses;
 
 namespace Application.Features.Titles.Queries.GetById;

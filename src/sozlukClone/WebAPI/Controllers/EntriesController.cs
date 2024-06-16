@@ -3,6 +3,7 @@ using Application.Features.Entries.Commands.Delete;
 using Application.Features.Entries.Commands.Update;
 using Application.Features.Entries.Queries.GetById;
 using Application.Features.Entries.Queries.GetList;
+using Application.Features.Entries.Queries.GetListEntryForHomePage;
 using Microsoft.AspNetCore.Mvc;
 using NArchitecture.Core.Application.Requests;
 using NArchitecture.Core.Application.Responses;
@@ -55,6 +56,16 @@ public class EntriesController : BaseController
         GetListEntryQuery query = new() { PageRequest = pageRequest };
 
         GetListResponse<GetListEntryListItemDto> response = await Mediator.Send(query);
+
+        return Ok(response);
+    }
+
+    [HttpGet("ForHomePage")]
+    public async Task<ActionResult<GetListEntryForHomePageQuery>> GetListForHomePage([FromQuery] PageRequest pageRequest)
+    {
+        GetListEntryForHomePageQuery query = new() { PageRequest = pageRequest };
+
+        GetListResponse<GetListEntryForHomePageDto> response = await Mediator.Send(query);
 
         return Ok(response);
     }

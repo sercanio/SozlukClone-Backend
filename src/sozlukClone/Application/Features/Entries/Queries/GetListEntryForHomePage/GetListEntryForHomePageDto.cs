@@ -2,9 +2,9 @@ using Application.Features.Authors.Queries.GetList;
 using Application.Features.Titles.Queries.GetList;
 using NArchitecture.Core.Application.Dtos;
 
-namespace Application.Features.Entries.Queries.GetList;
+namespace Application.Features.Entries.Queries.GetListEntryForHomePage;
 
-public class GetListEntryListItemDto : IDto
+public class GetListEntryForHomePageDto : IDto
 {
     public int Id { get; set; }
     public string Content { get; set; }
@@ -14,5 +14,5 @@ public class GetListEntryListItemDto : IDto
     public DateTime? UpdatedDate { get; set; }
 
     public GetListAuthorListItemDto Author { get; set; }
-    public GetListTitleListItemDto Title { get; set; }
+    public GetListTitleListItemInHomePageDto Title { get; set; }
 }

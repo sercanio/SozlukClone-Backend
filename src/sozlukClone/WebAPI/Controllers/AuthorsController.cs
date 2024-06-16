@@ -2,6 +2,7 @@ using Application.Features.Authors.Commands.Create;
 using Application.Features.Authors.Commands.Delete;
 using Application.Features.Authors.Commands.Update;
 using Application.Features.Authors.Queries.GetById;
+using Application.Features.Authors.Queries.GetByUserName;
 using Application.Features.Authors.Queries.GetDynamic;
 using Application.Features.Authors.Queries.GetList;
 using Application.Features.Titles.Queries.GetDynamic;
@@ -9,7 +10,6 @@ using Microsoft.AspNetCore.Mvc;
 using NArchitecture.Core.Application.Requests;
 using NArchitecture.Core.Application.Responses;
 using NArchitecture.Core.Persistence.Dynamic;
-using Application.Features.Authors.Queries.GetByUserName;
 
 namespace WebAPI.Controllers;
 
@@ -72,7 +72,7 @@ public class AuthorsController : BaseController
 
         return Ok(response);
     }
-    
+
     [HttpGet("GetByUserName")]
     public async Task<ActionResult<GetByUserNameResponse>> GetByUserName([FromQuery] GetByUserNameQuery getByUserNameQuery)
     {

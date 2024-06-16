@@ -12,4 +12,8 @@ public static class EntriesOperationClaims
     public const string Create = $"{_section}.Create";
     public const string Update = $"{_section}.Update";
     public const string Delete = $"{_section}.Delete";
+    
+    public const string GetListEntryHomePageQuery = $"{_section}.GetListEntryHomePageQuery";
+    
+    public const string GetListEntryForHomePage = $"{_section}.GetListEntryForHomePage";
 }

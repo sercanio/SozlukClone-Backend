@@ -3,19 +3,15 @@ using AutoMapper;
 using Domain.Entities;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-using NArchitecture.Core.Application.Pipelines.Authorization;
 using NArchitecture.Core.Application.Requests;
 using NArchitecture.Core.Application.Responses;
 using NArchitecture.Core.Persistence.Paging;
-using static Application.Features.Entries.Constants.EntriesOperationClaims;
 
 namespace Application.Features.Entries.Queries.GetList;
 
-public class GetListEntryQuery : IRequest<GetListResponse<GetListEntryListItemDto>>, ISecuredRequest
+public class GetListEntryQuery : IRequest<GetListResponse<GetListEntryListItemDto>>
 {
     public PageRequest PageRequest { get; set; }
-
-    public string[] Roles => [Admin, Read];
 
     public class GetListEntryQueryHandler : IRequestHandler<GetListEntryQuery, GetListResponse<GetListEntryListItemDto>>
     {
