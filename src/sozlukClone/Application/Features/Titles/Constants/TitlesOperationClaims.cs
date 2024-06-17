@@ -14,4 +14,6 @@ public static class TitlesOperationClaims
     public const string Delete = $"{_section}.Delete";
     
     public const string GetBySlug = $"{_section}.GetBySlug";
+    
+    public const string GetByTitleName = $"{_section}.GetByTitleName";
 }

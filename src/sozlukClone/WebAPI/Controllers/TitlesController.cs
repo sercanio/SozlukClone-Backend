@@ -3,6 +3,7 @@ using Application.Features.Titles.Commands.Delete;
 using Application.Features.Titles.Commands.Update;
 using Application.Features.Titles.Queries.GetById;
 using Application.Features.Titles.Queries.GetBySlug;
+using Application.Features.Titles.Queries.GetByTitleName;
 using Application.Features.Titles.Queries.GetDynamic;
 using Application.Features.Titles.Queries.GetList;
 using Microsoft.AspNetCore.Mvc;
@@ -76,6 +77,13 @@ public class TitlesController : BaseController
     public async Task<ActionResult<GetTitleBySlugResponse>> GetBySlug([FromQuery] GetBySlugQuery getBySlugQuery)
     {
         GetTitleBySlugResponse response = await Mediator.Send(getBySlugQuery);
+        return Ok(response);
+    }
+
+    [HttpGet("GetByTitleName")]
+    public async Task<ActionResult<GetTitleBySlugResponse>> GetByTitleName([FromQuery] GetByTitleNameQuery getByTitleNameQuery)
+    {
+        GetTitleBySlugResponse response = await Mediator.Send(getByTitleNameQuery);
         return Ok(response);
     }
 }
