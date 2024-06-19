@@ -1,3 +1,4 @@
+using Application.Features.Titles.Queries.GetById;
 using Application.Features.Titles.Rules;
 using Application.Services.Repositories;
 using AutoMapper;
@@ -10,6 +11,8 @@ namespace Application.Features.Titles.Queries.GetBySlug;
 public class GetBySlugQuery : IRequest<GetTitleBySlugResponse>
 {
     public string Slug { get; set; }
+    public int PageIndex { get; set; }
+    public int PageSize { get; set; }
 
     public class GetBySlugQueryHandler : IRequestHandler<GetBySlugQuery, GetTitleBySlugResponse>
     {
@@ -29,7 +32,7 @@ public class GetBySlugQuery : IRequest<GetTitleBySlugResponse>
             Title? title = await _titleRepository.GetAsync(
                 predicate: t => t.slug == request.Slug,
                 include: t => t
-                    .Include(t => t.Entries)
+                    .Include(t => t.Entries.OrderBy(e => e.CreatedDate).Skip(request.PageIndex * request.PageSize).Take(request.PageSize))
                         .ThenInclude(e => e.Author)
                             .ThenInclude(a => a.AuthorGroup)
                     .Include(t => t.Author)
@@ -40,8 +43,16 @@ public class GetBySlugQuery : IRequest<GetTitleBySlugResponse>
 
             GetTitleBySlugResponse response = _mapper.Map<GetTitleBySlugResponse>(title);
 
+            Title? titleToEntryCount = await _titleRepository.GetAsync(
+                predicate: t => t.Id == title!.Id,
+                include: t => t.Include(t => t.Entries),
+                cancellationToken: cancellationToken);
+
+            GetByIdTitleResponse titleToEntryCountResponse = _mapper.Map<GetByIdTitleResponse>(titleToEntryCount);
+
+            response.EntryCount = titleToEntryCountResponse.Entries.Count;
+
             return response;
         }
     }
-
 }

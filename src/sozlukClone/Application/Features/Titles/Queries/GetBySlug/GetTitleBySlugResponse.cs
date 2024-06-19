@@ -11,6 +11,7 @@ public class GetTitleBySlugResponse : IResponse
     public uint AuthorId { get; set; }
     public bool IsLocked { get; set; }
     public string Slug { get; set; }
+    public int EntryCount { get; set; }
 
     public ICollection<GetListEntryInTitleListItemDTO> Entries { get; set; }
     public GetListAuthorInEntryListItemDto Author { get; set; }

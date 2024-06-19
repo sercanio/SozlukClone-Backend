@@ -38,5 +38,9 @@ public class MappingProfiles : Profile
 
         CreateMap<Author, GetListAuthorInEntryListItemDto>();
         CreateMap<IPaginate<Author>, GetListResponse<GetListAuthorInEntryListItemDto>>();
+
+        CreateMap<Author, GetByIdAuthorForEntryResponse>();
+        CreateMap<GetByIdAuthorForEntryResponse, Author>();
+
     }
 }

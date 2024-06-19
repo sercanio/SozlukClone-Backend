@@ -1,5 +1,5 @@
+using Application.Features.Authors.Queries.GetById;
 using Application.Features.Entries.Queries.GetList;
-using Application.Features.Entries.Queries.GetListEntryForHomePage;
 using NArchitecture.Core.Application.Responses;
 
 namespace Application.Features.Titles.Queries.GetById;
@@ -13,4 +13,5 @@ public class GetByIdTitleResponse : IResponse
     public string Slug { get; set; }
 
     public List<GetListEntryListItemDto> Entries { get; set; }
+    public GetByIdAuthorResponse Author { get; set; }
 }

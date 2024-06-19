@@ -3,11 +3,12 @@ using Domain.Entities;
 using NArchitecture.Core.Persistence.Repositories;
 using Persistence.Contexts;
 
-namespace Persistence.Repositories;
-
-public class TitleRepository : EfRepositoryBase<Title, int, BaseDbContext>, ITitleRepository
+namespace Persistence.Repositories
 {
-    public TitleRepository(BaseDbContext context) : base(context)
+    public class TitleRepository : EfRepositoryBase<Title, int, BaseDbContext>, ITitleRepository
     {
+        public TitleRepository(BaseDbContext context) : base(context)
+        {
+        }
     }
 }

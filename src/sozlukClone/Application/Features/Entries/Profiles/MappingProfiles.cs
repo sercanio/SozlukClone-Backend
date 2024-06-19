@@ -5,6 +5,7 @@ using Application.Features.Entries.Commands.Update;
 using Application.Features.Entries.Queries.GetById;
 using Application.Features.Entries.Queries.GetList;
 using Application.Features.Entries.Queries.GetListEntryForHomePage;
+using Application.Features.Titles.Queries.GetById;
 using Application.Features.Titles.Queries.GetList;
 using AutoMapper;
 using Domain.Entities;
@@ -43,7 +44,13 @@ public class MappingProfiles : Profile
         CreateMap<IPaginate<Entry>, GetListResponse<GetListEntryForHomePageDto>>();
 
         CreateMap<Author, GetListAuthorGroupListItemInEntryDto>();
+        CreateMap<GetListAuthorGroupListItemInEntryDto, Author>();
 
         CreateMap<Title, GetListTitleListItemInHomePageDto>();
+        CreateMap<GetListTitleListItemInHomePageDto, Title>();
+
+        CreateMap<Title, GetByIdTitleResponse>();
+        CreateMap<GetByIdTitleResponse, Title>();
+
     }
 }

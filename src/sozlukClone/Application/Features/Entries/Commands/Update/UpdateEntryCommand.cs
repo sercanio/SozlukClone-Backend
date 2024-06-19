@@ -14,8 +14,7 @@ public class UpdateEntryCommand : IRequest<UpdatedEntryResponse>, ISecuredReques
 {
     public int Id { get; set; }
     public required string Content { get; set; }
-    public required int AuthorId { get; set; }
-    public required int TitleId { get; set; }
+    public int? TitleId { get; set; }
 
     public string[] Roles => [Admin, Write, EntriesOperationClaims.Update];
 

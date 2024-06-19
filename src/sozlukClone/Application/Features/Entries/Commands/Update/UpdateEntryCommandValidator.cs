@@ -8,7 +8,6 @@ public class UpdateEntryCommandValidator : AbstractValidator<UpdateEntryCommand>
     {
         RuleFor(c => c.Id).NotEmpty();
         RuleFor(c => c.Content).NotEmpty();
-        RuleFor(c => c.AuthorId).NotEmpty();
         RuleFor(c => c.TitleId).NotEmpty();
     }
 }
