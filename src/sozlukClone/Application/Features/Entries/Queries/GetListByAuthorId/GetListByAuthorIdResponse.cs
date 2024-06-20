@@ -1,10 +1,10 @@
 using Application.Features.Authors.Queries.GetList;
 using Application.Features.Titles.Queries.GetList;
-using NArchitecture.Core.Application.Dtos;
+using NArchitecture.Core.Application.Responses;
 
-namespace Application.Features.Entries.Queries.GetList;
+namespace Application.Features.Entries.Queries.GetListByAuthorId;
 
-public class GetListEntryListItemDto : IDto
+public class GetListByAuthorIdResponse : IResponse
 {
     public int Id { get; set; }
     public string Content { get; set; }

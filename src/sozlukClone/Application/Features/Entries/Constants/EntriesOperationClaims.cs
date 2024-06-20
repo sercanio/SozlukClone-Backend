@@ -16,4 +16,8 @@ public static class EntriesOperationClaims
     public const string GetListEntryHomePageQuery = $"{_section}.GetListEntryHomePageQuery";
     
     public const string GetListEntryForHomePage = $"{_section}.GetListEntryForHomePage";
+    
+    public const string GetByAuthorId = $"{_section}.GetByAuthorId";
+    
+    public const string GetListByAuthorId = $"{_section}.GetListByAuthorId";
 }

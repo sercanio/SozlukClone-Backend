@@ -3,6 +3,7 @@ using Application.Features.Entries.Commands.Delete;
 using Application.Features.Entries.Commands.Update;
 using Application.Features.Entries.Queries.GetById;
 using Application.Features.Entries.Queries.GetList;
+using Application.Features.Entries.Queries.GetListByAuthorId;
 using Application.Features.Entries.Queries.GetListEntryForHomePage;
 using Microsoft.AspNetCore.Mvc;
 using NArchitecture.Core.Application.Requests;
@@ -67,6 +68,15 @@ public class EntriesController : BaseController
 
         GetListResponse<GetListEntryForHomePageDto> response = await Mediator.Send(query);
 
+        return Ok(response);
+    }
+
+    [HttpGet("GetListByAuthorId")]
+    public async Task<ActionResult<GetListByAuthorIdResponse>> GetListByAuthorId([FromQuery] PageRequest pageRequest, int authorId)
+    {
+        GetListByAuthorIdQuery query = new() { PageRequest = pageRequest, AuthorId = authorId };
+
+        GetListResponse<GetListByAuthorIdResponse> response = await Mediator.Send(query);
         return Ok(response);
     }
 }

@@ -28,11 +28,22 @@ public class GetByIdAuthorQuery : IRequest<GetByIdAuthorResponse>
         {
             Author? author = await _authorRepository.GetAsync(
                  include: a => a.Include(a => a.Titles)
-                                .Include(a => a.User),
+                                .Include(a => a.User)
+                                .Include(a => a.Entries),
                 predicate: a => a.Id == request.Id, cancellationToken: cancellationToken);
 
             await _authorBusinessRules.AuthorShouldExistWhenSelected(author);
+
+            Author? authorToCount = await _authorRepository.GetAsync(
+                predicate: a => a.Id == author!.Id,
+                include: a => a.Include(a => a.Titles).Include(a => a.Titles),
+                cancellationToken: cancellationToken);
+
             GetByIdAuthorResponse response = _mapper.Map<GetByIdAuthorResponse>(author);
+
+            response.EntryCount = authorToCount.Entries.Count;
+            response.TitleCount = authorToCount.Titles.Count;
+
             return response;
         }
     }

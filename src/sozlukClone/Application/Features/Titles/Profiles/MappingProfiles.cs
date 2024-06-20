@@ -46,11 +46,14 @@ namespace Application.Features.Titles.Profiles
                 .ForMember(dest => dest.AuthorGroup, opt => opt.MapFrom(src => src.AuthorGroup));
 
             CreateMap<Entry, GetListEntryListItemDto>()
-                .ForMember(dest => dest.Author, opt => opt.MapFrom(src => src.Author));  // Map Entry's Author
+                .ForMember(dest => dest.Author, opt => opt.MapFrom(src => src.Author));
             CreateMap<IPaginate<Entry>, GetListResponse<GetListEntryListItemDto>>();
 
             CreateMap<Title, GetByIdTitleForEntryResponse>();
             CreateMap<GetByIdTitleForEntryResponse, Title>();
+
+            CreateMap<Title, GetListTitleListItemProfilePage>();
+            CreateMap<GetListTitleListItemProfilePage, Title>();
         }
     }
 }

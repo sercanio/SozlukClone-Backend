@@ -3,6 +3,7 @@ using Application.Services.Repositories;
 using AutoMapper;
 using Domain.Entities;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 
 namespace Application.Features.Authors.Queries.GetByUserName;
 
@@ -24,8 +25,22 @@ public class GetByUserNameQuery : IRequest<GetByUserNameResponse>
 
         public async Task<GetByUserNameResponse> Handle(GetByUserNameQuery request, CancellationToken cancellationToken)
         {
-            Author? author = await _authorRepository.GetAsync(predicate: a => a.UserName == request.UserName, cancellationToken: cancellationToken);
+            Author? author = await _authorRepository.GetAsync(
+                include: a => a.Include(a => a.Titles)
+                                .Include(a => a.User)
+                                .Include(a => a.Entries),
+                predicate: a => a.UserName == request.UserName, cancellationToken: cancellationToken);
+
             GetByUserNameResponse response = _mapper.Map<GetByUserNameResponse>(author);
+
+            Author? authorToCount = await _authorRepository.GetAsync(
+                predicate: a => a.Id == author!.Id,
+                include: a => a.Include(a => a.Titles).Include(a => a.Entries),
+                cancellationToken: cancellationToken);
+
+            response.EntryCount = authorToCount.Entries.Count;
+            response.TitleCount = authorToCount.Titles.Count;
+
             return response;
         }
     }
