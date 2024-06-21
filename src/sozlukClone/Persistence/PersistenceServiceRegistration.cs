@@ -35,6 +35,10 @@ public static class PersistenceServiceRegistration
         services.AddScoped<IAuthorSettingRepository, AuthorSettingRepository>();
         services.AddScoped<IAuthorGroupUserOperationClaimRepository, AuthorGroupUserOperationClaimRepository>();
         services.AddScoped<IGlobalSettingRepository, GlobalSettingRepository>();
+        services.AddScoped<IRelationRepository, RelationRepository>();
+        services.AddScoped<ILikeRepository, LikeRepository>();
+        services.AddScoped<IDislikeRepository, DislikeRepository>();
+        services.AddScoped<IFavoriteRepository, FavoriteRepository>();
         return services;
     }
 }

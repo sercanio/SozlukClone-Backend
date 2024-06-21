@@ -6,6 +6,8 @@ using Application.Features.Entries.Queries.GetById;
 using Application.Features.Entries.Queries.GetList;
 using Application.Features.Entries.Queries.GetListByAuthorId;
 using Application.Features.Entries.Queries.GetListEntryForHomePage;
+using Application.Features.Entries.Queries.GetMostFavoritedListByAuthorId;
+using Application.Features.Entries.Queries.GetTopLikedListByAuthorId;
 using Application.Features.Titles.Queries.GetList;
 using AutoMapper;
 using Domain.Entities;
@@ -40,8 +42,10 @@ public class MappingProfiles : Profile
         CreateMap<Entry, GetListEntryForHomePageDto>()
             .ForMember(dest => dest.Author, opt => opt.MapFrom(src => src.Author))
             .ForMember(dest => dest.Title, opt => opt.MapFrom(src => src.Title));
-
         CreateMap<IPaginate<Entry>, GetListResponse<GetListEntryForHomePageDto>>();
+
+        CreateMap<Entry, GetListByAuthorIdResponse>();
+        CreateMap<IPaginate<Entry>, GetListResponse<GetListByAuthorIdResponse>>();
 
         CreateMap<Author, GetListAuthorGroupListItemInEntryDto>();
         CreateMap<GetListAuthorGroupListItemInEntryDto, Author>();
@@ -49,7 +53,10 @@ public class MappingProfiles : Profile
         CreateMap<Title, GetListTitleListItemInHomePageDto>();
         CreateMap<GetListTitleListItemInHomePageDto, Title>();
 
-        CreateMap<Entry, GetListByAuthorIdResponse>();
-        CreateMap<IPaginate<Entry>, GetListResponse<GetListByAuthorIdResponse>>();
+        CreateMap<Entry, GetTopLikedListByAuthorIdResponse>();
+        CreateMap<IPaginate<Entry>, GetListResponse<GetTopLikedListByAuthorIdResponse>>();
+
+        CreateMap<Entry, GetMostFavoritedListByAuthorIdResponse>();
+        CreateMap<IPaginate<Entry>, GetListResponse<GetMostFavoritedListByAuthorIdResponse>>();
     }
 }

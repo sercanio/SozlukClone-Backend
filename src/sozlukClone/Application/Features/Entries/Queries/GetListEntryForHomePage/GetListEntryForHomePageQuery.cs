@@ -30,7 +30,11 @@ public class GetListEntryForHomePageQuery : IRequest<GetListResponse<GetListEntr
         public async Task<GetListResponse<GetListEntryForHomePageDto>> Handle(GetListEntryForHomePageQuery request, CancellationToken cancellationToken)
         {
             IPaginate<Entry> entries = await _entryRepository.GetListAsync(
-               include: e => e.Include(e => e.Author).Include(e => e.Title),
+               include: e => e.Include(e => e.Author)
+                              .Include(e => e.Title)
+                              .Include(e => e.Likes).ThenInclude(l => l.Author)
+                              .Include(e => e.Dislikes).ThenInclude(l => l.Author)
+                              .Include(e => e.Favorites).ThenInclude(l => l.Author),
                orderBy: e => e.OrderByDescending(e => e.CreatedDate),
                index: request.PageRequest.PageIndex,
                size: request.PageRequest.PageSize,

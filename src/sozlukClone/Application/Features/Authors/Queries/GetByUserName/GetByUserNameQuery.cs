@@ -28,14 +28,23 @@ public class GetByUserNameQuery : IRequest<GetByUserNameResponse>
             Author? author = await _authorRepository.GetAsync(
                 include: a => a.Include(a => a.Titles)
                                 .Include(a => a.User)
-                                .Include(a => a.Entries),
+                                .Include(a => a.Entries)
+                                .Include(a => a.Followers)
+                                .Include(a => a.Followings)
+                                .Include(a => a.Likes)
+                                .Include(a => a.Dislikes)
+                                .Include(a => a.Favorites),
                 predicate: a => a.UserName == request.UserName, cancellationToken: cancellationToken);
 
             GetByUserNameResponse response = _mapper.Map<GetByUserNameResponse>(author);
 
             Author? authorToCount = await _authorRepository.GetAsync(
                 predicate: a => a.Id == author!.Id,
-                include: a => a.Include(a => a.Titles).Include(a => a.Entries),
+                include: a => a.Include(a => a.Titles)
+                               .Include(a => a.Entries)
+                               .Include(a => a.Likes)
+                               .Include(a => a.Dislikes)
+                               .Include(a => a.Favorites),
                 cancellationToken: cancellationToken);
 
             response.EntryCount = authorToCount.Entries.Count;

@@ -1,3 +1,7 @@
+using Application.Features.Dislikes.Queries.GetList;
+using Application.Features.Favorites.Queries.GetList;
+using Application.Features.Likes.Queries.GetList;
+using Application.Features.Relations.Queries.GetList;
 using Application.Features.Users.Queries.GetById;
 using Domain.Enums;
 using NArchitecture.Core.Application.Responses;
@@ -19,4 +23,11 @@ public class GetByUserNameResponse : IResponse
     public int TitleCount { get; set; }
     public int EntryCount { get; set; }
     public GetByIdUserInAuthorResponse User { get; set; }
+    public virtual ICollection<GetListRelationListItemDto> Followers { get; set; }
+    public virtual ICollection<GetListRelationListItemDto> Followings { get; set; }
+
+    public ICollection<GetListLikeListItemInEntryDto> Likes { get; set; }
+    public ICollection<GetListDislikeListItemInEntryDto> Dislikes { get; set; }
+    public ICollection<GetListFavoriteListItemInEntryDto> Favorites { get; set; }
+
 }

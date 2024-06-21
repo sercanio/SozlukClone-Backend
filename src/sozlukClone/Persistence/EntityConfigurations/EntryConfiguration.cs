@@ -18,10 +18,27 @@ public class EntryConfiguration : IEntityTypeConfiguration<Entry>
         builder.Property(e => e.UpdatedDate).HasColumnName("UpdatedDate");
         builder.Property(e => e.DeletedDate).HasColumnName("DeletedDate");
 
-        builder.HasData(
-            new Entry { Id = 1, Content = "ASP.Net ve Nextjs ile geliştirilmiş bir sözlük klonudur.", AuthorId = 1, TitleId = 1, CreatedDate = DateTime.UtcNow }
-            );
+        // Configure one-to-many relationships
+        builder.HasMany(e => e.Likes)
+               .WithOne(l => l.Entry)
+               .HasForeignKey(l => l.EntryId)
+               .OnDelete(DeleteBehavior.Cascade);
+
+        builder.HasMany(e => e.Dislikes)
+               .WithOne(d => d.Entry)
+               .HasForeignKey(d => d.EntryId)
+               .OnDelete(DeleteBehavior.Cascade);
+
+        builder.HasMany(e => e.Favorites)
+               .WithOne(f => f.Entry)
+               .HasForeignKey(f => f.EntryId)
+               .OnDelete(DeleteBehavior.Cascade);
 
         builder.HasQueryFilter(e => !e.DeletedDate.HasValue);
+
+        // Seed data
+        builder.HasData(
+            new Entry { Id = 1, Content = "ASP.Net ve Nextjs ile geliştirilmiş bir sözlük klonudur.", AuthorId = 1, TitleId = 1, CreatedDate = DateTime.UtcNow }
+        );
     }
 }

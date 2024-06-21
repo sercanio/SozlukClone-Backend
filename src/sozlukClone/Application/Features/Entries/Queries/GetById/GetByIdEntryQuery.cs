@@ -26,7 +26,14 @@ public class GetByIdEntryQuery : IRequest<GetByIdEntryResponse>
 
         public async Task<GetByIdEntryResponse> Handle(GetByIdEntryQuery request, CancellationToken cancellationToken)
         {
-            Entry? entry = await _entryRepository.GetAsync(predicate: e => e.Id == request.Id, include: e => e.Include(e => e.Title).Include(e => e.Author), cancellationToken: cancellationToken);
+            Entry? entry = await _entryRepository.GetAsync(
+                predicate: e => e.Id == request.Id,
+                include: e => e.Include(e => e.Title)
+                                .Include(e => e.Author)
+                                .Include(e => e.Likes).ThenInclude(l => l.Author)
+                                .Include(e => e.Dislikes).ThenInclude(l => l.Author)
+                                .Include(e => e.Favorites).ThenInclude(l => l.Author),
+                cancellationToken: cancellationToken);
             await _entryBusinessRules.EntryShouldExistWhenSelected(entry);
 
             GetByIdEntryResponse response = _mapper.Map<GetByIdEntryResponse>(entry);

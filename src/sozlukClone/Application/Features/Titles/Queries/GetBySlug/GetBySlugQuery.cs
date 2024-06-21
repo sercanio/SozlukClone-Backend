@@ -35,6 +35,12 @@ public class GetBySlugQuery : IRequest<GetTitleBySlugResponse>
                     .Include(t => t.Entries.OrderBy(e => e.CreatedDate).Skip(request.PageIndex * request.PageSize).Take(request.PageSize))
                         .ThenInclude(e => e.Author)
                             .ThenInclude(a => a.AuthorGroup)
+                     .Include(t => t.Entries)
+                        .ThenInclude(e => e.Likes)
+                     .Include(t => t.Entries)
+                        .ThenInclude(e => e.Dislikes)
+                     .Include(t => t.Entries)
+                        .ThenInclude(e => e.Favorites)
                     .Include(t => t.Author)
                         .ThenInclude(a => a.AuthorGroup),
                 cancellationToken: cancellationToken);

@@ -18,6 +18,10 @@ using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using NArchitecture.Core.Security.Constants;
+using Application.Features.Relations.Constants;
+using Application.Features.Likes.Constants;
+using Application.Features.Dislikes.Constants;
+using Application.Features.Favorites.Constants;
 
 namespace Persistence.EntityConfigurations;
 
@@ -276,6 +280,66 @@ public class OperationClaimConfiguration : IEntityTypeConfiguration<OperationCla
         featureOperationClaims.Add(new() { Id = ++lastId, Name = TitlesOperationClaims.GetByTitleName });
         
         featureOperationClaims.Add(new() { Id = ++lastId, Name = EntriesOperationClaims.GetListByAuthorId });
+        
+        #region Relations CRUD
+        featureOperationClaims.AddRange(
+            [
+                new() { Id = ++lastId, Name = RelationsOperationClaims.Admin },
+                new() { Id = ++lastId, Name = RelationsOperationClaims.Read },
+                new() { Id = ++lastId, Name = RelationsOperationClaims.Write },
+                new() { Id = ++lastId, Name = RelationsOperationClaims.Create },
+                new() { Id = ++lastId, Name = RelationsOperationClaims.Update },
+                new() { Id = ++lastId, Name = RelationsOperationClaims.Delete },
+            ]
+        );
+        #endregion
+        
+        
+        #region Likes CRUD
+        featureOperationClaims.AddRange(
+            [
+                new() { Id = ++lastId, Name = LikesOperationClaims.Admin },
+                new() { Id = ++lastId, Name = LikesOperationClaims.Read },
+                new() { Id = ++lastId, Name = LikesOperationClaims.Write },
+                new() { Id = ++lastId, Name = LikesOperationClaims.Create },
+                new() { Id = ++lastId, Name = LikesOperationClaims.Update },
+                new() { Id = ++lastId, Name = LikesOperationClaims.Delete },
+            ]
+        );
+        #endregion
+        
+        
+        #region Dislikes CRUD
+        featureOperationClaims.AddRange(
+            [
+                new() { Id = ++lastId, Name = DislikesOperationClaims.Admin },
+                new() { Id = ++lastId, Name = DislikesOperationClaims.Read },
+                new() { Id = ++lastId, Name = DislikesOperationClaims.Write },
+                new() { Id = ++lastId, Name = DislikesOperationClaims.Create },
+                new() { Id = ++lastId, Name = DislikesOperationClaims.Update },
+                new() { Id = ++lastId, Name = DislikesOperationClaims.Delete },
+            ]
+        );
+        #endregion
+        
+        
+        #region Favorites CRUD
+        featureOperationClaims.AddRange(
+            [
+                new() { Id = ++lastId, Name = FavoritesOperationClaims.Admin },
+                new() { Id = ++lastId, Name = FavoritesOperationClaims.Read },
+                new() { Id = ++lastId, Name = FavoritesOperationClaims.Write },
+                new() { Id = ++lastId, Name = FavoritesOperationClaims.Create },
+                new() { Id = ++lastId, Name = FavoritesOperationClaims.Update },
+                new() { Id = ++lastId, Name = FavoritesOperationClaims.Delete },
+            ]
+        );
+        #endregion
+        
+        
+        featureOperationClaims.Add(new() { Id = ++lastId, Name = EntriesOperationClaims.GetTopLikedListByAuthorId });
+        
+        featureOperationClaims.Add(new() { Id = ++lastId, Name = EntriesOperationClaims.GetMostFavoritedListByAuthorId });
         return featureOperationClaims;
     }
 #pragma warning restore S1854 // Unused assignments should be removed

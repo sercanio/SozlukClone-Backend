@@ -32,7 +32,11 @@ public class GetListByAuthorIdQuery : IRequest<GetListResponse<GetListByAuthorId
         {
             IPaginate<Entry> entries = await _entryRepository.GetListAsync(
               predicate: e => e.AuthorId == request.AuthorId,
-              include: e => e.Include(e => e.Author).Include(e => e.Title),
+              include: e => e.Include(e => e.Author)
+                             .Include(e => e.Title)
+                             .Include(e => e.Likes).ThenInclude(l => l.Author)
+                             .Include(e => e.Dislikes).ThenInclude(l => l.Author)
+                             .Include(e => e.Favorites).ThenInclude(l => l.Author),
               orderBy: e => e.OrderByDescending(e => e.CreatedDate),
               index: request.PageRequest.PageIndex,
               size: request.PageRequest.PageSize,

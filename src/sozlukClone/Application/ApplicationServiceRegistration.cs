@@ -33,6 +33,10 @@ using NArchitecture.Core.Security.DependencyInjection;
 using NArchitecture.Core.Security.JWT;
 using System.Reflection;
 using Application.Services.GlobalSettings;
+using Application.Services.Relations;
+using Application.Services.Likes;
+using Application.Services.Dislikes;
+using Application.Services.Favorites;
 
 namespace Application;
 
@@ -95,6 +99,10 @@ public static class ApplicationServiceRegistration
         services.AddScoped<IEntryService, EntryManager>();
         services.AddScoped<ITitleService, TitleManager>();
         services.AddScoped<IEntryService, EntryManager>();
+        services.AddScoped<IRelationService, RelationManager>();
+        services.AddScoped<ILikeService, LikeManager>();
+        services.AddScoped<IDislikeService, DislikeManager>();
+        services.AddScoped<IFavoriteService, FavoriteManager>();
         return services;
     }
 

@@ -27,7 +27,10 @@ public class GetListEntryQuery : IRequest<GetListResponse<GetListEntryListItemDt
         public async Task<GetListResponse<GetListEntryListItemDto>> Handle(GetListEntryQuery request, CancellationToken cancellationToken)
         {
             IPaginate<Entry> entries = await _entryRepository.GetListAsync(
-                include: e => e.Include(e => e.Author),
+                include: e => e.Include(e => e.Author)
+                                .Include(e => e.Likes).ThenInclude(l => l.Author)
+                                .Include(e => e.Dislikes).ThenInclude(l => l.Author)
+                                .Include(e => e.Favorites).ThenInclude(l => l.Author),
                 index: request.PageRequest.PageIndex,
                 size: request.PageRequest.PageSize,
                 cancellationToken: cancellationToken

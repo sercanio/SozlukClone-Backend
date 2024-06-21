@@ -112,7 +112,7 @@ namespace Persistence.Migrations
                             Id = 1,
                             ActiveBadgeId = 1,
                             AuthorGroupId = 1,
-                            CreatedDate = new DateTime(2024, 6, 16, 13, 46, 42, 550, DateTimeKind.Utc).AddTicks(3005),
+                            CreatedDate = new DateTime(2024, 6, 21, 8, 58, 51, 174, DateTimeKind.Utc).AddTicks(9092),
                             UserId = new Guid("029bf0d3-9429-44d7-9c30-51655e583ab6"),
                             UserName = "sozluk"
                         });
@@ -278,9 +278,9 @@ namespace Persistence.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("5034847f-e6c2-4dba-9f2d-28c230e0c19d"),
+                            Id = new Guid("256a5b04-8dcf-4db6-84f1-8dd13755e7d7"),
                             AuthorGroupId = 1,
-                            CreatedDate = new DateTime(2024, 6, 16, 13, 46, 42, 551, DateTimeKind.Utc).AddTicks(1414),
+                            CreatedDate = new DateTime(2024, 6, 21, 8, 58, 51, 175, DateTimeKind.Utc).AddTicks(6476),
                             OperationClaimId = 1
                         });
                 });
@@ -389,6 +389,42 @@ namespace Persistence.Migrations
                         });
                 });
 
+            modelBuilder.Entity("Domain.Entities.Dislike", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid")
+                        .HasColumnName("Id");
+
+                    b.Property<int>("AuthorId")
+                        .HasColumnType("integer")
+                        .HasColumnName("AuthorId");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("CreatedDate");
+
+                    b.Property<DateTime?>("DeletedDate")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("DeletedDate");
+
+                    b.Property<int>("EntryId")
+                        .HasColumnType("integer")
+                        .HasColumnName("EntryId");
+
+                    b.Property<DateTime?>("UpdatedDate")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("UpdatedDate");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AuthorId");
+
+                    b.HasIndex("EntryId");
+
+                    b.ToTable("Dislikes", (string)null);
+                });
+
             modelBuilder.Entity("Domain.Entities.EmailAuthenticator", b =>
                 {
                     b.Property<Guid>("Id")
@@ -475,9 +511,45 @@ namespace Persistence.Migrations
                             Id = 1,
                             AuthorId = 1,
                             Content = "ASP.Net ve Nextjs ile geliştirilmiş bir sözlük klonudur.",
-                            CreatedDate = new DateTime(2024, 6, 16, 13, 46, 42, 552, DateTimeKind.Utc).AddTicks(3912),
+                            CreatedDate = new DateTime(2024, 6, 21, 8, 58, 51, 177, DateTimeKind.Utc).AddTicks(3500),
                             TitleId = 1
                         });
+                });
+
+            modelBuilder.Entity("Domain.Entities.Favorite", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid")
+                        .HasColumnName("Id");
+
+                    b.Property<int>("AuthorId")
+                        .HasColumnType("integer")
+                        .HasColumnName("AuthorId");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("CreatedDate");
+
+                    b.Property<DateTime?>("DeletedDate")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("DeletedDate");
+
+                    b.Property<int>("EntryId")
+                        .HasColumnType("integer")
+                        .HasColumnName("EntryId");
+
+                    b.Property<DateTime?>("UpdatedDate")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("UpdatedDate");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AuthorId");
+
+                    b.HasIndex("EntryId");
+
+                    b.ToTable("Favorites", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Entities.GlobalSetting", b =>
@@ -551,7 +623,7 @@ namespace Persistence.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedDate = new DateTime(2024, 6, 16, 13, 46, 42, 552, DateTimeKind.Utc).AddTicks(7197),
+                            CreatedDate = new DateTime(2024, 6, 21, 8, 58, 51, 177, DateTimeKind.Utc).AddTicks(9124),
                             DefaultAuthorGroupId = 8,
                             IsAuthorRegistrationAllowed = true,
                             MaxEntryLength = 5000,
@@ -563,6 +635,42 @@ namespace Persistence.Migrations
                             SiteLogoMobile = "default-mobile-logo.png",
                             SiteName = "Default Site"
                         });
+                });
+
+            modelBuilder.Entity("Domain.Entities.Like", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid")
+                        .HasColumnName("Id");
+
+                    b.Property<int>("AuthorId")
+                        .HasColumnType("integer")
+                        .HasColumnName("AuthorId");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("CreatedDate");
+
+                    b.Property<DateTime?>("DeletedDate")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("DeletedDate");
+
+                    b.Property<int>("EntryId")
+                        .HasColumnType("integer")
+                        .HasColumnName("EntryId");
+
+                    b.Property<DateTime?>("UpdatedDate")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("UpdatedDate");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AuthorId");
+
+                    b.HasIndex("EntryId");
+
+                    b.ToTable("Likes", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Entities.LoginAudit", b =>
@@ -1237,6 +1345,174 @@ namespace Persistence.Migrations
                             Id = 97,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Name = "Titles.GetBySlug"
+                        },
+                        new
+                        {
+                            Id = 98,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Entries.GetListEntryHomePageQuery"
+                        },
+                        new
+                        {
+                            Id = 99,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Entries.GetListEntryForHomePage"
+                        },
+                        new
+                        {
+                            Id = 100,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Titles.GetByTitleName"
+                        },
+                        new
+                        {
+                            Id = 101,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Entries.GetListByAuthorId"
+                        },
+                        new
+                        {
+                            Id = 102,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Relations.Admin"
+                        },
+                        new
+                        {
+                            Id = 103,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Relations.Read"
+                        },
+                        new
+                        {
+                            Id = 104,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Relations.Write"
+                        },
+                        new
+                        {
+                            Id = 105,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Relations.Create"
+                        },
+                        new
+                        {
+                            Id = 106,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Relations.Update"
+                        },
+                        new
+                        {
+                            Id = 107,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Relations.Delete"
+                        },
+                        new
+                        {
+                            Id = 108,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Likes.Admin"
+                        },
+                        new
+                        {
+                            Id = 109,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Likes.Read"
+                        },
+                        new
+                        {
+                            Id = 110,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Likes.Write"
+                        },
+                        new
+                        {
+                            Id = 111,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Likes.Create"
+                        },
+                        new
+                        {
+                            Id = 112,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Likes.Update"
+                        },
+                        new
+                        {
+                            Id = 113,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Likes.Delete"
+                        },
+                        new
+                        {
+                            Id = 114,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Dislikes.Admin"
+                        },
+                        new
+                        {
+                            Id = 115,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Dislikes.Read"
+                        },
+                        new
+                        {
+                            Id = 116,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Dislikes.Write"
+                        },
+                        new
+                        {
+                            Id = 117,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Dislikes.Create"
+                        },
+                        new
+                        {
+                            Id = 118,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Dislikes.Update"
+                        },
+                        new
+                        {
+                            Id = 119,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Dislikes.Delete"
+                        },
+                        new
+                        {
+                            Id = 120,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Favorites.Admin"
+                        },
+                        new
+                        {
+                            Id = 121,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Favorites.Read"
+                        },
+                        new
+                        {
+                            Id = 122,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Favorites.Write"
+                        },
+                        new
+                        {
+                            Id = 123,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Favorites.Create"
+                        },
+                        new
+                        {
+                            Id = 124,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Favorites.Update"
+                        },
+                        new
+                        {
+                            Id = 125,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Favorites.Delete"
                         });
                 });
 
@@ -1431,6 +1707,42 @@ namespace Persistence.Migrations
                     b.ToTable("RefreshTokens", (string)null);
                 });
 
+            modelBuilder.Entity("Domain.Entities.Relation", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid")
+                        .HasColumnName("Id");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("CreatedDate");
+
+                    b.Property<DateTime?>("DeletedDate")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("DeletedDate");
+
+                    b.Property<int>("FollowerId")
+                        .HasColumnType("integer")
+                        .HasColumnName("FollowerId");
+
+                    b.Property<int>("FollowingId")
+                        .HasColumnType("integer")
+                        .HasColumnName("FollowingId");
+
+                    b.Property<DateTime?>("UpdatedDate")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("UpdatedDate");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("FollowerId");
+
+                    b.HasIndex("FollowingId");
+
+                    b.ToTable("Relations", (string)null);
+                });
+
             modelBuilder.Entity("Domain.Entities.Title", b =>
                 {
                     b.Property<int>("Id")
@@ -1481,7 +1793,7 @@ namespace Persistence.Migrations
                         {
                             Id = 1,
                             AuthorId = 1,
-                            CreatedDate = new DateTime(2024, 6, 16, 13, 46, 42, 555, DateTimeKind.Utc).AddTicks(1534),
+                            CreatedDate = new DateTime(2024, 6, 21, 8, 58, 51, 179, DateTimeKind.Utc).AddTicks(8905),
                             Name = "sozlukclone projesi",
                             isLocked = false,
                             slug = "sozluk-clone-1"
@@ -1595,8 +1907,8 @@ namespace Persistence.Migrations
                             AuthenticatorType = 0,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "sozluk@email.com",
-                            PasswordHash = new byte[] { 30, 252, 212, 48, 173, 63, 32, 46, 251, 75, 77, 172, 113, 52, 235, 98, 15, 138, 238, 188, 107, 134, 207, 104, 148, 235, 74, 151, 28, 110, 214, 111, 31, 199, 152, 76, 218, 6, 202, 67, 160, 45, 29, 233, 11, 32, 77, 24, 250, 51, 114, 81, 182, 179, 233, 252, 157, 122, 175, 125, 45, 242, 149, 154 },
-                            PasswordSalt = new byte[] { 176, 68, 43, 93, 81, 93, 227, 30, 62, 110, 161, 236, 146, 192, 76, 192, 146, 197, 1, 129, 133, 79, 243, 44, 74, 130, 212, 185, 239, 187, 198, 215, 16, 43, 48, 220, 138, 6, 5, 197, 25, 241, 206, 196, 95, 187, 47, 150, 253, 13, 174, 124, 189, 213, 206, 164, 124, 106, 251, 32, 214, 225, 37, 121, 195, 0, 138, 113, 127, 138, 49, 64, 100, 68, 27, 77, 50, 223, 62, 245, 226, 45, 35, 115, 53, 180, 69, 36, 117, 99, 25, 177, 124, 63, 168, 178, 179, 195, 35, 211, 126, 72, 159, 236, 84, 114, 152, 173, 243, 35, 72, 84, 80, 223, 180, 110, 29, 176, 59, 37, 146, 133, 139, 227, 172, 209, 125, 63 }
+                            PasswordHash = new byte[] { 251, 203, 71, 250, 162, 206, 126, 49, 132, 36, 11, 113, 142, 234, 79, 73, 191, 75, 91, 47, 182, 251, 255, 80, 169, 34, 151, 12, 28, 185, 163, 211, 21, 27, 228, 89, 175, 251, 114, 255, 200, 20, 192, 27, 13, 190, 33, 38, 21, 227, 203, 17, 1, 124, 203, 217, 93, 12, 61, 31, 235, 1, 159, 247 },
+                            PasswordSalt = new byte[] { 34, 20, 88, 109, 188, 206, 120, 239, 248, 115, 27, 204, 137, 180, 1, 92, 213, 53, 83, 188, 205, 205, 33, 115, 3, 117, 180, 101, 109, 244, 167, 13, 150, 35, 217, 41, 253, 187, 141, 172, 243, 8, 243, 167, 212, 191, 103, 96, 134, 114, 126, 147, 199, 61, 199, 107, 149, 102, 225, 104, 92, 152, 25, 95, 249, 41, 66, 118, 33, 196, 102, 224, 179, 102, 50, 62, 158, 214, 203, 236, 151, 174, 119, 147, 74, 165, 103, 117, 186, 223, 169, 173, 242, 216, 69, 167, 212, 63, 50, 53, 200, 67, 135, 189, 24, 189, 250, 149, 247, 90, 74, 2, 158, 3, 64, 193, 232, 97, 206, 56, 9, 36, 53, 107, 72, 225, 67, 252 }
                         });
                 });
 
@@ -1638,7 +1950,7 @@ namespace Persistence.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("6a46e21e-8e58-42e7-9289-6ddc402ad571"),
+                            Id = new Guid("beabe818-041e-4675-b072-2fafa84a05ff"),
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             OperationClaimId = 1,
                             UserId = new Guid("029bf0d3-9429-44d7-9c30-51655e583ab6")
@@ -1706,6 +2018,25 @@ namespace Persistence.Migrations
                     b.Navigation("OperationClaim");
                 });
 
+            modelBuilder.Entity("Domain.Entities.Dislike", b =>
+                {
+                    b.HasOne("Domain.Entities.Author", "Author")
+                        .WithMany()
+                        .HasForeignKey("AuthorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Domain.Entities.Entry", "Entry")
+                        .WithMany("Dislikes")
+                        .HasForeignKey("EntryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Author");
+
+                    b.Navigation("Entry");
+                });
+
             modelBuilder.Entity("Domain.Entities.EmailAuthenticator", b =>
                 {
                     b.HasOne("Domain.Entities.User", "User")
@@ -1736,6 +2067,25 @@ namespace Persistence.Migrations
                     b.Navigation("Title");
                 });
 
+            modelBuilder.Entity("Domain.Entities.Favorite", b =>
+                {
+                    b.HasOne("Domain.Entities.Author", "Author")
+                        .WithMany()
+                        .HasForeignKey("AuthorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Domain.Entities.Entry", "Entry")
+                        .WithMany("Favorites")
+                        .HasForeignKey("EntryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Author");
+
+                    b.Navigation("Entry");
+                });
+
             modelBuilder.Entity("Domain.Entities.GlobalSetting", b =>
                 {
                     b.HasOne("Domain.Entities.AuthorGroup", "DefaultAuthorGroup")
@@ -1745,6 +2095,25 @@ namespace Persistence.Migrations
                         .IsRequired();
 
                     b.Navigation("DefaultAuthorGroup");
+                });
+
+            modelBuilder.Entity("Domain.Entities.Like", b =>
+                {
+                    b.HasOne("Domain.Entities.Author", "Author")
+                        .WithMany()
+                        .HasForeignKey("AuthorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Domain.Entities.Entry", "Entry")
+                        .WithMany("Likes")
+                        .HasForeignKey("EntryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Author");
+
+                    b.Navigation("Entry");
                 });
 
             modelBuilder.Entity("Domain.Entities.LoginAudit", b =>
@@ -1805,6 +2174,25 @@ namespace Persistence.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("Domain.Entities.Relation", b =>
+                {
+                    b.HasOne("Domain.Entities.Author", "Follower")
+                        .WithMany("Followings")
+                        .HasForeignKey("FollowerId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("Domain.Entities.Author", "Following")
+                        .WithMany("Followers")
+                        .HasForeignKey("FollowingId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Follower");
+
+                    b.Navigation("Following");
+                });
+
             modelBuilder.Entity("Domain.Entities.Title", b =>
                 {
                     b.HasOne("Domain.Entities.Author", "Author")
@@ -1839,6 +2227,10 @@ namespace Persistence.Migrations
                 {
                     b.Navigation("Entries");
 
+                    b.Navigation("Followers");
+
+                    b.Navigation("Followings");
+
                     b.Navigation("LoginAudits");
 
                     b.Navigation("Penalties");
@@ -1851,6 +2243,15 @@ namespace Persistence.Migrations
                     b.Navigation("AuthorGroupUserOperationClaim");
 
                     b.Navigation("Authors");
+                });
+
+            modelBuilder.Entity("Domain.Entities.Entry", b =>
+                {
+                    b.Navigation("Dislikes");
+
+                    b.Navigation("Favorites");
+
+                    b.Navigation("Likes");
                 });
 
             modelBuilder.Entity("Domain.Entities.PenaltyType", b =>

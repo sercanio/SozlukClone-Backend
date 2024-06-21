@@ -5,6 +5,8 @@ using Application.Features.Entries.Queries.GetById;
 using Application.Features.Entries.Queries.GetList;
 using Application.Features.Entries.Queries.GetListByAuthorId;
 using Application.Features.Entries.Queries.GetListEntryForHomePage;
+using Application.Features.Entries.Queries.GetMostFavoritedListByAuthorId;
+using Application.Features.Entries.Queries.GetTopLikedListByAuthorId;
 using Microsoft.AspNetCore.Mvc;
 using NArchitecture.Core.Application.Requests;
 using NArchitecture.Core.Application.Responses;
@@ -77,6 +79,24 @@ public class EntriesController : BaseController
         GetListByAuthorIdQuery query = new() { PageRequest = pageRequest, AuthorId = authorId };
 
         GetListResponse<GetListByAuthorIdResponse> response = await Mediator.Send(query);
+        return Ok(response);
+    }
+
+    [HttpGet("GetTopLikedListByAuthorId")]
+    public async Task<ActionResult<GetTopLikedListByAuthorIdResponse>> GetTopLikedListByAuthorId([FromQuery] PageRequest pageRequest, int authorId)
+    {
+        GetTopLikedListByAuthorIdQuery query = new() { PageRequest = pageRequest, AuthorId = authorId };
+
+        GetListResponse<GetTopLikedListByAuthorIdResponse> response = await Mediator.Send(query);
+        return Ok(response);
+    }
+
+    [HttpGet("GetMostFavoritedListByAuthorId")]
+    public async Task<ActionResult<GetMostFavoritedListByAuthorIdResponse>> GetMostFavoritedListByAuthorId([FromQuery] PageRequest pageRequest, int authorId)
+    {
+        GetMostFavoritedListByAuthorIdQuery query = new() { PageRequest = pageRequest, AuthorId = authorId };
+
+        GetListResponse<GetMostFavoritedListByAuthorIdResponse> response = await Mediator.Send(query);
         return Ok(response);
     }
 }

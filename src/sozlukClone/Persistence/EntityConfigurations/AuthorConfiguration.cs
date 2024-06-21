@@ -24,8 +24,7 @@ public class AuthorConfiguration : IEntityTypeConfiguration<Author>
         builder.Property(a => a.UpdatedDate).HasColumnName("UpdatedDate");
         builder.Property(a => a.DeletedDate).HasColumnName("DeletedDate");
 
-        // Make 1-1 relationship between Author and User
-        builder.HasIndex(indexExpression: a => a.UserId, name: "Author_UserID_UK").IsUnique();
+        builder.HasIndex(a => a.UserId, "Author_UserID_UK").IsUnique();
         builder.HasOne(a => a.User);
 
         builder.HasOne(a => a.ActiveBadge)
@@ -34,6 +33,16 @@ public class AuthorConfiguration : IEntityTypeConfiguration<Author>
                .OnDelete(DeleteBehavior.Restrict);
 
         builder.HasQueryFilter(a => !a.DeletedDate.HasValue);
+
+        builder.HasMany(a => a.Followers)
+               .WithOne(r => r.Following)
+               .HasForeignKey(r => r.FollowingId)
+               .OnDelete(DeleteBehavior.Restrict);
+
+        builder.HasMany(a => a.Followings)
+               .WithOne(r => r.Follower)
+               .HasForeignKey(r => r.FollowerId)
+               .OnDelete(DeleteBehavior.Restrict);
 
         builder.HasData(new Author
         {
