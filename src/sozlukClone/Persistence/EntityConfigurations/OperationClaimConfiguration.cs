@@ -1,15 +1,26 @@
 using Application.Features.Auth.Constants;
+using Application.Features.AuthorBlockings.Constants;
+using Application.Features.AuthorFollowings.Constants;
 using Application.Features.AuthorGroups.Constants;
 using Application.Features.AuthorGroupUserOperationClaims.Constants;
+using Application.Features.AuthorModOperations.Constants;
 using Application.Features.Authors.Constants;
 using Application.Features.AuthorSettings.Constants;
 using Application.Features.Badges.Constants;
+using Application.Features.Categories.Constants;
+using Application.Features.Dislikes.Constants;
 using Application.Features.Entries.Constants;
+using Application.Features.EntryModOperations.Constants;
+using Application.Features.Favorites.Constants;
 using Application.Features.GlobalSettings.Constants;
+using Application.Features.Likes.Constants;
 using Application.Features.LoginAudits.Constants;
 using Application.Features.OperationClaims.Constants;
 using Application.Features.Penalties.Constants;
 using Application.Features.PenaltyTypes.Constants;
+using Application.Features.TitleBlockings.Constants;
+using Application.Features.TitleFollowings.Constants;
+using Application.Features.TitleModOperations.Constants;
 using Application.Features.Titles.Constants;
 using Application.Features.TitleSettings.Constants;
 using Application.Features.UserOperationClaims.Constants;
@@ -18,10 +29,6 @@ using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using NArchitecture.Core.Security.Constants;
-using Application.Features.Relations.Constants;
-using Application.Features.Likes.Constants;
-using Application.Features.Dislikes.Constants;
-using Application.Features.Favorites.Constants;
 
 namespace Persistence.EntityConfigurations;
 
@@ -278,23 +285,10 @@ public class OperationClaimConfiguration : IEntityTypeConfiguration<OperationCla
         featureOperationClaims.Add(new() { Id = ++lastId, Name = EntriesOperationClaims.GetListEntryForHomePage });
 
         featureOperationClaims.Add(new() { Id = ++lastId, Name = TitlesOperationClaims.GetByTitleName });
-        
+
         featureOperationClaims.Add(new() { Id = ++lastId, Name = EntriesOperationClaims.GetListByAuthorId });
-        
-        #region Relations CRUD
-        featureOperationClaims.AddRange(
-            [
-                new() { Id = ++lastId, Name = RelationsOperationClaims.Admin },
-                new() { Id = ++lastId, Name = RelationsOperationClaims.Read },
-                new() { Id = ++lastId, Name = RelationsOperationClaims.Write },
-                new() { Id = ++lastId, Name = RelationsOperationClaims.Create },
-                new() { Id = ++lastId, Name = RelationsOperationClaims.Update },
-                new() { Id = ++lastId, Name = RelationsOperationClaims.Delete },
-            ]
-        );
-        #endregion
-        
-        
+
+
         #region Likes CRUD
         featureOperationClaims.AddRange(
             [
@@ -307,8 +301,8 @@ public class OperationClaimConfiguration : IEntityTypeConfiguration<OperationCla
             ]
         );
         #endregion
-        
-        
+
+
         #region Dislikes CRUD
         featureOperationClaims.AddRange(
             [
@@ -321,8 +315,8 @@ public class OperationClaimConfiguration : IEntityTypeConfiguration<OperationCla
             ]
         );
         #endregion
-        
-        
+
+
         #region Favorites CRUD
         featureOperationClaims.AddRange(
             [
@@ -335,11 +329,137 @@ public class OperationClaimConfiguration : IEntityTypeConfiguration<OperationCla
             ]
         );
         #endregion
-        
-        
+
+
         featureOperationClaims.Add(new() { Id = ++lastId, Name = EntriesOperationClaims.GetTopLikedListByAuthorId });
-        
+
         featureOperationClaims.Add(new() { Id = ++lastId, Name = EntriesOperationClaims.GetMostFavoritedListByAuthorId });
+
+        #region AuthorBlockings CRUD
+        featureOperationClaims.AddRange(
+            [
+                new() { Id = ++lastId, Name = AuthorBlockingsOperationClaims.Admin },
+                new() { Id = ++lastId, Name = AuthorBlockingsOperationClaims.Read },
+                new() { Id = ++lastId, Name = AuthorBlockingsOperationClaims.Write },
+                new() { Id = ++lastId, Name = AuthorBlockingsOperationClaims.Create },
+                new() { Id = ++lastId, Name = AuthorBlockingsOperationClaims.Update },
+                new() { Id = ++lastId, Name = AuthorBlockingsOperationClaims.Delete },
+            ]
+        );
+        #endregion
+
+
+        #region AuthorFollowings CRUD
+        featureOperationClaims.AddRange(
+            [
+                new() { Id = ++lastId, Name = AuthorFollowingsOperationClaims.Admin },
+                new() { Id = ++lastId, Name = AuthorFollowingsOperationClaims.Read },
+                new() { Id = ++lastId, Name = AuthorFollowingsOperationClaims.Write },
+                new() { Id = ++lastId, Name = AuthorFollowingsOperationClaims.Create },
+                new() { Id = ++lastId, Name = AuthorFollowingsOperationClaims.Update },
+                new() { Id = ++lastId, Name = AuthorFollowingsOperationClaims.Delete },
+            ]
+        );
+        #endregion
+
+
+        #region AuthorModOperations CRUD
+        featureOperationClaims.AddRange(
+            [
+                new() { Id = ++lastId, Name = AuthorModOperationsOperationClaims.Admin },
+                new() { Id = ++lastId, Name = AuthorModOperationsOperationClaims.Read },
+                new() { Id = ++lastId, Name = AuthorModOperationsOperationClaims.Write },
+                new() { Id = ++lastId, Name = AuthorModOperationsOperationClaims.Create },
+                new() { Id = ++lastId, Name = AuthorModOperationsOperationClaims.Update },
+                new() { Id = ++lastId, Name = AuthorModOperationsOperationClaims.Delete },
+            ]
+        );
+        #endregion
+
+
+        #region EntryModOperations CRUD
+        featureOperationClaims.AddRange(
+            [
+                new() { Id = ++lastId, Name = EntryModOperationsOperationClaims.Admin },
+                new() { Id = ++lastId, Name = EntryModOperationsOperationClaims.Read },
+                new() { Id = ++lastId, Name = EntryModOperationsOperationClaims.Write },
+                new() { Id = ++lastId, Name = EntryModOperationsOperationClaims.Create },
+                new() { Id = ++lastId, Name = EntryModOperationsOperationClaims.Update },
+                new() { Id = ++lastId, Name = EntryModOperationsOperationClaims.Delete },
+            ]
+        );
+        #endregion
+
+
+        #region TitleBlockings CRUD
+        featureOperationClaims.AddRange(
+            [
+                new() { Id = ++lastId, Name = TitleBlockingsOperationClaims.Admin },
+                new() { Id = ++lastId, Name = TitleBlockingsOperationClaims.Read },
+                new() { Id = ++lastId, Name = TitleBlockingsOperationClaims.Write },
+                new() { Id = ++lastId, Name = TitleBlockingsOperationClaims.Create },
+                new() { Id = ++lastId, Name = TitleBlockingsOperationClaims.Update },
+                new() { Id = ++lastId, Name = TitleBlockingsOperationClaims.Delete },
+            ]
+        );
+        #endregion
+
+
+        #region TitleFollowings CRUD
+        featureOperationClaims.AddRange(
+            [
+                new() { Id = ++lastId, Name = TitleFollowingsOperationClaims.Admin },
+                new() { Id = ++lastId, Name = TitleFollowingsOperationClaims.Read },
+                new() { Id = ++lastId, Name = TitleFollowingsOperationClaims.Write },
+                new() { Id = ++lastId, Name = TitleFollowingsOperationClaims.Create },
+                new() { Id = ++lastId, Name = TitleFollowingsOperationClaims.Update },
+                new() { Id = ++lastId, Name = TitleFollowingsOperationClaims.Delete },
+            ]
+        );
+        #endregion
+
+
+        #region TitleModOperations CRUD
+        featureOperationClaims.AddRange(
+            [
+                new() { Id = ++lastId, Name = TitleModOperationsOperationClaims.Admin },
+                new() { Id = ++lastId, Name = TitleModOperationsOperationClaims.Read },
+                new() { Id = ++lastId, Name = TitleModOperationsOperationClaims.Write },
+                new() { Id = ++lastId, Name = TitleModOperationsOperationClaims.Create },
+                new() { Id = ++lastId, Name = TitleModOperationsOperationClaims.Update },
+                new() { Id = ++lastId, Name = TitleModOperationsOperationClaims.Delete },
+            ]
+        );
+        #endregion
+
+
+        #region AuthorBlockings CRUD
+        featureOperationClaims.AddRange(
+            [
+                new() { Id = ++lastId, Name = AuthorBlockingsOperationClaims.Admin },
+                new() { Id = ++lastId, Name = AuthorBlockingsOperationClaims.Read },
+                new() { Id = ++lastId, Name = AuthorBlockingsOperationClaims.Write },
+                new() { Id = ++lastId, Name = AuthorBlockingsOperationClaims.Create },
+                new() { Id = ++lastId, Name = AuthorBlockingsOperationClaims.Update },
+                new() { Id = ++lastId, Name = AuthorBlockingsOperationClaims.Delete },
+            ]
+        );
+        #endregion
+
+
+        #region Categories CRUD
+        featureOperationClaims.AddRange(
+            [
+                new() { Id = ++lastId, Name = CategoriesOperationClaims.Admin },
+                new() { Id = ++lastId, Name = CategoriesOperationClaims.Read },
+                new() { Id = ++lastId, Name = CategoriesOperationClaims.Write },
+                new() { Id = ++lastId, Name = CategoriesOperationClaims.Create },
+                new() { Id = ++lastId, Name = CategoriesOperationClaims.Update },
+                new() { Id = ++lastId, Name = CategoriesOperationClaims.Delete },
+            ]
+        );
+        #endregion
+
         return featureOperationClaims;
     }
 #pragma warning restore S1854 // Unused assignments should be removed

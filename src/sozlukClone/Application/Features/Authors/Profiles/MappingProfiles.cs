@@ -28,19 +28,23 @@ public class MappingProfiles : Profile
 
         CreateMap<Author, GetByIdAuthorResponse>();
 
+        CreateMap<Author, GetByUserNameResponse>();
+        CreateMap<GetByUserNameResponse, Author>();
+
+        CreateMap<Author, GetByIdAuthorForEntryResponse>();
+        CreateMap<GetByIdAuthorForEntryResponse, Author>();
+
+        CreateMap<Author, GetByIdAuthorForTitleGetByIdResponse>();
+        CreateMap<GetByIdAuthorForTitleGetByIdResponse, Author>();
+
         CreateMap<Author, GetListAuthorListItemDto>();
         CreateMap<IPaginate<Author>, GetListResponse<GetListAuthorListItemDto>>();
 
         CreateMap<Author, GetDynamicAuthorItemDto>();
         CreateMap<IPaginate<Author>, GetListResponse<GetDynamicAuthorItemDto>>();
 
-        CreateMap<Author, GetByUserNameResponse>();
-
         CreateMap<Author, GetListAuthorInEntryListItemDto>();
         CreateMap<IPaginate<Author>, GetListResponse<GetListAuthorInEntryListItemDto>>();
-
-        CreateMap<Author, GetByIdAuthorForEntryResponse>();
-        CreateMap<GetByIdAuthorForEntryResponse, Author>();
 
     }
 }

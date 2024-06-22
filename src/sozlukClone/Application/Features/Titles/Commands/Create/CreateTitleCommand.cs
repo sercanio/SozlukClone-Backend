@@ -42,7 +42,7 @@ public class CreateTitleCommand : IRequest<CreatedTitleResponse>, ISecuredReques
         public async Task<CreatedTitleResponse> Handle(CreateTitleCommand request, CancellationToken cancellationToken)
         {
             Title title = _mapper.Map<Title>(request);
-            title.slug = TitleUtils.GenerateSlug(title.Name);
+            title.Slug = TitleUtils.GenerateSlug(title.Name);
             title.Name = title.Name.Trim().ToLower();
 
             await _titleBusinessRules.TitleNameShouldNotExistsWhenInsert(title.Name);

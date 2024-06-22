@@ -1,4 +1,3 @@
-using Application.Features.Titles.Queries.GetById;
 using Application.Features.Titles.Rules;
 using Application.Services.Repositories;
 using AutoMapper;
@@ -30,33 +29,13 @@ public class GetBySlugQuery : IRequest<GetTitleBySlugResponse>
         public async Task<GetTitleBySlugResponse> Handle(GetBySlugQuery request, CancellationToken cancellationToken)
         {
             Title? title = await _titleRepository.GetAsync(
-                predicate: t => t.slug == request.Slug,
-                include: t => t
-                    .Include(t => t.Entries.OrderBy(e => e.CreatedDate).Skip(request.PageIndex * request.PageSize).Take(request.PageSize))
-                        .ThenInclude(e => e.Author)
-                            .ThenInclude(a => a.AuthorGroup)
-                     .Include(t => t.Entries)
-                        .ThenInclude(e => e.Likes)
-                     .Include(t => t.Entries)
-                        .ThenInclude(e => e.Dislikes)
-                     .Include(t => t.Entries)
-                        .ThenInclude(e => e.Favorites)
-                    .Include(t => t.Author)
-                        .ThenInclude(a => a.AuthorGroup),
+                predicate: t => t.Slug == request.Slug,
+                include: t => t.Include(t => t.Author),
                 cancellationToken: cancellationToken);
 
             await _titleBusinessRules.TitleShouldExistWhenSelected(title);
 
             GetTitleBySlugResponse response = _mapper.Map<GetTitleBySlugResponse>(title);
-
-            Title? titleToEntryCount = await _titleRepository.GetAsync(
-                predicate: t => t.Id == title!.Id,
-                include: t => t.Include(t => t.Entries),
-                cancellationToken: cancellationToken);
-
-            GetByIdTitleResponse titleToEntryCountResponse = _mapper.Map<GetByIdTitleResponse>(titleToEntryCount);
-
-            response.EntryCount = titleToEntryCountResponse.Entries.Count;
 
             return response;
         }

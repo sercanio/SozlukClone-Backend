@@ -8,11 +8,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Application.Features.Titles.Queries.GetByTitleName;
 
-public class GetByTitleNameQuery : IRequest<GetTitleBySlugResponse>
+public class GetByTitleNameQuery : IRequest<GetByTitleNameResponse>
 {
     public string Name { get; set; }
 
-    public class GetByTitleNameQueryHandler : IRequestHandler<GetByTitleNameQuery, GetTitleBySlugResponse>
+    public class GetByTitleNameQueryHandler : IRequestHandler<GetByTitleNameQuery, GetByTitleNameResponse>
     {
         private readonly IMapper _mapper;
         private readonly TitleBusinessRules _titleBusinessRules;
@@ -25,7 +25,7 @@ public class GetByTitleNameQuery : IRequest<GetTitleBySlugResponse>
             _titleRepository = titleRepository;
         }
 
-        public async Task<GetTitleBySlugResponse> Handle(GetByTitleNameQuery request, CancellationToken cancellationToken)
+        public async Task<GetByTitleNameResponse> Handle(GetByTitleNameQuery request, CancellationToken cancellationToken)
         {
             Title? title = await _titleRepository.GetAsync(predicate: t => t.Name == request.Name.Trim(),
                 include: t => t.Include(t => t.Entries).Include(t => t.Author),
@@ -33,7 +33,7 @@ public class GetByTitleNameQuery : IRequest<GetTitleBySlugResponse>
 
             await _titleBusinessRules.TitleShouldExistWhenSelected(title);
 
-            GetTitleBySlugResponse response = _mapper.Map<GetTitleBySlugResponse>(title);
+            GetByTitleNameResponse response = _mapper.Map<GetByTitleNameResponse>(title);
             return response;
         }
     }

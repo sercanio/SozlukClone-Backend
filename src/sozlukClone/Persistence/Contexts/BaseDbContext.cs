@@ -27,10 +27,17 @@ public class BaseDbContext : DbContext
     public DbSet<AuthorGroupUserOperationClaim> AuthorGroupUserOperationClaims { get; set; }
     public DbSet<GlobalSetting> Settings { get; set; }
     public DbSet<GlobalSetting> GlobalSettings { get; set; }
-    public DbSet<Relation> Relations { get; set; }
+    public DbSet<AuthorFollowing> AuthorFollowings { get; set; }
     public DbSet<Like> Likes { get; set; }
     public DbSet<Dislike> Dislikes { get; set; }
     public DbSet<Favorite> Favorites { get; set; }
+    public DbSet<AuthorBlocking> AuthorBlockings { get; set; }
+    public DbSet<AuthorModOperation> AuthorModOperations { get; set; }
+    public DbSet<EntryModOperation> EntryModOperations { get; set; }
+    public DbSet<TitleBlocking> TitleBlockings { get; set; }
+    public DbSet<TitleFollowing> TitleFollowings { get; set; }
+    public DbSet<TitleModOperation> TitleModOperations { get; set; }
+    public DbSet<Category> Categories { get; set; }
 
     public BaseDbContext(DbContextOptions dbContextOptions, IConfiguration configuration)
         : base(dbContextOptions)

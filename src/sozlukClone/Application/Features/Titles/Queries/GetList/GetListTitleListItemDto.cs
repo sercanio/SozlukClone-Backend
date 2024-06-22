@@ -9,6 +9,5 @@ public class GetListTitleListItemDto : IDto
     public string Name { get; set; }
     public string Slug { get; set; }
     public int EntryCount { get; set; }
-
     public ICollection<GetListEntryInTitleListItemDTO> Entries { get; set; }
 }

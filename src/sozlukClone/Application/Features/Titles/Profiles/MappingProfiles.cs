@@ -1,5 +1,3 @@
-using Application.Features.Authors.Queries.GetList;
-using Application.Features.Entries.Queries.GetList;
 using Application.Features.Titles.Commands.Create;
 using Application.Features.Titles.Commands.Delete;
 using Application.Features.Titles.Commands.Update;
@@ -30,30 +28,21 @@ namespace Application.Features.Titles.Profiles
             CreateMap<Title, GetByIdTitleResponse>();
             CreateMap<GetByIdTitleResponse, Title>();
 
+            CreateMap<Title, GetTitleBySlugResponse>();
+            CreateMap<GetTitleBySlugResponse, Title>();
+
+            CreateMap<Title, GetByTitleNameResponse>();
+            CreateMap<GetByTitleNameResponse, Title>();
+
+            CreateMap<Title, GetTitleListItemForTitleModOperationsDto>();
+            CreateMap<IPaginate<Title>, GetListResponse<GetTitleListItemForTitleModOperationsDto>>();
+
             CreateMap<Title, GetListTitleListItemDto>();
             CreateMap<IPaginate<Title>, GetListResponse<GetListTitleListItemDto>>();
-
-            CreateMap<GetBySlugQuery, Title>();
-            CreateMap<Title, GetTitleBySlugResponse>()
-                .ForMember(dest => dest.Entries, opt => opt.MapFrom(src => src.Entries))  // Map Entries
-                .ForMember(dest => dest.Author, opt => opt.MapFrom(src => src.Author))
-                .ForMember(dest => dest.EntryCount, opt => opt.MapFrom(src => src.Entries.Count));  // Map EntryCount
 
             CreateMap<Title, GetDynamicTitleItemDto>();
             CreateMap<IPaginate<Title>, GetListResponse<GetDynamicTitleItemDto>>();
 
-            CreateMap<Author, GetListAuthorInEntryListItemDto>()
-                .ForMember(dest => dest.AuthorGroup, opt => opt.MapFrom(src => src.AuthorGroup));
-
-            CreateMap<Entry, GetListEntryListItemDto>()
-                .ForMember(dest => dest.Author, opt => opt.MapFrom(src => src.Author));
-            CreateMap<IPaginate<Entry>, GetListResponse<GetListEntryListItemDto>>();
-
-            CreateMap<Title, GetByIdTitleForEntryResponse>();
-            CreateMap<GetByIdTitleForEntryResponse, Title>();
-
-            CreateMap<Title, GetListTitleListItemProfilePage>();
-            CreateMap<GetListTitleListItemProfilePage, Title>();
         }
     }
 }

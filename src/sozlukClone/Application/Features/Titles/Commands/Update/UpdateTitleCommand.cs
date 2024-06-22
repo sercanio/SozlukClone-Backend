@@ -3,10 +3,10 @@ using Application.Features.Titles.Rules;
 using Application.Services.Repositories;
 using AutoMapper;
 using Domain.Entities;
+using MediatR;
 using NArchitecture.Core.Application.Pipelines.Authorization;
 using NArchitecture.Core.Application.Pipelines.Logging;
 using NArchitecture.Core.Application.Pipelines.Transaction;
-using MediatR;
 using static Application.Features.Titles.Constants.TitlesOperationClaims;
 
 namespace Application.Features.Titles.Commands.Update;
@@ -14,10 +14,8 @@ namespace Application.Features.Titles.Commands.Update;
 public class UpdateTitleCommand : IRequest<UpdatedTitleResponse>, ISecuredRequest, ILoggableRequest, ITransactionalRequest
 {
     public uint Id { get; set; }
-    public required string Name { get; set; }
-    public required uint AuthorId { get; set; }
-    public required bool IsLocked { get; set; }
-    public required string Slug { get; set; }
+    public string? Name { get; set; }
+    public bool? IsLocked { get; set; }
 
     public string[] Roles => [Admin, Write, TitlesOperationClaims.Update];
 

@@ -1,14 +1,26 @@
 using Application.Services.AuthenticatorService;
+using Application.Services.AuthorBlockings;
+using Application.Services.AuthorFollowings;
 using Application.Services.AuthorGroups;
 using Application.Services.AuthorGroupUserOperationClaims;
+using Application.Services.AuthorModOperations;
 using Application.Services.Authors;
 using Application.Services.AuthorSettings;
 using Application.Services.AuthService;
 using Application.Services.Badges;
+using Application.Services.Categories;
+using Application.Services.Dislikes;
 using Application.Services.Entries;
+using Application.Services.EntryModOperations;
+using Application.Services.Favorites;
+using Application.Services.GlobalSettings;
+using Application.Services.Likes;
 using Application.Services.LoginAudits;
 using Application.Services.Penalties;
 using Application.Services.PenaltyTypes;
+using Application.Services.TitleBlockings;
+using Application.Services.TitleFollowings;
+using Application.Services.TitleModOperations;
 using Application.Services.Titles;
 using Application.Services.TitleSettings;
 using Application.Services.UserOperationClaims;
@@ -32,11 +44,6 @@ using NArchitecture.Core.Mailing.MailKit;
 using NArchitecture.Core.Security.DependencyInjection;
 using NArchitecture.Core.Security.JWT;
 using System.Reflection;
-using Application.Services.GlobalSettings;
-using Application.Services.Relations;
-using Application.Services.Likes;
-using Application.Services.Dislikes;
-using Application.Services.Favorites;
 
 namespace Application;
 
@@ -99,10 +106,18 @@ public static class ApplicationServiceRegistration
         services.AddScoped<IEntryService, EntryManager>();
         services.AddScoped<ITitleService, TitleManager>();
         services.AddScoped<IEntryService, EntryManager>();
-        services.AddScoped<IRelationService, RelationManager>();
         services.AddScoped<ILikeService, LikeManager>();
         services.AddScoped<IDislikeService, DislikeManager>();
         services.AddScoped<IFavoriteService, FavoriteManager>();
+        services.AddScoped<IAuthorBlockingService, AuthorBlockingManager>();
+        services.AddScoped<IAuthorFollowingService, AuthorFollowingManager>();
+        services.AddScoped<IAuthorModOperationService, AuthorModOperationManager>();
+        services.AddScoped<IEntryModOperationService, EntryModOperationManager>();
+        services.AddScoped<ITitleBlockingService, TitleBlockingManager>();
+        services.AddScoped<ITitleFollowingService, TitleFollowingManager>();
+        services.AddScoped<ITitleModOperationService, TitleModOperationManager>();
+        services.AddScoped<IAuthorBlockingService, AuthorBlockingManager>();
+        services.AddScoped<ICategoryService, CategoryManager>();
         return services;
     }
 

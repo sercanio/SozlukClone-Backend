@@ -20,5 +20,5 @@ public class GetListEntryListItemDto : IDto
     public ICollection<GetListFavoriteListItemInEntryDto> Favorites { get; set; }
 
     public GetListAuthorListItemDto Author { get; set; }
-    public GetListTitleListItemInHomePageDto Title { get; set; }
+    public GetListTitleListItemDto Title { get; set; }
 }

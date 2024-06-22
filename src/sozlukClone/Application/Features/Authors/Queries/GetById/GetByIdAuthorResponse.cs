@@ -13,7 +13,7 @@ public class GetByIdAuthorResponse : IResponse
     public string? ProfilePictureUrl { get; set; }
     public string? CoverPictureUrl { get; set; }
     public byte? Age { get; set; }
-    public Gender? Gender { get; set; }
+    public GenderEnum? Gender { get; set; }
     public uint AuthorGroupId { get; set; }
     public uint ActiveBadgeId { get; set; }
     public DateTime CreatedDate { get; set; }

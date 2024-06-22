@@ -21,7 +21,7 @@ public class GetListByAuthorIdResponse : IResponse
     public int FavoriteCount { get; set; }
 
     public GetListAuthorListItemDto Author { get; set; }
-    public GetListTitleListItemInHomePageDto Title { get; set; }
+    public GetListTitleListItemDto Title { get; set; }
 
     public ICollection<GetListLikeListItemInEntryDto> Likes { get; set; }
     public ICollection<GetListDislikeListItemInEntryDto> Dislikes { get; set; }

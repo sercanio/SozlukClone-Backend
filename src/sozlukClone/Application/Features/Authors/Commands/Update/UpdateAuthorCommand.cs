@@ -21,7 +21,7 @@ public class UpdateAuthorCommand : IRequest<UpdatedAuthorResponse>, ISecuredRequ
     public string? ProfilePictureUrl { get; set; }
     public string? CoverPictureUrl { get; set; }
     public byte? Age { get; set; }
-    public Gender? Gender { get; set; }
+    public GenderEnum? Gender { get; set; }
     public required uint AuthorGroupId { get; set; }
     public required uint ActiveBadgeId { get; set; }
 

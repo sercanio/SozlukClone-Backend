@@ -6,6 +6,7 @@ public class Entry : Entity<int>
     public string Content { get; set; }
     public int AuthorId { get; set; }
     public int TitleId { get; set; }
+    public bool IsVisible { get; set; }
     public ICollection<Like> Likes { get; set; }
     public ICollection<Dislike> Dislikes { get; set; }
     public ICollection<Favorite> Favorites { get; set; }

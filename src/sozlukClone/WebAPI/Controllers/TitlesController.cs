@@ -6,6 +6,7 @@ using Application.Features.Titles.Queries.GetBySlug;
 using Application.Features.Titles.Queries.GetByTitleName;
 using Application.Features.Titles.Queries.GetDynamic;
 using Application.Features.Titles.Queries.GetList;
+using Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
 using NArchitecture.Core.Application.Requests;
 using NArchitecture.Core.Application.Responses;
@@ -81,9 +82,9 @@ public class TitlesController : BaseController
     }
 
     [HttpGet("GetByTitleName")]
-    public async Task<ActionResult<GetTitleBySlugResponse>> GetByTitleName([FromQuery] GetByTitleNameQuery getByTitleNameQuery)
+    public async Task<ActionResult<GetByTitleNameResponse>> GetByTitleName([FromQuery] GetByTitleNameQuery getByTitleNameQuery)
     {
-        GetTitleBySlugResponse response = await Mediator.Send(getByTitleNameQuery);
+        GetByTitleNameResponse response = await Mediator.Send(getByTitleNameQuery);
         return Ok(response);
     }
 }

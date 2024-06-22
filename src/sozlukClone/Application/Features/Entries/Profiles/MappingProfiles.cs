@@ -8,7 +8,6 @@ using Application.Features.Entries.Queries.GetListByAuthorId;
 using Application.Features.Entries.Queries.GetListEntryForHomePage;
 using Application.Features.Entries.Queries.GetMostFavoritedListByAuthorId;
 using Application.Features.Entries.Queries.GetTopLikedListByAuthorId;
-using Application.Features.Titles.Queries.GetList;
 using AutoMapper;
 using Domain.Entities;
 using NArchitecture.Core.Application.Responses;
@@ -49,9 +48,6 @@ public class MappingProfiles : Profile
 
         CreateMap<Author, GetListAuthorGroupListItemInEntryDto>();
         CreateMap<GetListAuthorGroupListItemInEntryDto, Author>();
-
-        CreateMap<Title, GetListTitleListItemInHomePageDto>();
-        CreateMap<GetListTitleListItemInHomePageDto, Title>();
 
         CreateMap<Entry, GetTopLikedListByAuthorIdResponse>();
         CreateMap<IPaginate<Entry>, GetListResponse<GetTopLikedListByAuthorIdResponse>>();

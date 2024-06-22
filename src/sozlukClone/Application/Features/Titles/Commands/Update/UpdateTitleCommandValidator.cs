@@ -8,8 +8,5 @@ public class UpdateTitleCommandValidator : AbstractValidator<UpdateTitleCommand>
     {
         RuleFor(c => c.Id).NotEmpty();
         RuleFor(c => c.Name).NotEmpty();
-        RuleFor(c => c.AuthorId).NotEmpty();
-        RuleFor(c => c.IsLocked).NotEmpty();
-        RuleFor(c => c.Slug).NotEmpty();
     }
 }

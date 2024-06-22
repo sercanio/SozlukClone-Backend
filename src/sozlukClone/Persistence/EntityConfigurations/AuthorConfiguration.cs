@@ -25,6 +25,7 @@ public class AuthorConfiguration : IEntityTypeConfiguration<Author>
         builder.Property(a => a.DeletedDate).HasColumnName("DeletedDate");
 
         builder.HasIndex(a => a.UserId, "Author_UserID_UK").IsUnique();
+
         builder.HasOne(a => a.User);
 
         builder.HasOne(a => a.ActiveBadge)
@@ -44,6 +45,7 @@ public class AuthorConfiguration : IEntityTypeConfiguration<Author>
                .HasForeignKey(r => r.FollowerId)
                .OnDelete(DeleteBehavior.Restrict);
 
+        // Seed data
         builder.HasData(new Author
         {
             Id = 1,

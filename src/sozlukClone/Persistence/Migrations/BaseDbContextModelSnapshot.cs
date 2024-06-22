@@ -112,10 +112,82 @@ namespace Persistence.Migrations
                             Id = 1,
                             ActiveBadgeId = 1,
                             AuthorGroupId = 1,
-                            CreatedDate = new DateTime(2024, 6, 21, 8, 58, 51, 174, DateTimeKind.Utc).AddTicks(9092),
+                            CreatedDate = new DateTime(2024, 6, 22, 18, 34, 11, 7, DateTimeKind.Utc).AddTicks(3836),
                             UserId = new Guid("029bf0d3-9429-44d7-9c30-51655e583ab6"),
                             UserName = "sozluk"
                         });
+                });
+
+            modelBuilder.Entity("Domain.Entities.AuthorBlocking", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid")
+                        .HasColumnName("Id");
+
+                    b.Property<int>("BlockerId")
+                        .HasColumnType("integer")
+                        .HasColumnName("BlockerId");
+
+                    b.Property<int>("BlockingId")
+                        .HasColumnType("integer")
+                        .HasColumnName("BlockingId");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("CreatedDate");
+
+                    b.Property<DateTime?>("DeletedDate")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("DeletedDate");
+
+                    b.Property<DateTime?>("UpdatedDate")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("UpdatedDate");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BlockerId");
+
+                    b.HasIndex("BlockingId");
+
+                    b.ToTable("AuthorBlockings", (string)null);
+                });
+
+            modelBuilder.Entity("Domain.Entities.AuthorFollowing", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid")
+                        .HasColumnName("Id");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("CreatedDate");
+
+                    b.Property<DateTime?>("DeletedDate")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("DeletedDate");
+
+                    b.Property<int>("FollowerId")
+                        .HasColumnType("integer")
+                        .HasColumnName("FollowerId");
+
+                    b.Property<int>("FollowingId")
+                        .HasColumnType("integer")
+                        .HasColumnName("FollowingId");
+
+                    b.Property<DateTime?>("UpdatedDate")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("UpdatedDate");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("FollowerId");
+
+                    b.HasIndex("FollowingId");
+
+                    b.ToTable("AuthorFollowings", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Entities.AuthorGroup", b =>
@@ -278,11 +350,56 @@ namespace Persistence.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("256a5b04-8dcf-4db6-84f1-8dd13755e7d7"),
+                            Id = new Guid("7537ee04-3936-45ff-a213-b17a7ce28204"),
                             AuthorGroupId = 1,
-                            CreatedDate = new DateTime(2024, 6, 21, 8, 58, 51, 175, DateTimeKind.Utc).AddTicks(6476),
+                            CreatedDate = new DateTime(2024, 6, 22, 18, 34, 11, 8, DateTimeKind.Utc).AddTicks(2634),
                             OperationClaimId = 1
                         });
+                });
+
+            modelBuilder.Entity("Domain.Entities.AuthorModOperation", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid")
+                        .HasColumnName("Id");
+
+                    b.Property<int>("AuthorId")
+                        .HasColumnType("integer")
+                        .HasColumnName("AuthorId");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("CreatedDate");
+
+                    b.Property<DateTime?>("DeletedDate")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("DeletedDate");
+
+                    b.Property<int>("IssuerId")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<Guid?>("PenaltyId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("PenaltyId");
+
+                    b.Property<DateTime?>("UpdatedDate")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("UpdatedDate");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AuthorId");
+
+                    b.HasIndex("IssuerId");
+
+                    b.HasIndex("PenaltyId");
+
+                    b.ToTable("AuthorModOperations", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Entities.AuthorSetting", b =>
@@ -389,6 +506,40 @@ namespace Persistence.Migrations
                         });
                 });
 
+            modelBuilder.Entity("Domain.Entities.Category", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid")
+                        .HasColumnName("Id");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("CreatedDate");
+
+                    b.Property<DateTime?>("DeletedDate")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("DeletedDate");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("Description");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("Name");
+
+                    b.Property<DateTime?>("UpdatedDate")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("UpdatedDate");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Categories", (string)null);
+                });
+
             modelBuilder.Entity("Domain.Entities.Dislike", b =>
                 {
                     b.Property<Guid>("Id")
@@ -489,6 +640,9 @@ namespace Persistence.Migrations
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("DeletedDate");
 
+                    b.Property<bool>("IsVisible")
+                        .HasColumnType("boolean");
+
                     b.Property<int>("TitleId")
                         .HasColumnType("integer")
                         .HasColumnName("TitleId");
@@ -511,9 +665,49 @@ namespace Persistence.Migrations
                             Id = 1,
                             AuthorId = 1,
                             Content = "ASP.Net ve Nextjs ile geliştirilmiş bir sözlük klonudur.",
-                            CreatedDate = new DateTime(2024, 6, 21, 8, 58, 51, 177, DateTimeKind.Utc).AddTicks(3500),
+                            CreatedDate = new DateTime(2024, 6, 22, 18, 34, 11, 11, DateTimeKind.Utc).AddTicks(9440),
+                            IsVisible = false,
                             TitleId = 1
                         });
+                });
+
+            modelBuilder.Entity("Domain.Entities.EntryModOperation", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid")
+                        .HasColumnName("Id");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("CreatedDate");
+
+                    b.Property<DateTime?>("DeletedDate")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("DeletedDate");
+
+                    b.Property<int>("EntryId")
+                        .HasColumnType("integer")
+                        .HasColumnName("EntryId");
+
+                    b.Property<int>("IssuerId")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<DateTime?>("UpdatedDate")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("UpdatedDate");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("EntryId");
+
+                    b.HasIndex("IssuerId");
+
+                    b.ToTable("EntryModOperations", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Entities.Favorite", b =>
@@ -623,7 +817,7 @@ namespace Persistence.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedDate = new DateTime(2024, 6, 21, 8, 58, 51, 177, DateTimeKind.Utc).AddTicks(9124),
+                            CreatedDate = new DateTime(2024, 6, 22, 18, 34, 11, 12, DateTimeKind.Utc).AddTicks(7294),
                             DefaultAuthorGroupId = 8,
                             IsAuthorRegistrationAllowed = true,
                             MaxEntryLength = 5000,
@@ -1374,145 +1568,445 @@ namespace Persistence.Migrations
                         {
                             Id = 102,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Relations.Admin"
+                            Name = "Likes.Admin"
                         },
                         new
                         {
                             Id = 103,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Relations.Read"
+                            Name = "Likes.Read"
                         },
                         new
                         {
                             Id = 104,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Relations.Write"
+                            Name = "Likes.Write"
                         },
                         new
                         {
                             Id = 105,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Relations.Create"
+                            Name = "Likes.Create"
                         },
                         new
                         {
                             Id = 106,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Relations.Update"
+                            Name = "Likes.Update"
                         },
                         new
                         {
                             Id = 107,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Relations.Delete"
+                            Name = "Likes.Delete"
                         },
                         new
                         {
                             Id = 108,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Likes.Admin"
+                            Name = "Dislikes.Admin"
                         },
                         new
                         {
                             Id = 109,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Likes.Read"
+                            Name = "Dislikes.Read"
                         },
                         new
                         {
                             Id = 110,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Likes.Write"
+                            Name = "Dislikes.Write"
                         },
                         new
                         {
                             Id = 111,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Likes.Create"
+                            Name = "Dislikes.Create"
                         },
                         new
                         {
                             Id = 112,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Likes.Update"
+                            Name = "Dislikes.Update"
                         },
                         new
                         {
                             Id = 113,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Likes.Delete"
+                            Name = "Dislikes.Delete"
                         },
                         new
                         {
                             Id = 114,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Dislikes.Admin"
+                            Name = "Favorites.Admin"
                         },
                         new
                         {
                             Id = 115,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Dislikes.Read"
+                            Name = "Favorites.Read"
                         },
                         new
                         {
                             Id = 116,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Dislikes.Write"
+                            Name = "Favorites.Write"
                         },
                         new
                         {
                             Id = 117,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Dislikes.Create"
+                            Name = "Favorites.Create"
                         },
                         new
                         {
                             Id = 118,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Dislikes.Update"
+                            Name = "Favorites.Update"
                         },
                         new
                         {
                             Id = 119,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Dislikes.Delete"
+                            Name = "Favorites.Delete"
                         },
                         new
                         {
                             Id = 120,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Favorites.Admin"
+                            Name = "Entries.GetTopLikedListByAuthorId"
                         },
                         new
                         {
                             Id = 121,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Favorites.Read"
+                            Name = "Entries.GetMostFavoritedListByAuthorId"
                         },
                         new
                         {
                             Id = 122,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Favorites.Write"
+                            Name = "AuthorBlockings.Admin"
                         },
                         new
                         {
                             Id = 123,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Favorites.Create"
+                            Name = "AuthorBlockings.Read"
                         },
                         new
                         {
                             Id = 124,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Favorites.Update"
+                            Name = "AuthorBlockings.Write"
                         },
                         new
                         {
                             Id = 125,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Favorites.Delete"
+                            Name = "AuthorBlockings.Create"
+                        },
+                        new
+                        {
+                            Id = 126,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "AuthorBlockings.Update"
+                        },
+                        new
+                        {
+                            Id = 127,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "AuthorBlockings.Delete"
+                        },
+                        new
+                        {
+                            Id = 128,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "AuthorFollowings.Admin"
+                        },
+                        new
+                        {
+                            Id = 129,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "AuthorFollowings.Read"
+                        },
+                        new
+                        {
+                            Id = 130,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "AuthorFollowings.Write"
+                        },
+                        new
+                        {
+                            Id = 131,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "AuthorFollowings.Create"
+                        },
+                        new
+                        {
+                            Id = 132,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "AuthorFollowings.Update"
+                        },
+                        new
+                        {
+                            Id = 133,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "AuthorFollowings.Delete"
+                        },
+                        new
+                        {
+                            Id = 134,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "AuthorModOperations.Admin"
+                        },
+                        new
+                        {
+                            Id = 135,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "AuthorModOperations.Read"
+                        },
+                        new
+                        {
+                            Id = 136,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "AuthorModOperations.Write"
+                        },
+                        new
+                        {
+                            Id = 137,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "AuthorModOperations.Create"
+                        },
+                        new
+                        {
+                            Id = 138,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "AuthorModOperations.Update"
+                        },
+                        new
+                        {
+                            Id = 139,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "AuthorModOperations.Delete"
+                        },
+                        new
+                        {
+                            Id = 140,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "EntryModOperations.Admin"
+                        },
+                        new
+                        {
+                            Id = 141,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "EntryModOperations.Read"
+                        },
+                        new
+                        {
+                            Id = 142,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "EntryModOperations.Write"
+                        },
+                        new
+                        {
+                            Id = 143,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "EntryModOperations.Create"
+                        },
+                        new
+                        {
+                            Id = 144,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "EntryModOperations.Update"
+                        },
+                        new
+                        {
+                            Id = 145,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "EntryModOperations.Delete"
+                        },
+                        new
+                        {
+                            Id = 146,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "TitleBlockings.Admin"
+                        },
+                        new
+                        {
+                            Id = 147,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "TitleBlockings.Read"
+                        },
+                        new
+                        {
+                            Id = 148,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "TitleBlockings.Write"
+                        },
+                        new
+                        {
+                            Id = 149,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "TitleBlockings.Create"
+                        },
+                        new
+                        {
+                            Id = 150,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "TitleBlockings.Update"
+                        },
+                        new
+                        {
+                            Id = 151,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "TitleBlockings.Delete"
+                        },
+                        new
+                        {
+                            Id = 152,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "TitleFollowings.Admin"
+                        },
+                        new
+                        {
+                            Id = 153,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "TitleFollowings.Read"
+                        },
+                        new
+                        {
+                            Id = 154,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "TitleFollowings.Write"
+                        },
+                        new
+                        {
+                            Id = 155,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "TitleFollowings.Create"
+                        },
+                        new
+                        {
+                            Id = 156,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "TitleFollowings.Update"
+                        },
+                        new
+                        {
+                            Id = 157,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "TitleFollowings.Delete"
+                        },
+                        new
+                        {
+                            Id = 158,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "TitleModOperations.Admin"
+                        },
+                        new
+                        {
+                            Id = 159,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "TitleModOperations.Read"
+                        },
+                        new
+                        {
+                            Id = 160,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "TitleModOperations.Write"
+                        },
+                        new
+                        {
+                            Id = 161,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "TitleModOperations.Create"
+                        },
+                        new
+                        {
+                            Id = 162,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "TitleModOperations.Update"
+                        },
+                        new
+                        {
+                            Id = 163,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "TitleModOperations.Delete"
+                        },
+                        new
+                        {
+                            Id = 164,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "AuthorBlockings.Admin"
+                        },
+                        new
+                        {
+                            Id = 165,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "AuthorBlockings.Read"
+                        },
+                        new
+                        {
+                            Id = 166,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "AuthorBlockings.Write"
+                        },
+                        new
+                        {
+                            Id = 167,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "AuthorBlockings.Create"
+                        },
+                        new
+                        {
+                            Id = 168,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "AuthorBlockings.Update"
+                        },
+                        new
+                        {
+                            Id = 169,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "AuthorBlockings.Delete"
+                        },
+                        new
+                        {
+                            Id = 170,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Categories.Admin"
+                        },
+                        new
+                        {
+                            Id = 171,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Categories.Read"
+                        },
+                        new
+                        {
+                            Id = 172,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Categories.Write"
+                        },
+                        new
+                        {
+                            Id = 173,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Categories.Create"
+                        },
+                        new
+                        {
+                            Id = 174,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Categories.Update"
+                        },
+                        new
+                        {
+                            Id = 175,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Categories.Delete"
                         });
                 });
 
@@ -1707,42 +2201,6 @@ namespace Persistence.Migrations
                     b.ToTable("RefreshTokens", (string)null);
                 });
 
-            modelBuilder.Entity("Domain.Entities.Relation", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid")
-                        .HasColumnName("Id");
-
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("CreatedDate");
-
-                    b.Property<DateTime?>("DeletedDate")
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("DeletedDate");
-
-                    b.Property<int>("FollowerId")
-                        .HasColumnType("integer")
-                        .HasColumnName("FollowerId");
-
-                    b.Property<int>("FollowingId")
-                        .HasColumnType("integer")
-                        .HasColumnName("FollowingId");
-
-                    b.Property<DateTime?>("UpdatedDate")
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("UpdatedDate");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("FollowerId");
-
-                    b.HasIndex("FollowingId");
-
-                    b.ToTable("Relations", (string)null);
-                });
-
             modelBuilder.Entity("Domain.Entities.Title", b =>
                 {
                     b.Property<int>("Id")
@@ -1764,23 +2222,23 @@ namespace Persistence.Migrations
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("DeletedDate");
 
+                    b.Property<bool>("IsLocked")
+                        .HasColumnType("boolean")
+                        .HasColumnName("IsLocked");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("text")
                         .HasColumnName("Name");
 
+                    b.Property<string>("Slug")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("Slug");
+
                     b.Property<DateTime?>("UpdatedDate")
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("UpdatedDate");
-
-                    b.Property<bool>("isLocked")
-                        .HasColumnType("boolean")
-                        .HasColumnName("isLocked");
-
-                    b.Property<string>("slug")
-                        .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnName("slug");
 
                     b.HasKey("Id");
 
@@ -1793,11 +2251,116 @@ namespace Persistence.Migrations
                         {
                             Id = 1,
                             AuthorId = 1,
-                            CreatedDate = new DateTime(2024, 6, 21, 8, 58, 51, 179, DateTimeKind.Utc).AddTicks(8905),
+                            CreatedDate = new DateTime(2024, 6, 22, 18, 34, 11, 15, DateTimeKind.Utc).AddTicks(5905),
+                            IsLocked = false,
                             Name = "sozlukclone projesi",
-                            isLocked = false,
-                            slug = "sozluk-clone-1"
+                            Slug = "sozluk-clone-1"
                         });
+                });
+
+            modelBuilder.Entity("Domain.Entities.TitleBlocking", b =>
+                {
+                    b.Property<int>("TitleId")
+                        .HasColumnType("integer")
+                        .HasColumnName("TitleId");
+
+                    b.Property<int>("AuthorId")
+                        .HasColumnType("integer")
+                        .HasColumnName("AuthorId");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("CreatedDate");
+
+                    b.Property<DateTime?>("DeletedDate")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("DeletedDate");
+
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uuid")
+                        .HasColumnName("Id");
+
+                    b.Property<DateTime?>("UpdatedDate")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("UpdatedDate");
+
+                    b.HasKey("TitleId", "AuthorId");
+
+                    b.HasIndex("AuthorId");
+
+                    b.ToTable("TitleBlockings", (string)null);
+                });
+
+            modelBuilder.Entity("Domain.Entities.TitleFollowing", b =>
+                {
+                    b.Property<int>("TitleId")
+                        .HasColumnType("integer")
+                        .HasColumnName("TitleId");
+
+                    b.Property<int>("AuthorId")
+                        .HasColumnType("integer")
+                        .HasColumnName("AuthorId");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("CreatedDate");
+
+                    b.Property<DateTime?>("DeletedDate")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("DeletedDate");
+
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uuid")
+                        .HasColumnName("Id");
+
+                    b.Property<DateTime?>("UpdatedDate")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("UpdatedDate");
+
+                    b.HasKey("TitleId", "AuthorId");
+
+                    b.HasIndex("AuthorId");
+
+                    b.ToTable("TitleFollowings", (string)null);
+                });
+
+            modelBuilder.Entity("Domain.Entities.TitleModOperation", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid")
+                        .HasColumnName("Id");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("CreatedDate");
+
+                    b.Property<DateTime?>("DeletedDate")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("DeletedDate");
+
+                    b.Property<int>("IssuerId")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<int>("TitleId")
+                        .HasColumnType("integer")
+                        .HasColumnName("TitleId");
+
+                    b.Property<DateTime?>("UpdatedDate")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("UpdatedDate");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("IssuerId");
+
+                    b.HasIndex("TitleId");
+
+                    b.ToTable("TitleModOperations", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Entities.TitleSetting", b =>
@@ -1907,8 +2470,8 @@ namespace Persistence.Migrations
                             AuthenticatorType = 0,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "sozluk@email.com",
-                            PasswordHash = new byte[] { 251, 203, 71, 250, 162, 206, 126, 49, 132, 36, 11, 113, 142, 234, 79, 73, 191, 75, 91, 47, 182, 251, 255, 80, 169, 34, 151, 12, 28, 185, 163, 211, 21, 27, 228, 89, 175, 251, 114, 255, 200, 20, 192, 27, 13, 190, 33, 38, 21, 227, 203, 17, 1, 124, 203, 217, 93, 12, 61, 31, 235, 1, 159, 247 },
-                            PasswordSalt = new byte[] { 34, 20, 88, 109, 188, 206, 120, 239, 248, 115, 27, 204, 137, 180, 1, 92, 213, 53, 83, 188, 205, 205, 33, 115, 3, 117, 180, 101, 109, 244, 167, 13, 150, 35, 217, 41, 253, 187, 141, 172, 243, 8, 243, 167, 212, 191, 103, 96, 134, 114, 126, 147, 199, 61, 199, 107, 149, 102, 225, 104, 92, 152, 25, 95, 249, 41, 66, 118, 33, 196, 102, 224, 179, 102, 50, 62, 158, 214, 203, 236, 151, 174, 119, 147, 74, 165, 103, 117, 186, 223, 169, 173, 242, 216, 69, 167, 212, 63, 50, 53, 200, 67, 135, 189, 24, 189, 250, 149, 247, 90, 74, 2, 158, 3, 64, 193, 232, 97, 206, 56, 9, 36, 53, 107, 72, 225, 67, 252 }
+                            PasswordHash = new byte[] { 115, 65, 37, 183, 10, 38, 210, 16, 26, 41, 175, 149, 109, 229, 190, 33, 134, 222, 120, 95, 45, 70, 11, 198, 157, 82, 51, 130, 69, 49, 227, 111, 108, 74, 42, 28, 247, 143, 203, 164, 67, 223, 188, 149, 193, 106, 145, 195, 179, 61, 94, 33, 227, 20, 40, 206, 3, 218, 46, 59, 145, 50, 96, 97 },
+                            PasswordSalt = new byte[] { 106, 231, 60, 1, 69, 185, 37, 78, 195, 59, 11, 76, 225, 55, 88, 154, 186, 48, 187, 153, 43, 127, 157, 119, 19, 239, 138, 47, 130, 141, 78, 140, 48, 214, 185, 73, 105, 22, 93, 190, 93, 232, 143, 199, 216, 227, 137, 216, 115, 64, 56, 204, 165, 42, 98, 74, 75, 225, 100, 78, 98, 186, 214, 45, 246, 217, 74, 242, 244, 239, 3, 69, 126, 79, 226, 47, 151, 99, 142, 139, 129, 233, 88, 239, 52, 229, 57, 72, 77, 76, 127, 81, 216, 91, 47, 237, 230, 125, 27, 94, 45, 97, 137, 192, 193, 228, 21, 33, 202, 30, 188, 189, 53, 128, 24, 91, 108, 156, 44, 120, 111, 252, 142, 63, 123, 201, 247, 144 }
                         });
                 });
 
@@ -1950,11 +2513,26 @@ namespace Persistence.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("beabe818-041e-4675-b072-2fafa84a05ff"),
+                            Id = new Guid("e0ed6216-a35e-43a1-ac24-b69bcd58f86f"),
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             OperationClaimId = 1,
                             UserId = new Guid("029bf0d3-9429-44d7-9c30-51655e583ab6")
                         });
+                });
+
+            modelBuilder.Entity("TitleCategory", b =>
+                {
+                    b.Property<Guid>("CategoryId")
+                        .HasColumnType("uuid");
+
+                    b.Property<int>("TitleId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("CategoryId", "TitleId");
+
+                    b.HasIndex("TitleId");
+
+                    b.ToTable("TitleCategory");
                 });
 
             modelBuilder.Entity("AuthorBadge", b =>
@@ -1999,6 +2577,44 @@ namespace Persistence.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("Domain.Entities.AuthorBlocking", b =>
+                {
+                    b.HasOne("Domain.Entities.Author", "Blocker")
+                        .WithMany("Blockings")
+                        .HasForeignKey("BlockerId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("Domain.Entities.Author", "Blocking")
+                        .WithMany("Blockers")
+                        .HasForeignKey("BlockingId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Blocker");
+
+                    b.Navigation("Blocking");
+                });
+
+            modelBuilder.Entity("Domain.Entities.AuthorFollowing", b =>
+                {
+                    b.HasOne("Domain.Entities.Author", "Follower")
+                        .WithMany("Followings")
+                        .HasForeignKey("FollowerId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("Domain.Entities.Author", "Following")
+                        .WithMany("Followers")
+                        .HasForeignKey("FollowingId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Follower");
+
+                    b.Navigation("Following");
+                });
+
             modelBuilder.Entity("Domain.Entities.AuthorGroupUserOperationClaim", b =>
                 {
                     b.HasOne("Domain.Entities.AuthorGroup", "AuthorGroup")
@@ -2018,10 +2634,35 @@ namespace Persistence.Migrations
                     b.Navigation("OperationClaim");
                 });
 
-            modelBuilder.Entity("Domain.Entities.Dislike", b =>
+            modelBuilder.Entity("Domain.Entities.AuthorModOperation", b =>
                 {
                     b.HasOne("Domain.Entities.Author", "Author")
                         .WithMany()
+                        .HasForeignKey("AuthorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Domain.Entities.Author", "Issuer")
+                        .WithMany()
+                        .HasForeignKey("IssuerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Domain.Entities.Penalty", "Penalty")
+                        .WithMany()
+                        .HasForeignKey("PenaltyId");
+
+                    b.Navigation("Author");
+
+                    b.Navigation("Issuer");
+
+                    b.Navigation("Penalty");
+                });
+
+            modelBuilder.Entity("Domain.Entities.Dislike", b =>
+                {
+                    b.HasOne("Domain.Entities.Author", "Author")
+                        .WithMany("Dislikes")
                         .HasForeignKey("AuthorId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -2067,10 +2708,29 @@ namespace Persistence.Migrations
                     b.Navigation("Title");
                 });
 
+            modelBuilder.Entity("Domain.Entities.EntryModOperation", b =>
+                {
+                    b.HasOne("Domain.Entities.Entry", "Entry")
+                        .WithMany()
+                        .HasForeignKey("EntryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Domain.Entities.Author", "Issuer")
+                        .WithMany()
+                        .HasForeignKey("IssuerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Entry");
+
+                    b.Navigation("Issuer");
+                });
+
             modelBuilder.Entity("Domain.Entities.Favorite", b =>
                 {
                     b.HasOne("Domain.Entities.Author", "Author")
-                        .WithMany()
+                        .WithMany("Favorites")
                         .HasForeignKey("AuthorId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -2100,7 +2760,7 @@ namespace Persistence.Migrations
             modelBuilder.Entity("Domain.Entities.Like", b =>
                 {
                     b.HasOne("Domain.Entities.Author", "Author")
-                        .WithMany()
+                        .WithMany("Likes")
                         .HasForeignKey("AuthorId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -2174,34 +2834,72 @@ namespace Persistence.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("Domain.Entities.Relation", b =>
-                {
-                    b.HasOne("Domain.Entities.Author", "Follower")
-                        .WithMany("Followings")
-                        .HasForeignKey("FollowerId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("Domain.Entities.Author", "Following")
-                        .WithMany("Followers")
-                        .HasForeignKey("FollowingId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("Follower");
-
-                    b.Navigation("Following");
-                });
-
             modelBuilder.Entity("Domain.Entities.Title", b =>
                 {
                     b.HasOne("Domain.Entities.Author", "Author")
                         .WithMany("Titles")
                         .HasForeignKey("AuthorId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Author");
+                });
+
+            modelBuilder.Entity("Domain.Entities.TitleBlocking", b =>
+                {
+                    b.HasOne("Domain.Entities.Author", "Author")
+                        .WithMany("BlockedTitles")
+                        .HasForeignKey("AuthorId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("Domain.Entities.Title", "Title")
+                        .WithMany("Blockers")
+                        .HasForeignKey("TitleId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Author");
+
+                    b.Navigation("Title");
+                });
+
+            modelBuilder.Entity("Domain.Entities.TitleFollowing", b =>
+                {
+                    b.HasOne("Domain.Entities.Author", "Author")
+                        .WithMany("FollowedTitles")
+                        .HasForeignKey("AuthorId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("Domain.Entities.Title", "Title")
+                        .WithMany("Followers")
+                        .HasForeignKey("TitleId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Author");
+
+                    b.Navigation("Title");
+                });
+
+            modelBuilder.Entity("Domain.Entities.TitleModOperation", b =>
+                {
+                    b.HasOne("Domain.Entities.Author", "Issuer")
+                        .WithMany()
+                        .HasForeignKey("IssuerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Domain.Entities.Title", "Title")
+                        .WithMany("TitleModOperations")
+                        .HasForeignKey("TitleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Issuer");
+
+                    b.Navigation("Title");
                 });
 
             modelBuilder.Entity("Domain.Entities.UserOperationClaim", b =>
@@ -2223,13 +2921,42 @@ namespace Persistence.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("TitleCategory", b =>
+                {
+                    b.HasOne("Domain.Entities.Category", null)
+                        .WithMany()
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Domain.Entities.Title", null)
+                        .WithMany()
+                        .HasForeignKey("TitleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("Domain.Entities.Author", b =>
                 {
+                    b.Navigation("BlockedTitles");
+
+                    b.Navigation("Blockers");
+
+                    b.Navigation("Blockings");
+
+                    b.Navigation("Dislikes");
+
                     b.Navigation("Entries");
+
+                    b.Navigation("Favorites");
+
+                    b.Navigation("FollowedTitles");
 
                     b.Navigation("Followers");
 
                     b.Navigation("Followings");
+
+                    b.Navigation("Likes");
 
                     b.Navigation("LoginAudits");
 
@@ -2261,7 +2988,13 @@ namespace Persistence.Migrations
 
             modelBuilder.Entity("Domain.Entities.Title", b =>
                 {
+                    b.Navigation("Blockers");
+
                     b.Navigation("Entries");
+
+                    b.Navigation("Followers");
+
+                    b.Navigation("TitleModOperations");
                 });
 
             modelBuilder.Entity("Domain.Entities.User", b =>

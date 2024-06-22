@@ -27,8 +27,8 @@ public class GetListTitleQuery : IRequest<GetListResponse<GetListTitleListItemDt
         public async Task<GetListResponse<GetListTitleListItemDto>> Handle(GetListTitleQuery request, CancellationToken cancellationToken)
         {
             IPaginate<Title> titles = await _titleRepository.GetListAsync(
-                include: t => t.Include(e => e.Entries),
                 predicate: t => t.Entries.Count > 0,
+                include: t => t.Include(t => t.Entries),
                 index: request.PageRequest.PageIndex,
                 size: request.PageRequest.PageSize,
                 orderBy: q => q.OrderByDescending(t => t.Entries.Max(e => e.CreatedDate)),
@@ -44,7 +44,7 @@ public class GetListTitleQuery : IRequest<GetListResponse<GetListTitleListItemDt
 
             foreach (var item in titlesToMap.Items)
             {
-                item.Entries = null;
+                item.Entries = [];
             }
 
             GetListResponse<GetListTitleListItemDto> response = _mapper.Map<GetListResponse<GetListTitleListItemDto>>(titlesToMap);

@@ -22,7 +22,7 @@ public class CreateAuthorCommand : IRequest<CreatedAuthorResponse>, ILoggableReq
     public string? ProfilePictureUrl { get; set; } = null;
     public string? CoverPictureUrl { get; set; } = null;
     public byte? Age { get; set; }
-    public Gender? Gender { get; set; }
+    public GenderEnum? Gender { get; set; }
 
     public class CreateAuthorCommandHandler : IRequestHandler<CreateAuthorCommand, CreatedAuthorResponse>
     {
