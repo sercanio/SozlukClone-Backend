@@ -6,6 +6,7 @@ public class DeleteAuthorBlockingCommandValidator : AbstractValidator<DeleteAuth
 {
     public DeleteAuthorBlockingCommandValidator()
     {
-        RuleFor(c => c.Id).NotEmpty();
+        RuleFor(c => c.BlockingId).NotEmpty();
+        RuleFor(c => c.BlockerId).NotEmpty();
     }
 }

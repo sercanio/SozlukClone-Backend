@@ -1,16 +1,16 @@
-using Application.Features.AuthorFollowings.Constants;
 using Application.Features.AuthorFollowings.Rules;
 using Application.Services.Repositories;
 using AutoMapper;
 using Domain.Entities;
-using NArchitecture.Core.Application.Pipelines.Logging;
 using MediatR;
+using NArchitecture.Core.Application.Pipelines.Logging;
 
 namespace Application.Features.AuthorFollowings.Commands.Delete;
 
 public class DeleteAuthorFollowingCommand : IRequest<DeletedAuthorFollowingResponse>, ILoggableRequest
 {
-    public Guid Id { get; set; }
+    public int FollowingId { get; set; }
+    public int FollowerId { get; set; }
 
     public class DeleteAuthorFollowingCommandHandler : IRequestHandler<DeleteAuthorFollowingCommand, DeletedAuthorFollowingResponse>
     {
@@ -28,7 +28,11 @@ public class DeleteAuthorFollowingCommand : IRequest<DeletedAuthorFollowingRespo
 
         public async Task<DeletedAuthorFollowingResponse> Handle(DeleteAuthorFollowingCommand request, CancellationToken cancellationToken)
         {
-            AuthorFollowing? authorFollowing = await _authorFollowingRepository.GetAsync(predicate: af => af.Id == request.Id, cancellationToken: cancellationToken);
+            AuthorFollowing? authorFollowing = await _authorFollowingRepository.GetAsync(
+                    predicate: af => af.FollowingId == request.FollowingId && af.FollowerId == request.FollowerId,
+                    cancellationToken: cancellationToken
+                    );
+
             await _authorFollowingBusinessRules.AuthorFollowingShouldExistWhenSelected(authorFollowing);
 
             await _authorFollowingRepository.DeleteAsync(authorFollowing!);

@@ -8,7 +8,8 @@ namespace Application.Features.AuthorBlockings.Queries.GetById;
 
 public class GetByIdAuthorBlockingQuery : IRequest<GetByIdAuthorBlockingResponse>
 {
-    public Guid Id { get; set; }
+    public int BlockingId { get; set; }
+    public int BlockerId { get; set; }
 
     public class GetByIdAuthorBlockingQueryHandler : IRequestHandler<GetByIdAuthorBlockingQuery, GetByIdAuthorBlockingResponse>
     {
@@ -25,7 +26,10 @@ public class GetByIdAuthorBlockingQuery : IRequest<GetByIdAuthorBlockingResponse
 
         public async Task<GetByIdAuthorBlockingResponse> Handle(GetByIdAuthorBlockingQuery request, CancellationToken cancellationToken)
         {
-            AuthorBlocking? authorBlocking = await _authorBlockingRepository.GetAsync(predicate: ab => ab.Id == request.Id, cancellationToken: cancellationToken);
+            AuthorBlocking? authorBlocking = await _authorBlockingRepository.GetAsync(
+                    predicate: ab => ab.BlockingId == request.BlockingId && ab.BlockerId == request.BlockerId,
+                    cancellationToken: cancellationToken);
+
             await _authorBlockingBusinessRules.AuthorBlockingShouldExistWhenSelected(authorBlocking);
 
             GetByIdAuthorBlockingResponse response = _mapper.Map<GetByIdAuthorBlockingResponse>(authorBlocking);

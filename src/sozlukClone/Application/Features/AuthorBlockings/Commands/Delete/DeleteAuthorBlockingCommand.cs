@@ -9,7 +9,8 @@ namespace Application.Features.AuthorBlockings.Commands.Delete;
 
 public class DeleteAuthorBlockingCommand : IRequest<DeletedAuthorBlockingResponse>, ILoggableRequest
 {
-    public Guid Id { get; set; }
+    public int BlockingId { get; set; }
+    public int BlockerId { get; set; }
 
     public class DeleteAuthorBlockingCommandHandler : IRequestHandler<DeleteAuthorBlockingCommand, DeletedAuthorBlockingResponse>
     {
@@ -27,7 +28,10 @@ public class DeleteAuthorBlockingCommand : IRequest<DeletedAuthorBlockingRespons
 
         public async Task<DeletedAuthorBlockingResponse> Handle(DeleteAuthorBlockingCommand request, CancellationToken cancellationToken)
         {
-            AuthorBlocking? authorBlocking = await _authorBlockingRepository.GetAsync(predicate: ab => ab.Id == request.Id, cancellationToken: cancellationToken);
+            AuthorBlocking? authorBlocking = await _authorBlockingRepository.GetAsync(
+                    predicate: ab => ab.BlockingId == request.BlockingId && ab.BlockerId == request.BlockerId,
+                    cancellationToken: cancellationToken);
+
             await _authorBlockingBusinessRules.AuthorBlockingShouldExistWhenSelected(authorBlocking);
 
             await _authorBlockingRepository.DeleteAsync(authorBlocking!);

@@ -2,15 +2,15 @@ using Application.Features.AuthorFollowings.Rules;
 using Application.Services.Repositories;
 using AutoMapper;
 using Domain.Entities;
-using NArchitecture.Core.Application.Pipelines.Logging;
 using MediatR;
+using NArchitecture.Core.Application.Pipelines.Logging;
 
 namespace Application.Features.AuthorFollowings.Commands.Create;
 
 public class CreateAuthorFollowingCommand : IRequest<CreatedAuthorFollowingResponse>, ILoggableRequest
 {
-    public required int FollowerId { get; set; }
     public required int FollowingId { get; set; }
+    public required int FollowerId { get; set; }
 
     public class CreateAuthorFollowingCommandHandler : IRequestHandler<CreateAuthorFollowingCommand, CreatedAuthorFollowingResponse>
     {
@@ -29,6 +29,20 @@ public class CreateAuthorFollowingCommand : IRequest<CreatedAuthorFollowingRespo
         public async Task<CreatedAuthorFollowingResponse> Handle(CreateAuthorFollowingCommand request, CancellationToken cancellationToken)
         {
             AuthorFollowing authorFollowing = _mapper.Map<AuthorFollowing>(request);
+
+            AuthorFollowing? authorFollowingInDb = await _authorFollowingRepository.GetAsync(
+                    predicate: af => af.FollowerId == request.FollowerId && af.FollowingId == request.FollowingId,
+                    withDeleted: true
+                    );
+
+            if (authorFollowingInDb != null && authorFollowingInDb.DeletedDate != null)
+            {
+                authorFollowingInDb.DeletedDate = null;
+                await _authorFollowingRepository.UpdateAsync(authorFollowingInDb);
+
+                CreatedAuthorFollowingResponse updatedFollowing = _mapper.Map<CreatedAuthorFollowingResponse>(authorFollowingInDb);
+                return updatedFollowing;
+            }
 
             await _authorFollowingRepository.AddAsync(authorFollowing);
 

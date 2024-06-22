@@ -3,9 +3,9 @@ using Application.Features.AuthorFollowings.Commands.Delete;
 using Application.Features.AuthorFollowings.Commands.Update;
 using Application.Features.AuthorFollowings.Queries.GetById;
 using Application.Features.AuthorFollowings.Queries.GetList;
+using Microsoft.AspNetCore.Mvc;
 using NArchitecture.Core.Application.Requests;
 using NArchitecture.Core.Application.Responses;
-using Microsoft.AspNetCore.Mvc;
 
 namespace WebAPI.Controllers;
 
@@ -18,7 +18,7 @@ public class AuthorFollowingsController : BaseController
     {
         CreatedAuthorFollowingResponse response = await Mediator.Send(command);
 
-        return CreatedAtAction(nameof(GetById), new { response.Id }, response);
+        return CreatedAtAction(nameof(GetById), new { response.FollowingId, response.FollowerId }, response);
     }
 
     [HttpPut]
@@ -29,20 +29,20 @@ public class AuthorFollowingsController : BaseController
         return Ok(response);
     }
 
-    [HttpDelete("{id}")]
-    public async Task<ActionResult<DeletedAuthorFollowingResponse>> Delete([FromRoute] Guid id)
+    [HttpDelete("{followingId}/{followerId}")]
+    public async Task<ActionResult<DeletedAuthorFollowingResponse>> Delete([FromRoute] int followingId, int followerId)
     {
-        DeleteAuthorFollowingCommand command = new() { Id = id };
+        DeleteAuthorFollowingCommand command = new() { FollowingId = followingId, FollowerId = followerId };
 
         DeletedAuthorFollowingResponse response = await Mediator.Send(command);
 
         return Ok(response);
     }
 
-    [HttpGet("{id}")]
-    public async Task<ActionResult<GetByIdAuthorFollowingResponse>> GetById([FromRoute] Guid id)
+    [HttpGet("{followingId}/{followerId}")]
+    public async Task<ActionResult<GetByIdAuthorFollowingResponse>> GetById([FromRoute] int followingId, int followerId)
     {
-        GetByIdAuthorFollowingQuery query = new() { Id = id };
+        GetByIdAuthorFollowingQuery query = new() { FollowingId = followingId, FollowerId = followerId };
 
         GetByIdAuthorFollowingResponse response = await Mediator.Send(query);
 

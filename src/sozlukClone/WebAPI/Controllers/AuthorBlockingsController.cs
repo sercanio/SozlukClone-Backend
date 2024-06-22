@@ -3,9 +3,9 @@ using Application.Features.AuthorBlockings.Commands.Delete;
 using Application.Features.AuthorBlockings.Commands.Update;
 using Application.Features.AuthorBlockings.Queries.GetById;
 using Application.Features.AuthorBlockings.Queries.GetList;
+using Microsoft.AspNetCore.Mvc;
 using NArchitecture.Core.Application.Requests;
 using NArchitecture.Core.Application.Responses;
-using Microsoft.AspNetCore.Mvc;
 
 namespace WebAPI.Controllers;
 
@@ -18,7 +18,7 @@ public class AuthorBlockingsController : BaseController
     {
         CreatedAuthorBlockingResponse response = await Mediator.Send(command);
 
-        return CreatedAtAction(nameof(GetById), new { response.Id }, response);
+        return CreatedAtAction(nameof(GetById), new { response.BlockingId, response.BlockerId }, response);
     }
 
     [HttpPut]
@@ -29,20 +29,20 @@ public class AuthorBlockingsController : BaseController
         return Ok(response);
     }
 
-    [HttpDelete("{id}")]
-    public async Task<ActionResult<DeletedAuthorBlockingResponse>> Delete([FromRoute] Guid id)
+    [HttpDelete("{blockingId}/{blockerId}")]
+    public async Task<ActionResult<DeletedAuthorBlockingResponse>> Delete([FromRoute] int blockingId, int blockerId)
     {
-        DeleteAuthorBlockingCommand command = new() { Id = id };
+        DeleteAuthorBlockingCommand command = new() { BlockingId = blockingId, BlockerId = blockerId };
 
         DeletedAuthorBlockingResponse response = await Mediator.Send(command);
 
         return Ok(response);
     }
 
-    [HttpGet("{id}")]
-    public async Task<ActionResult<GetByIdAuthorBlockingResponse>> GetById([FromRoute] Guid id)
+    [HttpGet("{blockingId}/{blockerId}")]
+    public async Task<ActionResult<GetByIdAuthorBlockingResponse>> GetById([FromRoute] int blockingId, int blockerId)
     {
-        GetByIdAuthorBlockingQuery query = new() { Id = id };
+        GetByIdAuthorBlockingQuery query = new() { BlockingId = blockingId, BlockerId = blockerId };
 
         GetByIdAuthorBlockingResponse response = await Mediator.Send(query);
 

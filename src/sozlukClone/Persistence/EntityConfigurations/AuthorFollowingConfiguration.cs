@@ -18,5 +18,20 @@ public class AuthorFollowingConfiguration : IEntityTypeConfiguration<AuthorFollo
         builder.Property(af => af.DeletedDate).HasColumnName("DeletedDate");
 
         builder.HasQueryFilter(af => !af.DeletedDate.HasValue);
+
+        builder.HasKey(tf => new { tf.FollowingId, tf.FollowerId });
+
+        builder.Property(af => af.FollowerId).IsRequired();
+        builder.Property(af => af.FollowingId).IsRequired();
+
+        builder.HasOne(af => af.Follower)
+               .WithMany(a => a.Followings)
+               .HasForeignKey(af => af.FollowerId)
+               .OnDelete(DeleteBehavior.Restrict);
+
+        builder.HasOne(af => af.Following)
+               .WithMany(a => a.Followers)
+               .HasForeignKey(af => af.FollowingId)
+               .OnDelete(DeleteBehavior.Restrict);
     }
 }

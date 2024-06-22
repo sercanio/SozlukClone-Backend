@@ -8,7 +8,8 @@ namespace Application.Features.AuthorFollowings.Queries.GetById;
 
 public class GetByIdAuthorFollowingQuery : IRequest<GetByIdAuthorFollowingResponse>
 {
-    public Guid Id { get; set; }
+    public int FollowerId { get; set; }
+    public int FollowingId { get; set; }
 
     public class GetByIdAuthorFollowingQueryHandler : IRequestHandler<GetByIdAuthorFollowingQuery, GetByIdAuthorFollowingResponse>
     {
@@ -25,7 +26,10 @@ public class GetByIdAuthorFollowingQuery : IRequest<GetByIdAuthorFollowingRespon
 
         public async Task<GetByIdAuthorFollowingResponse> Handle(GetByIdAuthorFollowingQuery request, CancellationToken cancellationToken)
         {
-            AuthorFollowing? authorFollowing = await _authorFollowingRepository.GetAsync(predicate: af => af.Id == request.Id, cancellationToken: cancellationToken);
+            AuthorFollowing? authorFollowing = await _authorFollowingRepository.GetAsync(
+                    predicate: af => af.FollowingId == request.FollowingId && af.FollowerId == request.FollowerId,
+                    cancellationToken: cancellationToken);
+
             await _authorFollowingBusinessRules.AuthorFollowingShouldExistWhenSelected(authorFollowing);
 
             GetByIdAuthorFollowingResponse response = _mapper.Map<GetByIdAuthorFollowingResponse>(authorFollowing);

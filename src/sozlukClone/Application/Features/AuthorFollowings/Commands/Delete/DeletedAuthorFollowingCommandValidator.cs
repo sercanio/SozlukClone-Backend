@@ -6,6 +6,7 @@ public class DeleteAuthorFollowingCommandValidator : AbstractValidator<DeleteAut
 {
     public DeleteAuthorFollowingCommandValidator()
     {
-        RuleFor(c => c.Id).NotEmpty();
+        RuleFor(c => c.FollowingId).NotEmpty();
+        RuleFor(c => c.FollowerId).NotEmpty();
     }
 }
