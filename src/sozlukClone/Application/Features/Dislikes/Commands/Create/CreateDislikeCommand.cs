@@ -27,9 +27,13 @@ public class CreateDislikeCommand : IRequest<CreatedDislikeResponse>
 
         public async Task<CreatedDislikeResponse> Handle(CreateDislikeCommand request, CancellationToken cancellationToken)
         {
-            await _dislikeBusinessRules.DislikeShouldGivenToOtherAuthors(request.EntryId, request.AuthorId, cancellationToken);
 
             Dislike dislike = _mapper.Map<Dislike>(request);
+
+            await _dislikeBusinessRules.DisikeShouldNotOwnedByEntryAuthorWhenSelected(dislike, cancellationToken);
+            await _dislikeBusinessRules.DisikeShouldNotDuplicatedWhenInserted(dislike, cancellationToken);
+            await _dislikeBusinessRules.LikeShouldNotExistWhenDislikeInserted(dislike, cancellationToken);
+            await _dislikeBusinessRules.FavoriteShouldNotExistWhenDislikeInserted(dislike, cancellationToken);
 
             await _dislikeRepository.AddAsync(dislike);
 

@@ -1,2 +1,5 @@
-﻿DislikeNotExists: böyle bir eksileme yok
-AuthorRatesItself: kendini oylayamazsın
+﻿DislikeNotExists: Eksi oy bulunamadı.
+DislikeAlreadyExists: Eksi oy zaten var.
+AuthorRatesItself: Kendinize eksi oy veremezsiniz.
+LikeExists: Bu tanım daha önce beğenilmiş.
+FavoriteExists: Bu tanım daha önce favorilere eklenmiş.

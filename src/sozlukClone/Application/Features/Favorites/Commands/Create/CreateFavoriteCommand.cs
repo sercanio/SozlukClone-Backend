@@ -27,9 +27,11 @@ public class CreateFavoriteCommand : IRequest<CreatedFavoriteResponse>
 
         public async Task<CreatedFavoriteResponse> Handle(CreateFavoriteCommand request, CancellationToken cancellationToken)
         {
-            await _favoriteBusinessRules.FavoriteShouldGivenToOtherAuthors(request.EntryId, request.AuthorId, cancellationToken);
-
             Favorite favorite = _mapper.Map<Favorite>(request);
+
+            await _favoriteBusinessRules.FavoriteShouldNotOwnedByEntryAuthorWhenSelected(favorite, cancellationToken);
+            await _favoriteBusinessRules.FavoriteShouldNotDuplicatedWhenInserted(favorite, cancellationToken);
+            await _favoriteBusinessRules.DislikeShouldNotExistWhenLikeInserted(favorite);
 
             await _favoriteRepository.AddAsync(favorite);
 

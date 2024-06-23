@@ -1,4 +1,3 @@
-using Application.Features.Likes.Constants;
 using Application.Features.Likes.Rules;
 using Application.Services.Repositories;
 using AutoMapper;
@@ -27,8 +26,11 @@ public class DeleteLikeCommand : IRequest<DeletedLikeResponse>
 
         public async Task<DeletedLikeResponse> Handle(DeleteLikeCommand request, CancellationToken cancellationToken)
         {
-            Like? like = await _likeRepository.GetAsync(predicate: l => l.Id == request.Id, cancellationToken: cancellationToken);
-            await _likeBusinessRules.LikeShouldExistWhenSelected(like);
+            await _likeBusinessRules.LikeIdShouldExistWhenSelected(request.Id, cancellationToken);
+
+            Like? like = await _likeRepository.GetAsync(
+                predicate: l => l.Id == request.Id,
+                cancellationToken: cancellationToken);
 
             await _likeRepository.DeleteAsync(like!);
 

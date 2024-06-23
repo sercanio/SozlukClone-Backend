@@ -18,5 +18,15 @@ public class LikeConfiguration : IEntityTypeConfiguration<Like>
         builder.Property(l => l.DeletedDate).HasColumnName("DeletedDate");
 
         builder.HasQueryFilter(l => !l.DeletedDate.HasValue);
+
+        builder.HasOne(l => l.Entry)
+            .WithMany(e => e.Likes)
+            .HasForeignKey(l => l.EntryId)
+            .OnDelete(DeleteBehavior.Cascade);
+
+        builder.HasOne(l => l.Author)
+            .WithMany(a => a.Likes)
+            .HasForeignKey(l => l.AuthorId)
+            .OnDelete(DeleteBehavior.Cascade);
     }
 }

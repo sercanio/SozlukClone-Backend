@@ -19,8 +19,6 @@ public class TitleBlockingConfiguration : IEntityTypeConfiguration<TitleBlocking
 
         builder.HasQueryFilter(tb => !tb.DeletedDate.HasValue);
 
-        builder.HasKey(tb => new { tb.TitleId, tb.AuthorId });
-
         builder.Property(tb => tb.TitleId).IsRequired();
         builder.Property(tb => tb.AuthorId).IsRequired();
 

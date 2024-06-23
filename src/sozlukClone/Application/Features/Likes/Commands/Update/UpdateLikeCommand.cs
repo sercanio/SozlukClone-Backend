@@ -8,7 +8,6 @@ namespace Application.Features.Likes.Commands.Update;
 
 public class UpdateLikeCommand : IRequest<UpdatedLikeResponse>
 {
-    public Guid Id { get; set; }
     public required int EntryId { get; set; }
     public required int AuthorId { get; set; }
 
@@ -28,9 +27,9 @@ public class UpdateLikeCommand : IRequest<UpdatedLikeResponse>
 
         public async Task<UpdatedLikeResponse> Handle(UpdateLikeCommand request, CancellationToken cancellationToken)
         {
-            Like? like = await _likeRepository.GetAsync(predicate: l => l.Id == request.Id, cancellationToken: cancellationToken);
-            await _likeBusinessRules.LikeShouldExistWhenSelected(like);
-            like = _mapper.Map(request, like);
+            Like like = _mapper.Map<Like>(request);
+
+            await _likeBusinessRules.LikeIdShouldExistWhenSelected(like.Id, cancellationToken);
 
             await _likeRepository.UpdateAsync(like!);
 

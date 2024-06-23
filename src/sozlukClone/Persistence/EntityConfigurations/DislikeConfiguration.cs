@@ -17,6 +17,16 @@ public class DislikeConfiguration : IEntityTypeConfiguration<Dislike>
         builder.Property(d => d.UpdatedDate).HasColumnName("UpdatedDate");
         builder.Property(d => d.DeletedDate).HasColumnName("DeletedDate");
 
-        builder.HasQueryFilter(d => !d.DeletedDate.HasValue);
+        builder.HasQueryFilter(l => !l.DeletedDate.HasValue);
+
+        builder.HasOne(l => l.Entry)
+            .WithMany(e => e.Dislikes)
+            .HasForeignKey(l => l.EntryId)
+            .OnDelete(DeleteBehavior.Cascade);
+
+        builder.HasOne(l => l.Author)
+            .WithMany(a => a.Dislikes)
+            .HasForeignKey(l => l.AuthorId)
+            .OnDelete(DeleteBehavior.Cascade);
     }
 }

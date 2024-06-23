@@ -1,2 +1,4 @@
-LikeNotExists: Like don't exists
-AuthorRatesItself: Author can't rate itself
+LikeNotExists: Like don't exists.
+LikeAlreadyExists: Like already exists.
+AuthorRatesItself: Author can't rate itself.
+DislikeExists: Entry disliked before.

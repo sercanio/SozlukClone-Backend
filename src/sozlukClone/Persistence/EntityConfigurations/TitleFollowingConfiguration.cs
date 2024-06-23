@@ -19,8 +19,6 @@ public class TitleFollowingConfiguration : IEntityTypeConfiguration<TitleFollowi
 
         builder.HasQueryFilter(tf => !tf.DeletedDate.HasValue);
 
-        builder.HasKey(tf => new { tf.TitleId, tf.AuthorId });
-
         builder.Property(tf => tf.TitleId).IsRequired();
         builder.Property(tf => tf.AuthorId).IsRequired();
 

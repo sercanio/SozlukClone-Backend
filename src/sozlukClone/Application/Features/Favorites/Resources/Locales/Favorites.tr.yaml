@@ -1,2 +1,4 @@
-FavoriteNotExists: b�yle bir favori yok
-AuthorRatesItself: kendini favorileyemezsin
+﻿FavoriteNotExists: Böyle bir favori yok.
+AuthorRatesItself: Kendini favorileyemezsin.
+FavoriteAlreadyExists: Favori zaten var.
+DislikeExists: Eksilenmiş tanımı favorileyemezsin.

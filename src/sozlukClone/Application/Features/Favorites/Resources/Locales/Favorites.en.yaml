@@ -1,2 +1,4 @@
-FavoriteNotExists: favorite don't exists
-AuthorRatesItself: author can't favorite itself
+FavoriteNotExists: Favorite don't exists.
+AuthorRatesItself: Author can't favorite itself.
+FavoriteAlreadyExists: Favorite already exists.
+DislikeExists: Entry disliked before.

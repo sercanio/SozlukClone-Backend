@@ -27,11 +27,13 @@ public class CreateLikeCommand : IRequest<CreatedLikeResponse>
 
         public async Task<CreatedLikeResponse> Handle(CreateLikeCommand request, CancellationToken cancellationToken)
         {
-            await _likeBusinessRules.LikeShouldGivenToOtherAuthors(request.EntryId, request.AuthorId, cancellationToken);
-
             Like like = _mapper.Map<Like>(request);
 
-            await _likeRepository.AddAsync(like);
+            await _likeBusinessRules.LikeShouldNotOwnedByEntryAuthorWhenSelected(like, cancellationToken);
+            await _likeBusinessRules.LikeShouldNotDuplicatedWhenInserted(like);
+            await _likeBusinessRules.DislikeShouldNotExistWhenLikeInserted(like);
+
+            await _likeRepository.AddAsync(like, cancellationToken);
 
             CreatedLikeResponse response = _mapper.Map<CreatedLikeResponse>(like);
             return response;

@@ -1,2 +1,5 @@
-DislikeNotExists: dislike don't exists
-AuthorRatesItself: author can't dislike itself
+DislikeNotExists: Dislike don't exists.
+DislikeAlreadyExists: Dislike already exists.
+AuthorRatesItself: Author can't dislike itself.
+LikeExists: Entry liked before.
+FavoriteExists: Entry favorited before.

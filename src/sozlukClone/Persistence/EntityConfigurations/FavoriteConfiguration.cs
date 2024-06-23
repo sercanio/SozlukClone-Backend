@@ -18,5 +18,15 @@ public class FavoriteConfiguration : IEntityTypeConfiguration<Favorite>
         builder.Property(f => f.DeletedDate).HasColumnName("DeletedDate");
 
         builder.HasQueryFilter(f => !f.DeletedDate.HasValue);
+
+        builder.HasOne(l => l.Entry)
+           .WithMany(e => e.Favorites)
+           .HasForeignKey(l => l.EntryId)
+           .OnDelete(DeleteBehavior.Cascade);
+
+        builder.HasOne(l => l.Author)
+            .WithMany(a => a.Favorites)
+            .HasForeignKey(l => l.AuthorId)
+            .OnDelete(DeleteBehavior.Cascade);
     }
 }

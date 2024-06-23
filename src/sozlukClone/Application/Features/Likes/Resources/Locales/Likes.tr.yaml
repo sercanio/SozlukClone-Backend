@@ -1,2 +1,4 @@
-﻿LikeNotExists: böyle bir beğeni bulunmuyor
-AuthorRatesItself: kendini oylayamazsın
+﻿LikeNotExists: Böyle bir beğeni bulunmuyor.
+LikeAlreadyExists: Bu tanımı zaten beğendiniz.
+AuthorRatesItself: Kendini oylayamazsın.
+DislikeExists: Bu tanım daha önce eksi oylanmış.

@@ -3,9 +3,9 @@ using Application.Features.Dislikes.Commands.Delete;
 using Application.Features.Dislikes.Commands.Update;
 using Application.Features.Dislikes.Queries.GetById;
 using Application.Features.Dislikes.Queries.GetList;
+using Microsoft.AspNetCore.Mvc;
 using NArchitecture.Core.Application.Requests;
 using NArchitecture.Core.Application.Responses;
-using Microsoft.AspNetCore.Mvc;
 
 namespace WebAPI.Controllers;
 

@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Persistence.Contexts;
@@ -11,9 +12,11 @@ using Persistence.Contexts;
 namespace Persistence.Migrations
 {
     [DbContext(typeof(BaseDbContext))]
-    partial class BaseDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240623082112_addEntryLikeRelations")]
+    partial class addEntryLikeRelations
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -112,7 +115,7 @@ namespace Persistence.Migrations
                             Id = 1,
                             ActiveBadgeId = 1,
                             AuthorGroupId = 1,
-                            CreatedDate = new DateTime(2024, 6, 23, 17, 3, 29, 803, DateTimeKind.Utc).AddTicks(3323),
+                            CreatedDate = new DateTime(2024, 6, 23, 8, 21, 12, 56, DateTimeKind.Utc).AddTicks(987),
                             UserId = new Guid("029bf0d3-9429-44d7-9c30-51655e583ab6"),
                             UserName = "sozluk"
                         });
@@ -347,9 +350,9 @@ namespace Persistence.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("9982f081-6d19-4307-9f3a-5b4a343b5680"),
+                            Id = new Guid("9f2e6f67-8a32-4636-b869-513a7bfbbbb5"),
                             AuthorGroupId = 1,
-                            CreatedDate = new DateTime(2024, 6, 23, 17, 3, 29, 805, DateTimeKind.Utc).AddTicks(6005),
+                            CreatedDate = new DateTime(2024, 6, 23, 8, 21, 12, 57, DateTimeKind.Utc).AddTicks(6762),
                             OperationClaimId = 1
                         });
                 });
@@ -662,7 +665,7 @@ namespace Persistence.Migrations
                             Id = 1,
                             AuthorId = 1,
                             Content = "ASP.Net ve Nextjs ile geliştirilmiş bir sözlük klonudur.",
-                            CreatedDate = new DateTime(2024, 6, 23, 17, 3, 29, 811, DateTimeKind.Utc).AddTicks(2740),
+                            CreatedDate = new DateTime(2024, 6, 23, 8, 21, 12, 61, DateTimeKind.Utc).AddTicks(7275),
                             IsVisible = false,
                             TitleId = 1
                         });
@@ -814,7 +817,7 @@ namespace Persistence.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedDate = new DateTime(2024, 6, 23, 17, 3, 29, 812, DateTimeKind.Utc).AddTicks(2795),
+                            CreatedDate = new DateTime(2024, 6, 23, 8, 21, 12, 62, DateTimeKind.Utc).AddTicks(5165),
                             DefaultAuthorGroupId = 8,
                             IsAuthorRegistrationAllowed = true,
                             MaxEntryLength = 5000,
@@ -830,10 +833,9 @@ namespace Persistence.Migrations
 
             modelBuilder.Entity("Domain.Entities.Like", b =>
                 {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid")
-                        .HasColumnName("Id");
+                    b.Property<int>("EntryId")
+                        .HasColumnType("integer")
+                        .HasColumnName("EntryId");
 
                     b.Property<int>("AuthorId")
                         .HasColumnType("integer")
@@ -847,19 +849,17 @@ namespace Persistence.Migrations
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("DeletedDate");
 
-                    b.Property<int>("EntryId")
-                        .HasColumnType("integer")
-                        .HasColumnName("EntryId");
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uuid")
+                        .HasColumnName("Id");
 
                     b.Property<DateTime?>("UpdatedDate")
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("UpdatedDate");
 
-                    b.HasKey("Id");
+                    b.HasKey("EntryId", "AuthorId");
 
                     b.HasIndex("AuthorId");
-
-                    b.HasIndex("EntryId");
 
                     b.ToTable("Likes", (string)null);
                 });
@@ -2248,7 +2248,7 @@ namespace Persistence.Migrations
                         {
                             Id = 1,
                             AuthorId = 1,
-                            CreatedDate = new DateTime(2024, 6, 23, 17, 3, 29, 815, DateTimeKind.Utc).AddTicks(1505),
+                            CreatedDate = new DateTime(2024, 6, 23, 8, 21, 12, 66, DateTimeKind.Utc).AddTicks(477),
                             IsLocked = false,
                             Name = "sozlukclone projesi",
                             Slug = "sozluk-clone-1"
@@ -2257,10 +2257,9 @@ namespace Persistence.Migrations
 
             modelBuilder.Entity("Domain.Entities.TitleBlocking", b =>
                 {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid")
-                        .HasColumnName("Id");
+                    b.Property<int>("TitleId")
+                        .HasColumnType("integer")
+                        .HasColumnName("TitleId");
 
                     b.Property<int>("AuthorId")
                         .HasColumnType("integer")
@@ -2274,29 +2273,26 @@ namespace Persistence.Migrations
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("DeletedDate");
 
-                    b.Property<int>("TitleId")
-                        .HasColumnType("integer")
-                        .HasColumnName("TitleId");
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uuid")
+                        .HasColumnName("Id");
 
                     b.Property<DateTime?>("UpdatedDate")
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("UpdatedDate");
 
-                    b.HasKey("Id");
+                    b.HasKey("TitleId", "AuthorId");
 
                     b.HasIndex("AuthorId");
-
-                    b.HasIndex("TitleId");
 
                     b.ToTable("TitleBlockings", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Entities.TitleFollowing", b =>
                 {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid")
-                        .HasColumnName("Id");
+                    b.Property<int>("TitleId")
+                        .HasColumnType("integer")
+                        .HasColumnName("TitleId");
 
                     b.Property<int>("AuthorId")
                         .HasColumnType("integer")
@@ -2310,19 +2306,17 @@ namespace Persistence.Migrations
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("DeletedDate");
 
-                    b.Property<int>("TitleId")
-                        .HasColumnType("integer")
-                        .HasColumnName("TitleId");
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uuid")
+                        .HasColumnName("Id");
 
                     b.Property<DateTime?>("UpdatedDate")
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("UpdatedDate");
 
-                    b.HasKey("Id");
+                    b.HasKey("TitleId", "AuthorId");
 
                     b.HasIndex("AuthorId");
-
-                    b.HasIndex("TitleId");
 
                     b.ToTable("TitleFollowings", (string)null);
                 });
@@ -2473,8 +2467,8 @@ namespace Persistence.Migrations
                             AuthenticatorType = 0,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "sozluk@email.com",
-                            PasswordHash = new byte[] { 87, 174, 178, 33, 171, 148, 54, 100, 83, 52, 17, 110, 189, 133, 160, 86, 227, 104, 20, 153, 55, 97, 95, 197, 138, 70, 206, 35, 199, 49, 13, 16, 140, 78, 225, 191, 244, 232, 69, 160, 165, 41, 195, 125, 231, 218, 210, 37, 88, 114, 232, 83, 38, 193, 56, 27, 166, 199, 192, 200, 228, 168, 168, 139 },
-                            PasswordSalt = new byte[] { 141, 147, 231, 228, 151, 211, 148, 231, 31, 242, 59, 124, 238, 73, 22, 253, 132, 52, 226, 97, 93, 222, 204, 58, 248, 68, 224, 82, 76, 186, 203, 41, 224, 224, 127, 224, 13, 56, 46, 200, 92, 58, 32, 191, 5, 24, 45, 37, 154, 99, 145, 179, 44, 137, 84, 2, 153, 172, 205, 152, 240, 148, 10, 6, 55, 116, 10, 117, 67, 84, 57, 237, 73, 40, 53, 226, 177, 131, 226, 13, 252, 46, 254, 223, 47, 117, 154, 35, 40, 66, 136, 82, 148, 39, 252, 180, 83, 207, 122, 226, 115, 89, 30, 204, 202, 49, 91, 1, 61, 30, 65, 140, 202, 96, 168, 123, 152, 32, 142, 95, 208, 127, 44, 200, 144, 251, 117, 110 }
+                            PasswordHash = new byte[] { 26, 177, 163, 63, 169, 64, 234, 111, 141, 219, 89, 163, 88, 188, 50, 170, 40, 107, 34, 225, 186, 144, 111, 146, 35, 12, 121, 10, 7, 124, 146, 139, 67, 154, 226, 231, 248, 31, 99, 125, 232, 127, 32, 29, 164, 34, 153, 163, 212, 24, 236, 19, 21, 114, 29, 132, 247, 130, 30, 215, 85, 19, 119, 25 },
+                            PasswordSalt = new byte[] { 72, 127, 158, 54, 221, 206, 186, 176, 234, 199, 67, 168, 80, 97, 15, 58, 104, 21, 49, 177, 130, 129, 112, 237, 218, 44, 136, 56, 107, 7, 187, 21, 10, 130, 6, 169, 8, 25, 156, 192, 203, 36, 214, 61, 61, 238, 15, 181, 74, 57, 135, 108, 50, 142, 228, 20, 67, 170, 15, 139, 143, 133, 139, 87, 173, 72, 4, 105, 90, 208, 136, 74, 200, 94, 66, 231, 209, 106, 218, 154, 91, 96, 92, 226, 60, 249, 203, 159, 251, 170, 77, 176, 236, 179, 239, 180, 177, 11, 146, 26, 15, 178, 113, 248, 75, 239, 112, 147, 115, 217, 108, 30, 45, 237, 195, 221, 75, 83, 90, 25, 139, 27, 82, 186, 81, 244, 3, 129 }
                         });
                 });
 
@@ -2516,7 +2510,7 @@ namespace Persistence.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("f5522a19-18e6-4079-8fdb-db6dc9752363"),
+                            Id = new Guid("74c2829a-7ce3-401e-aff4-edb0368c9747"),
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             OperationClaimId = 1,
                             UserId = new Guid("029bf0d3-9429-44d7-9c30-51655e583ab6")

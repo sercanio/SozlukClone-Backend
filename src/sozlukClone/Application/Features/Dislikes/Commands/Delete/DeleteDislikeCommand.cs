@@ -1,4 +1,3 @@
-using Application.Features.Dislikes.Constants;
 using Application.Features.Dislikes.Rules;
 using Application.Services.Repositories;
 using AutoMapper;
@@ -27,8 +26,12 @@ public class DeleteDislikeCommand : IRequest<DeletedDislikeResponse>
 
         public async Task<DeletedDislikeResponse> Handle(DeleteDislikeCommand request, CancellationToken cancellationToken)
         {
-            Dislike? dislike = await _dislikeRepository.GetAsync(predicate: d => d.Id == request.Id, cancellationToken: cancellationToken);
-            await _dislikeBusinessRules.DislikeShouldExistWhenSelected(dislike);
+            await _dislikeBusinessRules.DislikeIdShouldExistWhenSelected(request.Id, cancellationToken);
+
+            Dislike? dislike = await _dislikeRepository.GetAsync(
+                    predicate: d => d.Id == request.Id,
+                    cancellationToken: cancellationToken
+                    );
 
             await _dislikeRepository.DeleteAsync(dislike!);
 
