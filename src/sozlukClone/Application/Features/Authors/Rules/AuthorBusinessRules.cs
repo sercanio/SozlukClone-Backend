@@ -41,6 +41,16 @@ public class AuthorBusinessRules : BaseBusinessRules
         await AuthorShouldExistWhenSelected(author);
     }
 
+    public async Task AuthorNameShouldExistWhenSelected(string name, CancellationToken cancellationToken)
+    {
+        Author? author = await _authorRepository.GetAsync(
+            predicate: a => a.UserName == name,
+            enableTracking: false,
+            cancellationToken: cancellationToken
+        );
+        await AuthorShouldExistWhenSelected(author);
+    }
+
     public async Task AuthorUserNameShouldBeUnique(string userName)
     {
         Author? author = await _authorRepository.GetAsync(

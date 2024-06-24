@@ -13,4 +13,5 @@ public class Title : Entity<int>
     public virtual ICollection<TitleFollowing> Followers { get; set; }
     public virtual ICollection<TitleBlocking> Blockers { get; set; }
     public virtual ICollection<TitleModOperation> TitleModOperations { get; set; }
+    public virtual ICollection<Complaint> Complaints { get; set; }
 }

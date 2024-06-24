@@ -47,6 +47,7 @@ public static class PersistenceServiceRegistration
         services.AddScoped<ITitleModOperationRepository, TitleModOperationRepository>();
         services.AddScoped<IAuthorBlockingRepository, AuthorBlockingRepository>();
         services.AddScoped<ICategoryRepository, CategoryRepository>();
+        services.AddScoped<IComplaintRepository, ComplaintRepository>();
         return services;
     }
 }

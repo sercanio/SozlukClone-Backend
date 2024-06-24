@@ -31,4 +31,5 @@ public class Author : Entity<int>
     public virtual ICollection<Favorite> Favorites { get; set; }
     public virtual ICollection<TitleFollowing> FollowedTitles { get; set; }
     public virtual ICollection<TitleBlocking> BlockedTitles { get; set; }
+    public virtual ICollection<Complaint> Complaints { get; set; }
 }

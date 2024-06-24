@@ -51,6 +51,7 @@ using NArchitecture.Core.Mailing.MailKit;
 using NArchitecture.Core.Security.DependencyInjection;
 using NArchitecture.Core.Security.JWT;
 using System.Reflection;
+using Application.Services.Complaints;
 
 namespace Application;
 
@@ -132,6 +133,7 @@ public static class ApplicationServiceRegistration
         services.AddScoped<IFavoriteServiceFactory, FavoriteServiceFactory>();
         services.AddScoped<IAuthorFollowingServiceFactory, AuthorFollowingServiceFactory>();
         services.AddScoped<IAuthorBlockingServiceFactory, AuthorBlockingServiceFactory>();
+        services.AddScoped<IComplaintService, ComplaintManager>();
         return services;
     }
 

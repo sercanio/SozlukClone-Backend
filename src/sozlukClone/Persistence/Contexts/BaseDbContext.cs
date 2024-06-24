@@ -38,6 +38,7 @@ public class BaseDbContext : DbContext
     public DbSet<TitleFollowing> TitleFollowings { get; set; }
     public DbSet<TitleModOperation> TitleModOperations { get; set; }
     public DbSet<Category> Categories { get; set; }
+    public DbSet<Complaint> Complaints { get; set; }
 
     public BaseDbContext(DbContextOptions dbContextOptions, IConfiguration configuration)
         : base(dbContextOptions)

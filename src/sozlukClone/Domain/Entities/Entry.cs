@@ -13,4 +13,5 @@ public class Entry : Entity<int>
 
     public virtual Author Author { get; set; }
     public virtual Title Title { get; set; }
+    public virtual ICollection<Complaint> Complaints { get; set; }
 }

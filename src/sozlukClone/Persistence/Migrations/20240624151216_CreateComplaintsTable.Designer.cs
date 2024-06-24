@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Persistence.Contexts;
@@ -11,9 +12,11 @@ using Persistence.Contexts;
 namespace Persistence.Migrations
 {
     [DbContext(typeof(BaseDbContext))]
-    partial class BaseDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240624151216_CreateComplaintsTable")]
+    partial class CreateComplaintsTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -112,7 +115,7 @@ namespace Persistence.Migrations
                             Id = 1,
                             ActiveBadgeId = 1,
                             AuthorGroupId = 1,
-                            CreatedDate = new DateTime(2024, 6, 24, 17, 23, 11, 203, DateTimeKind.Utc).AddTicks(2042),
+                            CreatedDate = new DateTime(2024, 6, 24, 15, 12, 15, 290, DateTimeKind.Utc).AddTicks(8712),
                             UserId = new Guid("029bf0d3-9429-44d7-9c30-51655e583ab6"),
                             UserName = "sozluk"
                         });
@@ -350,9 +353,9 @@ namespace Persistence.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("b27d7a60-2b86-40c1-9551-e690fd24638d"),
+                            Id = new Guid("d85dba8b-c0f6-47ad-be27-d06a97e40c0e"),
                             AuthorGroupId = 1,
-                            CreatedDate = new DateTime(2024, 6, 24, 17, 23, 11, 204, DateTimeKind.Utc).AddTicks(2004),
+                            CreatedDate = new DateTime(2024, 6, 24, 15, 12, 15, 292, DateTimeKind.Utc).AddTicks(7792),
                             OperationClaimId = 1
                         });
                 });
@@ -576,8 +579,7 @@ namespace Persistence.Migrations
                         .HasColumnType("integer")
                         .HasColumnName("Status");
 
-                    b.Property<int?>("TitleId")
-                        .IsRequired()
+                    b.Property<int>("TitleId")
                         .HasColumnType("integer")
                         .HasColumnName("TitleId");
 
@@ -588,8 +590,6 @@ namespace Persistence.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("AuthorId");
-
-                    b.HasIndex("EntryId");
 
                     b.HasIndex("TitleId");
 
@@ -721,7 +721,7 @@ namespace Persistence.Migrations
                             Id = 1,
                             AuthorId = 1,
                             Content = "ASP.Net ve Nextjs ile geliştirilmiş bir sözlük klonudur.",
-                            CreatedDate = new DateTime(2024, 6, 24, 17, 23, 11, 209, DateTimeKind.Utc).AddTicks(2825),
+                            CreatedDate = new DateTime(2024, 6, 24, 15, 12, 15, 298, DateTimeKind.Utc).AddTicks(4960),
                             IsVisible = false,
                             TitleId = 1
                         });
@@ -811,36 +811,6 @@ namespace Persistence.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<decimal>("BaseKarma")
-                        .HasColumnType("numeric");
-
-                    b.Property<decimal>("BlockedTitlesMultiplier")
-                        .HasColumnType("numeric");
-
-                    b.Property<decimal>("BlockersMultiplier")
-                        .HasColumnType("numeric");
-
-                    b.Property<decimal>("BlockingsMultiplier")
-                        .HasColumnType("numeric");
-
-                    b.Property<decimal>("ComplaintApprovedCountMultiplier")
-                        .HasColumnType("numeric");
-
-                    b.Property<decimal>("ComplaintCountMultiplier")
-                        .HasColumnType("numeric");
-
-                    b.Property<decimal>("ComplaintPendingCountMultiplier")
-                        .HasColumnType("numeric");
-
-                    b.Property<decimal>("ComplaintRejectedCountMultiplier")
-                        .HasColumnType("numeric");
-
-                    b.Property<decimal>("ComplaintedEntriesMultiplier")
-                        .HasColumnType("numeric");
-
-                    b.Property<decimal>("ComplaintedTitlesMultiplier")
-                        .HasColumnType("numeric");
-
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("CreatedDate");
@@ -853,27 +823,6 @@ namespace Persistence.Migrations
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("DeletedDate");
 
-                    b.Property<decimal>("EntryMultiplier")
-                        .HasColumnType("numeric");
-
-                    b.Property<decimal>("FollowedTitlesMultiplier")
-                        .HasColumnType("numeric");
-
-                    b.Property<decimal>("FollowerMultiplier")
-                        .HasColumnType("numeric");
-
-                    b.Property<decimal>("FollowingMultiplier")
-                        .HasColumnType("numeric");
-
-                    b.Property<decimal>("GivenDislikesMultiplier")
-                        .HasColumnType("numeric");
-
-                    b.Property<decimal>("GivenFavoritesMultiplier")
-                        .HasColumnType("numeric");
-
-                    b.Property<decimal>("GivenLikesMultiplier")
-                        .HasColumnType("numeric");
-
                     b.Property<bool?>("IsAuthorRegistrationAllowed")
                         .HasColumnType("boolean")
                         .HasColumnName("IsAuthorRegistrationAllowed");
@@ -885,15 +834,6 @@ namespace Persistence.Migrations
                     b.Property<int?>("MaxTitleLength")
                         .HasColumnType("integer")
                         .HasColumnName("MaxTitleLength");
-
-                    b.Property<decimal>("ReceivedDislikesMultiplier")
-                        .HasColumnType("numeric");
-
-                    b.Property<decimal>("ReceivedFavoritesMultiplier")
-                        .HasColumnType("numeric");
-
-                    b.Property<decimal>("ReceivedLikesMultiplier")
-                        .HasColumnType("numeric");
 
                     b.Property<string>("SiteDescription")
                         .HasColumnType("text")
@@ -919,9 +859,6 @@ namespace Persistence.Migrations
                         .HasColumnType("text")
                         .HasColumnName("SiteName");
 
-                    b.Property<decimal>("TitleMultiplier")
-                        .HasColumnType("numeric");
-
                     b.Property<DateTime?>("UpdatedDate")
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("UpdatedDate");
@@ -936,38 +873,17 @@ namespace Persistence.Migrations
                         new
                         {
                             Id = 1,
-                            BaseKarma = 0m,
-                            BlockedTitlesMultiplier = -0.001m,
-                            BlockersMultiplier = -1.0m,
-                            BlockingsMultiplier = -0.1m,
-                            ComplaintApprovedCountMultiplier = 0.001m,
-                            ComplaintCountMultiplier = 0.0005m,
-                            ComplaintPendingCountMultiplier = 0.0m,
-                            ComplaintRejectedCountMultiplier = -0.001m,
-                            ComplaintedEntriesMultiplier = -0.0001m,
-                            ComplaintedTitlesMultiplier = -0.0001m,
-                            CreatedDate = new DateTime(2024, 6, 24, 17, 23, 11, 210, DateTimeKind.Utc).AddTicks(6025),
+                            CreatedDate = new DateTime(2024, 6, 24, 15, 12, 15, 299, DateTimeKind.Utc).AddTicks(3974),
                             DefaultAuthorGroupId = 8,
-                            EntryMultiplier = 0.1m,
-                            FollowedTitlesMultiplier = 0.001m,
-                            FollowerMultiplier = 1.0m,
-                            FollowingMultiplier = 0.01m,
-                            GivenDislikesMultiplier = -0.001m,
-                            GivenFavoritesMultiplier = 0.002m,
-                            GivenLikesMultiplier = 0.001m,
                             IsAuthorRegistrationAllowed = true,
                             MaxEntryLength = 5000,
                             MaxTitleLength = 50,
-                            ReceivedDislikesMultiplier = -0.005m,
-                            ReceivedFavoritesMultiplier = 0.25m,
-                            ReceivedLikesMultiplier = 0.01m,
                             SiteDescription = "Default Description",
                             SiteFavIcon = "default-favicon.ico",
                             SiteLogo = "default-logo.png",
                             SiteLogoFooter = "default-footer-logo.png",
                             SiteLogoMobile = "default-mobile-logo.png",
-                            SiteName = "Default Site",
-                            TitleMultiplier = 0.2m
+                            SiteName = "Default Site"
                         });
                 });
 
@@ -2427,7 +2343,7 @@ namespace Persistence.Migrations
                         {
                             Id = 1,
                             AuthorId = 1,
-                            CreatedDate = new DateTime(2024, 6, 24, 17, 23, 11, 214, DateTimeKind.Utc).AddTicks(4612),
+                            CreatedDate = new DateTime(2024, 6, 24, 15, 12, 15, 302, DateTimeKind.Utc).AddTicks(6518),
                             IsLocked = false,
                             Name = "sozlukclone projesi",
                             Slug = "sozluk-clone-1"
@@ -2652,8 +2568,8 @@ namespace Persistence.Migrations
                             AuthenticatorType = 0,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "sozluk@email.com",
-                            PasswordHash = new byte[] { 79, 130, 165, 41, 85, 212, 118, 224, 176, 73, 12, 55, 51, 228, 61, 49, 142, 60, 6, 206, 191, 128, 88, 188, 70, 67, 234, 166, 22, 11, 28, 89, 100, 98, 185, 14, 37, 248, 28, 84, 47, 135, 154, 204, 23, 92, 75, 220, 206, 232, 189, 127, 6, 22, 76, 57, 186, 184, 223, 98, 39, 12, 139, 51 },
-                            PasswordSalt = new byte[] { 44, 16, 99, 128, 73, 152, 116, 140, 10, 178, 72, 248, 178, 9, 92, 143, 65, 251, 193, 70, 30, 81, 15, 72, 28, 242, 227, 242, 242, 209, 204, 102, 142, 13, 142, 56, 189, 15, 219, 217, 112, 41, 176, 39, 215, 6, 115, 67, 89, 153, 5, 147, 34, 48, 87, 56, 242, 96, 183, 20, 109, 63, 0, 68, 4, 70, 98, 106, 38, 94, 74, 206, 235, 107, 18, 99, 217, 195, 101, 159, 74, 98, 35, 14, 231, 72, 12, 25, 34, 18, 150, 179, 19, 195, 95, 51, 241, 111, 96, 163, 221, 233, 24, 128, 170, 145, 115, 62, 72, 246, 75, 250, 135, 120, 183, 67, 189, 187, 204, 21, 185, 225, 147, 164, 252, 155, 210, 112 }
+                            PasswordHash = new byte[] { 149, 43, 77, 196, 147, 210, 222, 203, 23, 91, 194, 11, 149, 158, 105, 249, 156, 209, 83, 211, 19, 111, 83, 89, 236, 39, 88, 197, 219, 15, 123, 123, 32, 45, 82, 129, 116, 210, 105, 127, 18, 176, 6, 163, 37, 192, 164, 30, 216, 202, 143, 255, 151, 176, 78, 39, 52, 220, 215, 64, 220, 87, 108, 86 },
+                            PasswordSalt = new byte[] { 147, 158, 182, 160, 106, 123, 234, 122, 10, 187, 156, 122, 206, 255, 125, 237, 34, 86, 163, 146, 129, 122, 147, 202, 82, 126, 103, 164, 183, 198, 190, 110, 90, 30, 127, 16, 123, 11, 54, 78, 145, 54, 218, 0, 164, 109, 111, 65, 100, 4, 67, 148, 143, 246, 211, 177, 196, 221, 52, 30, 236, 42, 161, 141, 94, 50, 172, 222, 223, 186, 247, 4, 78, 164, 3, 137, 136, 234, 104, 232, 250, 254, 6, 248, 15, 7, 8, 178, 138, 236, 241, 252, 213, 17, 153, 163, 83, 215, 161, 1, 65, 97, 174, 243, 65, 70, 107, 9, 220, 73, 113, 69, 175, 243, 156, 7, 186, 219, 11, 177, 144, 64, 172, 111, 126, 199, 77, 166 }
                         });
                 });
 
@@ -2695,7 +2611,7 @@ namespace Persistence.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("9083be49-35ed-4c4f-8b54-aa9deadf2ce2"),
+                            Id = new Guid("0b527f56-7ba5-43ed-9954-1ea9c2ff3a3e"),
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             OperationClaimId = 1,
                             UserId = new Guid("029bf0d3-9429-44d7-9c30-51655e583ab6")
@@ -2847,19 +2763,13 @@ namespace Persistence.Migrations
                         .WithMany("Complaints")
                         .HasForeignKey("AuthorId");
 
-                    b.HasOne("Domain.Entities.Entry", "Entry")
-                        .WithMany("Complaints")
-                        .HasForeignKey("EntryId");
-
                     b.HasOne("Domain.Entities.Title", "Title")
-                        .WithMany("Complaints")
+                        .WithMany()
                         .HasForeignKey("TitleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Author");
-
-                    b.Navigation("Entry");
 
                     b.Navigation("Title");
                 });
@@ -3181,8 +3091,6 @@ namespace Persistence.Migrations
 
             modelBuilder.Entity("Domain.Entities.Entry", b =>
                 {
-                    b.Navigation("Complaints");
-
                     b.Navigation("Dislikes");
 
                     b.Navigation("Favorites");
@@ -3198,8 +3106,6 @@ namespace Persistence.Migrations
             modelBuilder.Entity("Domain.Entities.Title", b =>
                 {
                     b.Navigation("Blockers");
-
-                    b.Navigation("Complaints");
 
                     b.Navigation("Entries");
 

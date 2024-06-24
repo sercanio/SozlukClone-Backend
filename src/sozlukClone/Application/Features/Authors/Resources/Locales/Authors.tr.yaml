@@ -1,0 +1,6 @@
+﻿AuthorNotExists: Yazar bulunamadı.
+AuthorUserNameShouldOnlyHaveLettersAndNumbers: Yazar kullanıcı adı sadece harf ve rakamlardan oluşmalıdır.
+AuthorUserNameShouldHaveMinumumLength: Yazar kullanıcı adı en az 3 karakter olmalıdır.
+AuthorUserNameShouldHaveMaximumLength: Yazar kullanıcı adı en fazla 40 karakter olmalıdır.
+AuthorUserNameShouldBeUnique: Kullanıcı adı mevcut.
+AuthorPasswordShouldHaveMinumumLength: Yazar şifresi en az 8 karakter olmalıdır.
