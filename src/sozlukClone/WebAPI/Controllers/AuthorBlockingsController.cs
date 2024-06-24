@@ -18,7 +18,7 @@ public class AuthorBlockingsController : BaseController
     {
         CreatedAuthorBlockingResponse response = await Mediator.Send(command);
 
-        return CreatedAtAction(nameof(GetById), new { response.BlockingId, response.BlockerId }, response);
+        return CreatedAtAction(nameof(GetById), new { response.Id }, response);
     }
 
     [HttpPut]
@@ -29,20 +29,20 @@ public class AuthorBlockingsController : BaseController
         return Ok(response);
     }
 
-    [HttpDelete("{blockingId}/{blockerId}")]
-    public async Task<ActionResult<DeletedAuthorBlockingResponse>> Delete([FromRoute] int blockingId, int blockerId)
+    [HttpDelete("{id}")]
+    public async Task<ActionResult<DeletedAuthorBlockingResponse>> Delete([FromRoute] Guid id)
     {
-        DeleteAuthorBlockingCommand command = new() { BlockingId = blockingId, BlockerId = blockerId };
+        DeleteAuthorBlockingCommand command = new() { Id = id };
 
         DeletedAuthorBlockingResponse response = await Mediator.Send(command);
 
         return Ok(response);
     }
 
-    [HttpGet("{blockingId}/{blockerId}")]
-    public async Task<ActionResult<GetByIdAuthorBlockingResponse>> GetById([FromRoute] int blockingId, int blockerId)
+    [HttpGet("{id}")]
+    public async Task<ActionResult<GetByIdAuthorBlockingResponse>> GetById([FromRoute] Guid id)
     {
-        GetByIdAuthorBlockingQuery query = new() { BlockingId = blockingId, BlockerId = blockerId };
+        GetByIdAuthorBlockingQuery query = new() { Id = id };
 
         GetByIdAuthorBlockingResponse response = await Mediator.Send(query);
 

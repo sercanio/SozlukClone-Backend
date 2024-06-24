@@ -1,1 +1,4 @@
 AuthorFollowingNotExists: Author following don't exists.
+FollowingAlreadyExists: Following already exists.
+FollowingIsOwnerOfItself: Following is owner of itself.
+BlockingExists: Blocking exists.

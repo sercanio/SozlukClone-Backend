@@ -1,3 +1,5 @@
+using Application.Factories.FavoriteServiceFactory;
+using Application.Factories.LikeServiceFactory;
 using Application.Features.Dislikes.Constants;
 using Application.Services.Entries;
 using Application.Services.Favorites;
@@ -15,16 +17,16 @@ public class DislikeBusinessRules : BaseBusinessRules
     private readonly IDislikeRepository _dislikeRepository;
     private readonly ILocalizationService _localizationService;
     private readonly IEntryService _entryService;
-    private readonly ILikeService _likeService;
-    private readonly IFavoriteService _favoriteService;
+    private readonly ILikeServiceFactory _likeServiceFactory;
+    private readonly IFavoriteServiceFactory _favoriteServiceFactory;
 
-    public DislikeBusinessRules(IDislikeRepository dislikeRepository, ILocalizationService localizationService, IEntryService entryService, ILikeRepository likeRepository, IFavoriteService favoriteService, ILikeService likeService)
+    public DislikeBusinessRules(IDislikeRepository dislikeRepository, ILocalizationService localizationService, IEntryService entryService, ILikeRepository likeRepository, ILikeServiceFactory likeServiceFactory, IFavoriteServiceFactory favoriteServiceFactory)
     {
         _dislikeRepository = dislikeRepository;
         _localizationService = localizationService;
         _entryService = entryService;
-        _likeService = likeService;
-        _favoriteService = favoriteService;
+        _likeServiceFactory = likeServiceFactory;
+        _favoriteServiceFactory = favoriteServiceFactory;
     }
 
     private async Task throwBusinessException(string messageKey)
@@ -73,7 +75,9 @@ public class DislikeBusinessRules : BaseBusinessRules
 
     public async Task LikeShouldNotExistWhenDislikeInserted(Dislike dislike, CancellationToken cancellationToken)
     {
-        Like? existingLike = await _likeService.GetAsync(
+        ILikeService likeService = _likeServiceFactory.Create();
+
+        Like? existingLike = await likeService.GetAsync(
                 predicate: l => l.EntryId == dislike.EntryId && l.AuthorId == dislike.AuthorId,
                 cancellationToken: cancellationToken);
 
@@ -85,7 +89,9 @@ public class DislikeBusinessRules : BaseBusinessRules
 
     public async Task FavoriteShouldNotExistWhenDislikeInserted(Dislike dislike, CancellationToken cancellationToken)
     {
-        Favorite? existingFavorite = await _favoriteService.GetAsync(
+        IFavoriteService favoriteService = _favoriteServiceFactory.Create();
+
+        Favorite? existingFavorite = await favoriteService.GetAsync(
                 predicate: f => f.EntryId == dislike.EntryId && f.AuthorId == dislike.AuthorId,
                 cancellationToken: cancellationToken);
 

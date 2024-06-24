@@ -1,1 +1,4 @@
-﻿AuthorBlockingNotExists: engelleme kaydı bulunamadı.
+﻿AuthorBlockingNotExists: Engelleme kaydı bulunamadı.
+BlockingShouldNotOwnedByEntryAuthor: Kendinizi engelleyemezsiniz.
+BlockingShouldNotDuplicated: Engelleme kaydı zaten mevcut.
+FavoriteExists: Favori kaydı bulunmaktadır.

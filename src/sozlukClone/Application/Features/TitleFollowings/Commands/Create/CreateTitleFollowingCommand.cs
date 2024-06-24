@@ -30,19 +30,8 @@ public class CreateTitleFollowingCommand : IRequest<CreatedTitleFollowingRespons
         {
             TitleFollowing titleFollowing = _mapper.Map<TitleFollowing>(request);
 
-            TitleFollowing? titleFollowingInDb = await _titleFollowingRepository.GetAsync(
-                    predicate: t => t.TitleId == request.TitleId && t.AuthorId == request.AuthorId,
-                    withDeleted: true);
-
-            if (titleFollowingInDb != null && titleFollowingInDb.DeletedDate != null)
-            {
-                titleFollowingInDb.DeletedDate = null;
-                await _titleFollowingRepository.UpdateAsync(titleFollowingInDb);
-
-                CreatedTitleFollowingResponse updatedFollowing = _mapper.Map<CreatedTitleFollowingResponse>(titleFollowingInDb);
-                return updatedFollowing;
-            }
-
+            await _titleFollowingBusinessRules.TitleFollowingShouldNotDuplicatedWhenInserted(titleFollowing, cancellationToken);
+            await _titleFollowingBusinessRules.TitleBlockingShouldNotExistWhenFollowingInserted(titleFollowing, cancellationToken);
 
             await _titleFollowingRepository.AddAsync(titleFollowing);
 

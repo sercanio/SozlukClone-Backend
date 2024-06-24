@@ -3,10 +3,11 @@ using Application.Services.Repositories;
 using AutoMapper;
 using Domain.Entities;
 using MediatR;
+using NArchitecture.Core.Application.Pipelines.Logging;
 
 namespace Application.Features.Dislikes.Commands.Create;
 
-public class CreateDislikeCommand : IRequest<CreatedDislikeResponse>
+public class CreateDislikeCommand : IRequest<CreatedDislikeResponse>, ILoggableRequest
 {
     public required int EntryId { get; set; }
     public required int AuthorId { get; set; }

@@ -28,25 +28,15 @@ public class CreateAuthorBlockingCommand : IRequest<CreatedAuthorBlockingRespons
 
         public async Task<CreatedAuthorBlockingResponse> Handle(CreateAuthorBlockingCommand request, CancellationToken cancellationToken)
         {
-            AuthorBlocking authorBlocking = _mapper.Map<AuthorBlocking>(request);
+            AuthorBlocking blocking = _mapper.Map<AuthorBlocking>(request);
 
-            AuthorBlocking? authorBlockingInDb = await _authorBlockingRepository.GetAsync(
-                    predicate: af => af.BlockingId == request.BlockingId && af.BlockerId == request.BlockerId,
-                    withDeleted: true
-                    );
+            await _authorBlockingBusinessRules.BlockingShouldNotOwnedByEntryAuthorWhenSelected(blocking, cancellationToken);
+            await _authorBlockingBusinessRules.BlockingShouldNotDuplicatedWhenInserted(blocking, cancellationToken);
+            await _authorBlockingBusinessRules.FollowingShouldNotExistsWhenFollowingInserted(blocking, cancellationToken);
 
-            if (authorBlockingInDb != null && authorBlockingInDb.DeletedDate != null)
-            {
-                authorBlockingInDb.DeletedDate = null;
-                await _authorBlockingRepository.UpdateAsync(authorBlockingInDb);
+            await _authorBlockingRepository.AddAsync(blocking);
 
-                CreatedAuthorBlockingResponse updatedBlocking = _mapper.Map<CreatedAuthorBlockingResponse>(authorBlockingInDb);
-                return updatedBlocking;
-            }
-
-            await _authorBlockingRepository.AddAsync(authorBlocking);
-
-            CreatedAuthorBlockingResponse response = _mapper.Map<CreatedAuthorBlockingResponse>(authorBlocking);
+            CreatedAuthorBlockingResponse response = _mapper.Map<CreatedAuthorBlockingResponse>(blocking);
             return response;
         }
     }

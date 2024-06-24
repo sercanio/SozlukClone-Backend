@@ -28,25 +28,15 @@ public class CreateAuthorFollowingCommand : IRequest<CreatedAuthorFollowingRespo
 
         public async Task<CreatedAuthorFollowingResponse> Handle(CreateAuthorFollowingCommand request, CancellationToken cancellationToken)
         {
-            AuthorFollowing authorFollowing = _mapper.Map<AuthorFollowing>(request);
+            AuthorFollowing following = _mapper.Map<AuthorFollowing>(request);
 
-            AuthorFollowing? authorFollowingInDb = await _authorFollowingRepository.GetAsync(
-                    predicate: af => af.FollowerId == request.FollowerId && af.FollowingId == request.FollowingId,
-                    withDeleted: true
-                    );
+            await _authorFollowingBusinessRules.FollowingShouldNotOwnedByEntryAuthorWhenSelected(following, cancellationToken);
+            await _authorFollowingBusinessRules.FollowingShouldNotDuplicatedWhenInserted(following, cancellationToken);
+            await _authorFollowingBusinessRules.BlockingShouldNotExistsWhenFollowingInserted(following, cancellationToken);
 
-            if (authorFollowingInDb != null && authorFollowingInDb.DeletedDate != null)
-            {
-                authorFollowingInDb.DeletedDate = null;
-                await _authorFollowingRepository.UpdateAsync(authorFollowingInDb);
+            await _authorFollowingRepository.AddAsync(following);
 
-                CreatedAuthorFollowingResponse updatedFollowing = _mapper.Map<CreatedAuthorFollowingResponse>(authorFollowingInDb);
-                return updatedFollowing;
-            }
-
-            await _authorFollowingRepository.AddAsync(authorFollowing);
-
-            CreatedAuthorFollowingResponse response = _mapper.Map<CreatedAuthorFollowingResponse>(authorFollowing);
+            CreatedAuthorFollowingResponse response = _mapper.Map<CreatedAuthorFollowingResponse>(following);
             return response;
         }
     }

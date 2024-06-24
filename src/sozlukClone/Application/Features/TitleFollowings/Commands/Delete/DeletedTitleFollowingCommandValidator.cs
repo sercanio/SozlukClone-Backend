@@ -6,7 +6,6 @@ public class DeleteTitleFollowingCommandValidator : AbstractValidator<DeleteTitl
 {
     public DeleteTitleFollowingCommandValidator()
     {
-        RuleFor(c => c.TitleId).NotEmpty();
-        RuleFor(c => c.AuthorId).NotEmpty();
+        RuleFor(c => c.Id).NotEmpty();
     }
 }

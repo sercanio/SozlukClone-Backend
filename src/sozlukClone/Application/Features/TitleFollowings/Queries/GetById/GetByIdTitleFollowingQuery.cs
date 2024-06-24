@@ -8,9 +8,7 @@ namespace Application.Features.TitleFollowings.Queries.GetById;
 
 public class GetByIdTitleFollowingQuery : IRequest<GetByIdTitleFollowingResponse>
 {
-    public int TitleId { get; set; }
-    public int AuthorId { get; set; }
-
+    public Guid Id { get; set; }
     public class GetByIdTitleFollowingQueryHandler : IRequestHandler<GetByIdTitleFollowingQuery, GetByIdTitleFollowingResponse>
     {
         private readonly IMapper _mapper;
@@ -27,7 +25,7 @@ public class GetByIdTitleFollowingQuery : IRequest<GetByIdTitleFollowingResponse
         public async Task<GetByIdTitleFollowingResponse> Handle(GetByIdTitleFollowingQuery request, CancellationToken cancellationToken)
         {
             TitleFollowing? titleFollowing = await _titleFollowingRepository.GetAsync(
-                predicate: tf => tf.TitleId == request.TitleId && tf.AuthorId == request.AuthorId,
+                predicate: tf => tf.Id == request.Id,
                 cancellationToken: cancellationToken);
 
             await _titleFollowingBusinessRules.TitleFollowingShouldExistWhenSelected(titleFollowing);

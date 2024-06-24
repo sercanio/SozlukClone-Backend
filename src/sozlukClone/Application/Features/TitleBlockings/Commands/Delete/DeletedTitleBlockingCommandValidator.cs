@@ -6,7 +6,6 @@ public class DeleteTitleBlockingCommandValidator : AbstractValidator<DeleteTitle
 {
     public DeleteTitleBlockingCommandValidator()
     {
-        RuleFor(c => c.TitleId).NotEmpty();
-        RuleFor(c => c.AuthorId).NotEmpty();
+        RuleFor(c => c.Id).NotEmpty();
     }
 }

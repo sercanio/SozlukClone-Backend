@@ -18,7 +18,7 @@ public class TitleFollowingsController : BaseController
     {
         CreatedTitleFollowingResponse response = await Mediator.Send(command);
 
-        return CreatedAtAction(nameof(GetById), new { response.TitleId, response.AuthorId }, response);
+        return CreatedAtAction(nameof(GetById), new { id = response.Id }, response);
     }
 
     [HttpPut]
@@ -29,20 +29,20 @@ public class TitleFollowingsController : BaseController
         return Ok(response);
     }
 
-    [HttpDelete("{titleId}/{authorId}")]
-    public async Task<ActionResult<DeletedTitleFollowingResponse>> Delete([FromRoute] int titleId, int authorId)
+    [HttpDelete("{id}")]
+    public async Task<ActionResult<DeletedTitleFollowingResponse>> Delete([FromRoute] Guid id)
     {
-        DeleteTitleFollowingCommand command = new() { TitleId = titleId, AuthorId = authorId };
+        DeleteTitleFollowingCommand command = new() { Id = id };
 
         DeletedTitleFollowingResponse response = await Mediator.Send(command);
 
         return Ok(response);
     }
 
-    [HttpGet("{titleId}/{authorId}")]
-    public async Task<ActionResult<GetByIdTitleFollowingResponse>> GetById([FromRoute] int titleId, int authorId)
+    [HttpGet("{id}")]
+    public async Task<ActionResult<GetByIdTitleFollowingResponse>> GetById([FromRoute] Guid id)
     {
-        GetByIdTitleFollowingQuery query = new() { TitleId = titleId, AuthorId = authorId };
+        GetByIdTitleFollowingQuery query = new() { Id = id };
 
         GetByIdTitleFollowingResponse response = await Mediator.Send(query);
 

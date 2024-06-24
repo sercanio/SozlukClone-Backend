@@ -1,4 +1,6 @@
+using Application.Factories.LikeServiceFactory;
 using Application.Features.Likes.Constants;
+using Application.Services.Dislikes;
 using Application.Services.Entries;
 using Application.Services.Repositories;
 using Domain.Entities;
@@ -13,14 +15,14 @@ public class LikeBusinessRules : BaseBusinessRules
     private readonly ILikeRepository _likeRepository;
     private readonly ILocalizationService _localizationService;
     private readonly IEntryService _entryService;
-    private readonly IDislikeRepository _dislikeRepository;
+    private readonly IDislikeServiceFactory _dislikeServiceFactory;
 
-    public LikeBusinessRules(ILikeRepository likeRepository, ILocalizationService localizationService, IEntryService entryService, IDislikeRepository dislikeRepository)
+    public LikeBusinessRules(ILikeRepository likeRepository, ILocalizationService localizationService, IEntryService entryService, IDislikeServiceFactory dislikeServiceFactory)
     {
         _likeRepository = likeRepository;
         _localizationService = localizationService;
         _entryService = entryService;
-        _dislikeRepository = dislikeRepository;
+        _dislikeServiceFactory = dislikeServiceFactory;
     }
 
     private async Task throwBusinessException(string messageKey)
@@ -55,10 +57,11 @@ public class LikeBusinessRules : BaseBusinessRules
         }
     }
 
-    public async Task LikeShouldNotDuplicatedWhenInserted(Like like)
+    public async Task LikeShouldNotDuplicatedWhenInserted(Like like, CancellationToken cancellationToken)
     {
         Like? existingLike = await _likeRepository.GetAsync(
-            predicate: l => l.EntryId == like.EntryId && l.AuthorId == like.AuthorId
+            predicate: l => l.EntryId == like.EntryId && l.AuthorId == like.AuthorId,
+            cancellationToken: cancellationToken
         );
 
         if (existingLike != null)
@@ -67,10 +70,13 @@ public class LikeBusinessRules : BaseBusinessRules
         }
     }
 
-    public async Task DislikeShouldNotExistWhenLikeInserted(Like like)
+    public async Task DislikeShouldNotExistWhenLikeInserted(Like like, CancellationToken cancellationToken)
     {
-        Dislike? existingDislike = await _dislikeRepository.GetAsync(
-            predicate: d => d.EntryId == like.EntryId && d.AuthorId == like.AuthorId);
+        IDislikeService dislikeService = _dislikeServiceFactory.Create();
+
+        Dislike? existingDislike = await dislikeService.GetAsync(
+            predicate: d => d.EntryId == like.EntryId && d.AuthorId == like.AuthorId,
+            cancellationToken: cancellationToken);
 
         if (existingDislike != null)
         {

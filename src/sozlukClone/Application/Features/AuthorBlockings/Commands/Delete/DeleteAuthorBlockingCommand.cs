@@ -9,8 +9,7 @@ namespace Application.Features.AuthorBlockings.Commands.Delete;
 
 public class DeleteAuthorBlockingCommand : IRequest<DeletedAuthorBlockingResponse>, ILoggableRequest
 {
-    public int BlockingId { get; set; }
-    public int BlockerId { get; set; }
+    public Guid Id { get; set; }
 
     public class DeleteAuthorBlockingCommandHandler : IRequestHandler<DeleteAuthorBlockingCommand, DeletedAuthorBlockingResponse>
     {
@@ -28,15 +27,16 @@ public class DeleteAuthorBlockingCommand : IRequest<DeletedAuthorBlockingRespons
 
         public async Task<DeletedAuthorBlockingResponse> Handle(DeleteAuthorBlockingCommand request, CancellationToken cancellationToken)
         {
-            AuthorBlocking? authorBlocking = await _authorBlockingRepository.GetAsync(
-                    predicate: ab => ab.BlockingId == request.BlockingId && ab.BlockerId == request.BlockerId,
+
+            await _authorBlockingBusinessRules.AuthorBlockingIdShouldExistWhenSelected(request.Id, cancellationToken);
+
+            AuthorBlocking? blocking = await _authorBlockingRepository.GetAsync(
+                    predicate: ab => ab.Id == request.Id,
                     cancellationToken: cancellationToken);
 
-            await _authorBlockingBusinessRules.AuthorBlockingShouldExistWhenSelected(authorBlocking);
+            await _authorBlockingRepository.DeleteAsync(blocking!);
 
-            await _authorBlockingRepository.DeleteAsync(authorBlocking!);
-
-            DeletedAuthorBlockingResponse response = _mapper.Map<DeletedAuthorBlockingResponse>(authorBlocking);
+            DeletedAuthorBlockingResponse response = _mapper.Map<DeletedAuthorBlockingResponse>(blocking);
             return response;
         }
     }

@@ -1,1 +1,4 @@
 ﻿AuthorFollowingNotExists: takipleşme bulunamadı.
+FollowingAlreadyExists: Takipleşme zaten var.
+FollowingIsOwnerOfItself: Kendinizi takip edemezsiniz.
+BlockingExists: Engellenmiş başlığı takip edemezsiniz.

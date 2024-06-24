@@ -9,8 +9,7 @@ namespace Application.Features.TitleBlockings.Commands.Delete;
 
 public class DeleteTitleBlockingCommand : IRequest<DeletedTitleBlockingResponse>, ILoggableRequest
 {
-    public int TitleId { get; set; }
-    public int AuthorId { get; set; }
+    public Guid Id { get; set; }
 
     public class DeleteTitleBlockingCommandHandler : IRequestHandler<DeleteTitleBlockingCommand, DeletedTitleBlockingResponse>
     {
@@ -28,11 +27,11 @@ public class DeleteTitleBlockingCommand : IRequest<DeletedTitleBlockingResponse>
 
         public async Task<DeletedTitleBlockingResponse> Handle(DeleteTitleBlockingCommand request, CancellationToken cancellationToken)
         {
-            TitleBlocking? titleBlocking = await _titleBlockingRepository.GetAsync(
-                                predicate: tb => tb.TitleId == request.TitleId && tb.AuthorId == request.AuthorId,
-                                cancellationToken: cancellationToken);
+            await _titleBlockingBusinessRules.TitleBlockingIdShouldExistWhenSelected(request.Id, cancellationToken);
 
-            await _titleBlockingBusinessRules.TitleBlockingShouldExistWhenSelected(titleBlocking);
+            TitleBlocking? titleBlocking = await _titleBlockingRepository.GetAsync(
+                                predicate: tb => tb.Id == request.Id,
+                                cancellationToken: cancellationToken);
 
             await _titleBlockingRepository.DeleteAsync(titleBlocking!);
 

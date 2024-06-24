@@ -19,8 +19,6 @@ public class AuthorFollowingConfiguration : IEntityTypeConfiguration<AuthorFollo
 
         builder.HasQueryFilter(af => !af.DeletedDate.HasValue);
 
-        builder.HasKey(tf => new { tf.FollowingId, tf.FollowerId });
-
         builder.Property(af => af.FollowerId).IsRequired();
         builder.Property(af => af.FollowingId).IsRequired();
 

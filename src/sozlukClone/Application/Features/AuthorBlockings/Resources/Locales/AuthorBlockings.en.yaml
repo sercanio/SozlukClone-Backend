@@ -1,1 +1,4 @@
 AuthorBlockingNotExists: Author blocking don't exists.
+BlockingShouldNotOwnedByEntryAuthor: Blocking is owner of itself.
+BlockingShouldNotDuplicated: Blocking is already exists.
+FavoriteExists: Favorite exists.

@@ -30,8 +30,8 @@ public class CreateLikeCommand : IRequest<CreatedLikeResponse>
             Like like = _mapper.Map<Like>(request);
 
             await _likeBusinessRules.LikeShouldNotOwnedByEntryAuthorWhenSelected(like, cancellationToken);
-            await _likeBusinessRules.LikeShouldNotDuplicatedWhenInserted(like);
-            await _likeBusinessRules.DislikeShouldNotExistWhenLikeInserted(like);
+            await _likeBusinessRules.LikeShouldNotDuplicatedWhenInserted(like, cancellationToken);
+            await _likeBusinessRules.DislikeShouldNotExistWhenLikeInserted(like, cancellationToken);
 
             await _likeRepository.AddAsync(like, cancellationToken);
 

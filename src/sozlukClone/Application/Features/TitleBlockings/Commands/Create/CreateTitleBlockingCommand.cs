@@ -30,19 +30,8 @@ public class CreateTitleBlockingCommand : IRequest<CreatedTitleBlockingResponse>
         {
             TitleBlocking titleBlocking = _mapper.Map<TitleBlocking>(request);
 
-            TitleBlocking? titleBlockingInDb = await _titleBlockingRepository.GetAsync(
-                    predicate: t => t.TitleId == request.TitleId && t.AuthorId == request.AuthorId,
-                    withDeleted: true
-                    );
-
-            if (titleBlockingInDb != null && titleBlockingInDb.DeletedDate != null)
-            {
-                titleBlockingInDb.DeletedDate = null;
-                await _titleBlockingRepository.UpdateAsync(titleBlockingInDb);
-
-                CreatedTitleBlockingResponse updatedBlocking = _mapper.Map<CreatedTitleBlockingResponse>(titleBlockingInDb);
-                return updatedBlocking;
-            }
+            await _titleBlockingBusinessRules.TitleBlockingShouldNotDuplicatedWhenInserted(titleBlocking, cancellationToken);
+            await _titleBlockingBusinessRules.TitleFollowingShouldNotExistWhenFollowingInserted(titleBlocking, cancellationToken);
 
             await _titleBlockingRepository.AddAsync(titleBlocking);
 

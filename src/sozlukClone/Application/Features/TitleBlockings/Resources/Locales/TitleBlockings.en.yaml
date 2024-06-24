@@ -1,1 +1,3 @@
 TitleBlockingNotExists: Title blocking don't exists.
+TitleBlockingAlreadyExists: Title blocking already exists.
+TitleFollowingExists: Title following exists.

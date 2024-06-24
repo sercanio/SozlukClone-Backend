@@ -1,21 +1,14 @@
-using Application.Features.TitleFollowings.Constants;
 using Application.Features.TitleFollowings.Rules;
 using Application.Services.Repositories;
 using AutoMapper;
 using Domain.Entities;
 using MediatR;
-using NArchitecture.Core.Application.Pipelines.Authorization;
-using NArchitecture.Core.Application.Pipelines.Logging;
-using static Application.Features.TitleFollowings.Constants.TitleFollowingsOperationClaims;
 
 namespace Application.Features.TitleFollowings.Commands.Delete;
 
-public class DeleteTitleFollowingCommand : IRequest<DeletedTitleFollowingResponse>, ISecuredRequest, ILoggableRequest
+public class DeleteTitleFollowingCommand : IRequest<DeletedTitleFollowingResponse>
 {
-    public int TitleId { get; set; }
-    public int AuthorId { get; set; }
-
-    public string[] Roles => [Admin, Write, TitleFollowingsOperationClaims.Delete];
+    public Guid Id { get; set; }
 
     public class DeleteTitleFollowingCommandHandler : IRequestHandler<DeleteTitleFollowingCommand, DeletedTitleFollowingResponse>
     {
@@ -33,13 +26,14 @@ public class DeleteTitleFollowingCommand : IRequest<DeletedTitleFollowingRespons
 
         public async Task<DeletedTitleFollowingResponse> Handle(DeleteTitleFollowingCommand request, CancellationToken cancellationToken)
         {
+            await _titleFollowingBusinessRules.TitleFollowingIdShouldExistWhenSelected(request.Id, cancellationToken);
+
             TitleFollowing? titleFollowing = await _titleFollowingRepository.GetAsync(
-                    predicate: tf => tf.TitleId == request.TitleId && tf.AuthorId == request.AuthorId,
-                    cancellationToken: cancellationToken);
+                predicate: tf => tf.Id == request.Id,
+                enableTracking: false,
+                cancellationToken: cancellationToken);
 
-            await _titleFollowingBusinessRules.TitleFollowingShouldExistWhenSelected(titleFollowing);
-
-            await _titleFollowingRepository.DeleteAsync(titleFollowing!);
+            _titleFollowingRepository.Delete(titleFollowing!);
 
             DeletedTitleFollowingResponse response = _mapper.Map<DeletedTitleFollowingResponse>(titleFollowing);
             return response;

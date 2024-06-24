@@ -1,3 +1,10 @@
+using Application.Factories.AuthorBlockingServiceFactory;
+using Application.Factories.AuthorFollowingServiceFactory;
+using Application.Factories.DislikeServiceFactory;
+using Application.Factories.FavoriteServiceFactory;
+using Application.Factories.LikeServiceFactory;
+using Application.Factories.TitleBlockingServiceFactory;
+using Application.Factories.TitleFollowingServiceFactory;
 using Application.Services.AuthenticatorService;
 using Application.Services.AuthorBlockings;
 using Application.Services.AuthorFollowings;
@@ -113,11 +120,18 @@ public static class ApplicationServiceRegistration
         services.AddScoped<IAuthorFollowingService, AuthorFollowingManager>();
         services.AddScoped<IAuthorModOperationService, AuthorModOperationManager>();
         services.AddScoped<IEntryModOperationService, EntryModOperationManager>();
-        services.AddScoped<ITitleBlockingService, TitleBlockingManager>();
-        services.AddScoped<ITitleFollowingService, TitleFollowingManager>();
         services.AddScoped<ITitleModOperationService, TitleModOperationManager>();
         services.AddScoped<IAuthorBlockingService, AuthorBlockingManager>();
         services.AddScoped<ICategoryService, CategoryManager>();
+        services.AddScoped<ITitleFollowingService, TitleFollowingManager>();
+        services.AddScoped<ITitleBlockingService, TitleBlockingManager>();
+        services.AddScoped<ITitleBlockingServiceFactory, TitleBlockingServiceFactory>();
+        services.AddScoped<ITitleFollowingServiceFactory, TitleFollowingServiceFactory>();
+        services.AddScoped<ILikeServiceFactory, LikeServiceFactory>();
+        services.AddScoped<IDislikeServiceFactory, DislikeServiceFactory>();
+        services.AddScoped<IFavoriteServiceFactory, FavoriteServiceFactory>();
+        services.AddScoped<IAuthorFollowingServiceFactory, AuthorFollowingServiceFactory>();
+        services.AddScoped<IAuthorBlockingServiceFactory, AuthorBlockingServiceFactory>();
         return services;
     }
 

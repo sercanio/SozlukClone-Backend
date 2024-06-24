@@ -9,8 +9,7 @@ namespace Application.Features.AuthorFollowings.Commands.Delete;
 
 public class DeleteAuthorFollowingCommand : IRequest<DeletedAuthorFollowingResponse>, ILoggableRequest
 {
-    public int FollowingId { get; set; }
-    public int FollowerId { get; set; }
+    public Guid Id { get; set; }
 
     public class DeleteAuthorFollowingCommandHandler : IRequestHandler<DeleteAuthorFollowingCommand, DeletedAuthorFollowingResponse>
     {
@@ -28,16 +27,16 @@ public class DeleteAuthorFollowingCommand : IRequest<DeletedAuthorFollowingRespo
 
         public async Task<DeletedAuthorFollowingResponse> Handle(DeleteAuthorFollowingCommand request, CancellationToken cancellationToken)
         {
-            AuthorFollowing? authorFollowing = await _authorFollowingRepository.GetAsync(
-                    predicate: af => af.FollowingId == request.FollowingId && af.FollowerId == request.FollowerId,
+            await _authorFollowingBusinessRules.AuthorFollowingIdShouldExistWhenSelected(request.Id, cancellationToken);
+
+            AuthorFollowing? following = await _authorFollowingRepository.GetAsync(
+                    predicate: d => d.Id == request.Id,
                     cancellationToken: cancellationToken
                     );
 
-            await _authorFollowingBusinessRules.AuthorFollowingShouldExistWhenSelected(authorFollowing);
+            await _authorFollowingRepository.DeleteAsync(following!);
 
-            await _authorFollowingRepository.DeleteAsync(authorFollowing!);
-
-            DeletedAuthorFollowingResponse response = _mapper.Map<DeletedAuthorFollowingResponse>(authorFollowing);
+            DeletedAuthorFollowingResponse response = _mapper.Map<DeletedAuthorFollowingResponse>(following);
             return response;
         }
     }

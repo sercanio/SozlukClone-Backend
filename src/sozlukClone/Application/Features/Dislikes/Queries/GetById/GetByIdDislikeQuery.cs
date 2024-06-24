@@ -26,6 +26,7 @@ public class GetByIdDislikeQuery : IRequest<GetByIdDislikeResponse>
         public async Task<GetByIdDislikeResponse> Handle(GetByIdDislikeQuery request, CancellationToken cancellationToken)
         {
             Dislike? dislike = await _dislikeRepository.GetAsync(predicate: d => d.Id == request.Id, cancellationToken: cancellationToken);
+
             await _dislikeBusinessRules.DislikeShouldExistWhenSelected(dislike);
 
             GetByIdDislikeResponse response = _mapper.Map<GetByIdDislikeResponse>(dislike);
