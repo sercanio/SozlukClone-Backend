@@ -106,9 +106,9 @@ public class GetByUserNameQuery : IRequest<GetByUserNameResponse>
                     )
                 });
 
-            GetByUserNameResponse? authorResponse = await authorQuery.FirstOrDefaultAsync(cancellationToken);
+            GetByUserNameResponse? response = await authorQuery.FirstOrDefaultAsync(cancellationToken);
 
-            return authorResponse!;
+            return response!;
         }
     }
 }

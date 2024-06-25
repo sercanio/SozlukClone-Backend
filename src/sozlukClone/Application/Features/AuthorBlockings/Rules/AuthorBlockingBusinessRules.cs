@@ -71,7 +71,7 @@ public class AuthorBlockingBusinessRules : BaseBusinessRules
 
         if (existingFollowing != null)
         {
-            await throwBusinessException(AuthorBlockingsBusinessMessages.FavoriteExists);
+            await throwBusinessException(AuthorBlockingsBusinessMessages.FollowingExists);
         }
     }
 }

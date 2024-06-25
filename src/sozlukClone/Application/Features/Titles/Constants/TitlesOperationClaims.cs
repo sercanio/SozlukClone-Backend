@@ -16,4 +16,6 @@ public static class TitlesOperationClaims
     public const string GetBySlug = $"{_section}.GetBySlug";
     
     public const string GetByTitleName = $"{_section}.GetByTitleName";
+    
+    public const string GetListByTitleId = $"{_section}.GetListByTitleId";
 }

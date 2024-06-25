@@ -1,10 +1,10 @@
 using Application.Features.Authors.Queries.GetById;
 using Application.Features.Titles.Queries.GetById;
-using NArchitecture.Core.Application.Responses;
+using NArchitecture.Core.Application.Dtos;
 
-namespace Application.Features.Entries.Queries.GetById;
+namespace Application.Features.Entries.Queries.GetListEntryForHomePage;
 
-public class GetByIdEntryResponse : IResponse
+public class GetListEntryForHomePageListItemDto : IDto
 {
     public int Id { get; set; }
     public string Content { get; set; }

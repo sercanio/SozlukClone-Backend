@@ -24,4 +24,8 @@ public static class EntriesOperationClaims
     public const string GetTopLikedListByAuthorId = $"{_section}.GetTopLikedListByAuthorId";
     
     public const string GetMostFavoritedListByAuthorId = $"{_section}.GetMostFavoritedListByAuthorId";
+    
+    public const string GetListByTitleId = $"{_section}.GetListByTitleId";
+    
+    public const string GetMostLikedListOfYesterday = $"{_section}.GetMostLikedListOfYesterday";
 }

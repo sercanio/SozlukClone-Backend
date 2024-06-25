@@ -4,8 +4,10 @@ using Application.Features.Entries.Commands.Update;
 using Application.Features.Entries.Queries.GetById;
 using Application.Features.Entries.Queries.GetList;
 using Application.Features.Entries.Queries.GetListByAuthorId;
+using Application.Features.Entries.Queries.GetListByTitleId;
 using Application.Features.Entries.Queries.GetListEntryForHomePage;
 using Application.Features.Entries.Queries.GetMostFavoritedListByAuthorId;
+using Application.Features.Entries.Queries.GetMostLikedListOfYesterday;
 using Application.Features.Entries.Queries.GetTopLikedListByAuthorId;
 using Microsoft.AspNetCore.Mvc;
 using NArchitecture.Core.Application.Requests;
@@ -68,17 +70,17 @@ public class EntriesController : BaseController
     {
         GetListEntryForHomePageQuery query = new() { PageRequest = pageRequest };
 
-        GetListResponse<GetListEntryForHomePageDto> response = await Mediator.Send(query);
+        GetListResponse<GetListEntryForHomePageListItemDto> response = await Mediator.Send(query);
 
         return Ok(response);
     }
 
     [HttpGet("GetListByAuthorId")]
-    public async Task<ActionResult<GetListByAuthorIdResponse>> GetListByAuthorId([FromQuery] PageRequest pageRequest, int authorId)
+    public async Task<ActionResult<GetListByAuthorIdListItemDto>> GetListByAuthorId([FromQuery] PageRequest pageRequest, int authorId)
     {
         GetListByAuthorIdQuery query = new() { PageRequest = pageRequest, AuthorId = authorId };
 
-        GetListResponse<GetListByAuthorIdResponse> response = await Mediator.Send(query);
+        GetListResponse<GetListByAuthorIdListItemDto> response = await Mediator.Send(query);
         return Ok(response);
     }
 
@@ -97,6 +99,24 @@ public class EntriesController : BaseController
         GetMostFavoritedListByAuthorIdQuery query = new() { PageRequest = pageRequest, AuthorId = authorId };
 
         GetListResponse<GetMostFavoritedListByAuthorIdResponse> response = await Mediator.Send(query);
+        return Ok(response);
+    }
+
+    [HttpGet("GetListByTitleId")]
+    public async Task<ActionResult<GetListByTitleIdQuery>> GetListByTitleId([FromQuery] PageRequest pageRequest, int titleId)
+    {
+        GetListByTitleIdQuery query = new() { PageRequest = pageRequest, TitleId = titleId };
+
+        GetListResponse<GetListByTitleIdResponse> response = await Mediator.Send(query);
+        return Ok(response);
+    }
+
+    [HttpGet("GetMostLikedListOfYesterday")]
+    public async Task<ActionResult<GetMostLikedListOfYesterdayQuery>> GetMostLikedListOfYesterday([FromQuery] PageRequest pageRequest)
+    {
+        GetMostLikedListOfYesterdayQuery query = new() { PageRequest = pageRequest };
+
+        GetListResponse<GetMostLikedListOfYesterdayResponse> response = await Mediator.Send(query);
         return Ok(response);
     }
 }

@@ -475,6 +475,12 @@ public class OperationClaimConfiguration : IEntityTypeConfiguration<OperationCla
         );
         #endregion
         
+        
+        featureOperationClaims.Add(new() { Id = ++lastId, Name = TitlesOperationClaims.GetListByTitleId });
+        
+        featureOperationClaims.Add(new() { Id = ++lastId, Name = EntriesOperationClaims.GetListByTitleId });
+        
+        featureOperationClaims.Add(new() { Id = ++lastId, Name = EntriesOperationClaims.GetMostLikedListOfYesterday });
         return featureOperationClaims;
     }
 #pragma warning restore S1854 // Unused assignments should be removed

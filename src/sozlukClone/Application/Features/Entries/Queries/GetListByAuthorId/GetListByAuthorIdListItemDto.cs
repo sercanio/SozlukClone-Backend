@@ -2,9 +2,9 @@ using Application.Features.Authors.Queries.GetById;
 using Application.Features.Titles.Queries.GetById;
 using NArchitecture.Core.Application.Responses;
 
-namespace Application.Features.Entries.Queries.GetById;
+namespace Application.Features.Entries.Queries.GetListByAuthorId;
 
-public class GetByIdEntryResponse : IResponse
+public class GetListByAuthorIdListItemDto : IResponse
 {
     public int Id { get; set; }
     public string Content { get; set; }

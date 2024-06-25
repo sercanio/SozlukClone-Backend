@@ -34,6 +34,9 @@ namespace Application.Features.Titles.Profiles
             CreateMap<Title, GetByTitleNameResponse>();
             CreateMap<GetByTitleNameResponse, Title>();
 
+            CreateMap<Title, GetByIdTitleForEntryResponse>();
+            CreateMap<GetByIdTitleForEntryResponse, Title>();
+
             CreateMap<Title, GetTitleListItemForTitleModOperationsDto>();
             CreateMap<IPaginate<Title>, GetListResponse<GetTitleListItemForTitleModOperationsDto>>();
 

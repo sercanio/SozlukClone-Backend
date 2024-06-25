@@ -3,17 +3,19 @@ using Application.Services.Repositories;
 using AutoMapper;
 using Domain.Entities;
 using MediatR;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using NArchitecture.Core.Application.Requests;
 using NArchitecture.Core.Application.Responses;
 using NArchitecture.Core.Persistence.Paging;
 
-namespace Application.Features.Entries.Queries.GetTopLikedListByAuthorId;
-
-public class GetTopLikedListByAuthorIdQuery : IRequest<GetListResponse<GetTopLikedListByAuthorIdResponse>>
+namespace Application.Features.Entries.Queries.GetTopLikedListByAuthorId
 {
-    public int AuthorId { get; set; }
-    public PageRequest PageRequest { get; set; }
+    public class GetTopLikedListByAuthorIdQuery : IRequest<GetListResponse<GetTopLikedListByAuthorIdResponse>>
+    {
+        public int AuthorId { get; set; }
+        public PageRequest PageRequest { get; set; }
+    }
 
     public class GetTopLikedListByAuthorIdQueryHandler : IRequestHandler<GetTopLikedListByAuthorIdQuery, GetListResponse<GetTopLikedListByAuthorIdResponse>>
     {
@@ -21,7 +23,7 @@ public class GetTopLikedListByAuthorIdQuery : IRequest<GetListResponse<GetTopLik
         private readonly IEntryRepository _entryRepository;
         private readonly EntryBusinessRules _entryBusinessRules;
 
-        public GetTopLikedListByAuthorIdQueryHandler(IMapper mapper, EntryBusinessRules entryBusinessRules, IEntryRepository entryRepository)
+        public GetTopLikedListByAuthorIdQueryHandler(IMapper mapper, EntryBusinessRules entryBusinessRules, IEntryRepository entryRepository, IHttpContextAccessor httpContextAccessor)
         {
             _mapper = mapper;
             _entryBusinessRules = entryBusinessRules;
@@ -32,18 +34,26 @@ public class GetTopLikedListByAuthorIdQuery : IRequest<GetListResponse<GetTopLik
         {
             IPaginate<Entry> entries = await _entryRepository.GetListAsync(
                 predicate: e => e.AuthorId == request.AuthorId,
-                include: e => e.Include(e => e.Author)
-                               .Include(e => e.Title)
-                               .Include(e => e.Likes).ThenInclude(l => l.Author)
-                               .Include(e => e.Dislikes).ThenInclude(l => l.Author)
-                               .Include(e => e.Favorites).ThenInclude(l => l.Author),
+                include: e => e.Include(e => e.Title)
+                               .Include(e => e.Author)
+                               .Include(e => e.Likes)
+                               .ThenInclude(l => l.Author),
                 orderBy: e => e.OrderByDescending(e => e.Likes.Count),
                 index: request.PageRequest.PageIndex,
                 size: request.PageRequest.PageSize,
                 cancellationToken: cancellationToken
             );
 
-            GetListResponse<GetTopLikedListByAuthorIdResponse> response = _mapper.Map<GetListResponse<GetTopLikedListByAuthorIdResponse>>(entries);
+            var mappedEntries = entries.Items.Select(e => _mapper.Map<GetTopLikedListByAuthorIdResponse>(e)).ToList();
+
+            GetListResponse<GetTopLikedListByAuthorIdResponse> response = new GetListResponse<GetTopLikedListByAuthorIdResponse>
+            {
+                Items = mappedEntries,
+                Index = entries.Index,
+                Size = entries.Size,
+                Count = entries.Count,
+                Pages = entries.Pages
+            };
 
             return response;
         }

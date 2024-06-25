@@ -6,7 +6,6 @@ using Application.Features.Titles.Queries.GetBySlug;
 using Application.Features.Titles.Queries.GetByTitleName;
 using Application.Features.Titles.Queries.GetDynamic;
 using Application.Features.Titles.Queries.GetList;
-using Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
 using NArchitecture.Core.Application.Requests;
 using NArchitecture.Core.Application.Responses;

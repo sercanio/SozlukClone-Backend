@@ -2,9 +2,9 @@ using Application.Features.Authors.Queries.GetById;
 using Application.Features.Titles.Queries.GetById;
 using NArchitecture.Core.Application.Responses;
 
-namespace Application.Features.Entries.Queries.GetById;
+namespace Application.Features.Entries.Queries.GetMostLikedListOfYesterday;
 
-public class GetByIdEntryResponse : IResponse
+public class GetMostLikedListOfYesterdayResponse : IResponse
 {
     public int Id { get; set; }
     public string Content { get; set; }

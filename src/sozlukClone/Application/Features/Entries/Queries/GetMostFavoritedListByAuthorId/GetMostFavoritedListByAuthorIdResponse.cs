@@ -1,8 +1,5 @@
-using Application.Features.Authors.Queries.GetList;
-using Application.Features.Dislikes.Queries.GetList;
-using Application.Features.Favorites.Queries.GetList;
-using Application.Features.Likes.Queries.GetList;
-using Application.Features.Titles.Queries.GetList;
+using Application.Features.Authors.Queries.GetById;
+using Application.Features.Titles.Queries.GetById;
 using NArchitecture.Core.Application.Responses;
 
 namespace Application.Features.Entries.Queries.GetMostFavoritedListByAuthorId;
@@ -11,14 +8,15 @@ public class GetMostFavoritedListByAuthorIdResponse : IResponse
 {
     public int Id { get; set; }
     public string Content { get; set; }
-    public int AuthorId { get; set; }
-    public int TitleId { get; set; }
     public DateTime CreatedDate { get; set; }
     public DateTime? UpdatedDate { get; set; }
-    public ICollection<GetListLikeListItemInEntryDto> Likes { get; set; }
-    public ICollection<GetListDislikeListItemInEntryDto> Dislikes { get; set; }
-    public ICollection<GetListFavoriteListItemInEntryDto> Favorites { get; set; }
+    public int LikesCount { get; set; }
+    public int DislikesCount { get; set; }
+    public int FavoritesCount { get; set; }
+    public bool AuthorLike { get; set; }
+    public bool AuthorDislike { get; set; }
+    public bool AuthorFavorite { get; set; }
+    public GetByIdTitleForEntryResponse Title { get; set; }
+    public GetByIdAuthorForEntryResponse Author { get; set; }
 
-    public GetListAuthorListItemDto Author { get; set; }
-    public GetListTitleListItemDto Title { get; set; }
 }
