@@ -16,6 +16,9 @@ public class GetMostFavoritedListByAuthorIdResponse : IResponse
     public bool AuthorLike { get; set; }
     public bool AuthorDislike { get; set; }
     public bool AuthorFavorite { get; set; }
+    public Guid LikeId { get; set; }
+    public Guid DislikeId { get; set; }
+    public Guid FavoriteId { get; set; }
     public GetByIdTitleForEntryResponse Title { get; set; }
     public GetByIdAuthorForEntryResponse Author { get; set; }
 

@@ -49,6 +49,7 @@ public class GetByUserNameQuery : IRequest<GetByUserNameResponse>
                 .Select(a => new GetByUserNameResponse
                 {
                     Id = a.Author.Id,
+                    UserName = a.Author.UserName,
                     Biography = a.Author.Biography,
                     ProfilePictureUrl = a.Author.ProfilePictureUrl,
                     CoverPictureUrl = a.Author.CoverPictureUrl,

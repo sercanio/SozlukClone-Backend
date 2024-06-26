@@ -71,7 +71,10 @@ namespace Application.Features.Entries.Queries.GetById
                         FavoritesCount = e.Favorites.Count,
                         AuthorLike = author != null && e.Likes.Any(l => l.AuthorId == author.Id),
                         AuthorDislike = author != null && e.Dislikes.Any(d => d.AuthorId == author.Id),
-                        AuthorFavorite = author != null && e.Favorites.Any(f => f.AuthorId == author.Id)
+                        AuthorFavorite = author != null && e.Favorites.Any(f => f.AuthorId == author.Id),
+                        LikeId = author != null && e.Likes.Any(l => l.AuthorId == author!.Id) ? e.Likes.FirstOrDefault(l => l.AuthorId == author!.Id)!.Id : Guid.Empty,
+                        DislikeId = author != null && e.Dislikes.Any(d => d.AuthorId == author!.Id) ? e.Dislikes.FirstOrDefault(d => d.AuthorId == author!.Id)!.Id : Guid.Empty,
+                        FavoriteId = author != null && e.Favorites.Any(f => f.AuthorId == author!.Id) ? e.Favorites.FirstOrDefault(f => f.AuthorId == author!.Id)!.Id : Guid.Empty,
                     });
 
                 GetByIdEntryResponse? response = await entryQuery.FirstOrDefaultAsync(cancellationToken);

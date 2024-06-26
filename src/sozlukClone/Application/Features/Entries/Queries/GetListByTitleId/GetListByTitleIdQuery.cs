@@ -1,4 +1,6 @@
+using Application.Features.Authors.Queries.GetById;
 using Application.Features.Entries.Rules;
+using Application.Features.Titles.Queries.GetById;
 using Application.Services.Authors;
 using Application.Services.Repositories;
 using AutoMapper;
@@ -74,13 +76,30 @@ namespace Application.Features.Entries.Queries.GetListByTitleId
                              .ThenInclude(l => l.Author)
                              .Include(e => e.Favorites)
                              .ThenInclude(l => l.Author),
-              orderBy: e => e.OrderByDescending(e => e.CreatedDate),
+              orderBy: e => e.OrderBy(e => e.CreatedDate),
               index: request.PageRequest.PageIndex,
               size: request.PageRequest.PageSize,
               cancellationToken: cancellationToken
             );
 
-            var mappedEntries = entries.Items.Select(e => _mapper.Map<GetListByTitleIdResponse>(e)).ToList();
+            var mappedEntries = entries.Items.Select(e => new GetListByTitleIdResponse
+            {
+                Id = e.Id,
+                Content = e.Content,
+                CreatedDate = e.CreatedDate,
+                UpdatedDate = e.UpdatedDate,
+                LikesCount = e.Likes.Count,
+                DislikesCount = e.Dislikes.Count,
+                FavoritesCount = e.Favorites.Count,
+                Title = _mapper.Map<GetByIdTitleForEntryResponse>(e.Title),
+                Author = _mapper.Map<GetByIdAuthorForEntryResponse>(e.Author),
+                AuthorLike = author != null && e.Likes.Any(l => l.AuthorId == author.Id),
+                AuthorDislike = author != null && e.Dislikes.Any(d => d.AuthorId == author.Id),
+                AuthorFavorite = author != null && e.Favorites.Any(f => f.AuthorId == author.Id),
+                LikeId = e.Likes.Any(l => l.AuthorId == author?.Id) ? e.Likes.FirstOrDefault(l => l.AuthorId == author?.Id)!.Id : Guid.Empty,
+                DislikeId = e.Dislikes.Any(d => d.AuthorId == author?.Id) ? e.Dislikes.FirstOrDefault(d => d.AuthorId == author?.Id)!.Id : Guid.Empty,
+                FavoriteId = e.Favorites.Any(f => f.AuthorId == author?.Id) ? e.Favorites.FirstOrDefault(f => f.AuthorId == author?.Id)!.Id : Guid.Empty,
+            }).ToList();
 
             GetListResponse<GetListByTitleIdResponse> response = new GetListResponse<GetListByTitleIdResponse>
             {

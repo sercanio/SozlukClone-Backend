@@ -8,6 +8,7 @@ public class GetByUserNameResponse : IResponse
 {
     // core information
     public int Id { get; set; }
+    public string UserName { get; set; }
     public string? Biography { get; set; }
     public string? ProfilePictureUrl { get; set; }
     public string? CoverPictureUrl { get; set; }

@@ -10,8 +10,6 @@ namespace Application.Features.Titles.Queries.GetBySlug;
 public class GetBySlugQuery : IRequest<GetTitleBySlugResponse>
 {
     public string Slug { get; set; }
-    public int PageIndex { get; set; }
-    public int PageSize { get; set; }
 
     public class GetBySlugQueryHandler : IRequestHandler<GetBySlugQuery, GetTitleBySlugResponse>
     {

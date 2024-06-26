@@ -11,6 +11,7 @@ using Microsoft.EntityFrameworkCore;
 using NArchitecture.Core.Application.Requests;
 using NArchitecture.Core.Application.Responses;
 using NArchitecture.Core.Persistence.Paging;
+using System.Linq.Expressions;
 using System.Security.Claims;
 
 namespace Application.Features.Entries.Queries.GetListEntryForHomePage
@@ -47,16 +48,25 @@ namespace Application.Features.Entries.Queries.GetListEntryForHomePage
             {
                 userId = parsedUserId;
             }
-            // Get the logged-in author (if any)
+
             Author? author = null;
             if (userId.HasValue)
             {
                 author = await _authorService.GetAsync(a => a.UserId == userId.Value, cancellationToken: cancellationToken);
             }
 
-            // Apply filter for non-blocked authors
+            Expression<Func<Entry, bool>> predicate;
+            if (userId.HasValue && author != null)
+            {
+                predicate = e => !e.Author.Blockers.Any(u => u.BlockerId == author.Id);
+            }
+            else
+            {
+                predicate = e => true;
+            }
+
             IPaginate<Entry> entries = await _entryRepository.GetListAsync(
-                predicate: e => !e.Author.Blockers.Any(u => u.BlockerId == author!.Id),
+                predicate: predicate,
                 include: e => e.Include(e => e.Title)
                                .Include(e => e.Author)
                                .Include(e => e.Likes)
@@ -84,7 +94,10 @@ namespace Application.Features.Entries.Queries.GetListEntryForHomePage
                 Author = _mapper.Map<GetByIdAuthorForEntryResponse>(e.Author),
                 AuthorLike = author != null && e.Likes.Any(l => l.AuthorId == author.Id),
                 AuthorDislike = author != null && e.Dislikes.Any(d => d.AuthorId == author.Id),
-                AuthorFavorite = author != null && e.Favorites.Any(f => f.AuthorId == author.Id)
+                AuthorFavorite = author != null && e.Favorites.Any(f => f.AuthorId == author.Id),
+                LikeId = e.Likes.Any(l => l.AuthorId == author?.Id) ? e.Likes.FirstOrDefault(l => l.AuthorId == author?.Id)!.Id : Guid.Empty,
+                DislikeId = e.Dislikes.Any(d => d.AuthorId == author?.Id) ? e.Dislikes.FirstOrDefault(d => d.AuthorId == author?.Id)!.Id : Guid.Empty,
+                FavoriteId = e.Favorites.Any(f => f.AuthorId == author?.Id) ? e.Favorites.FirstOrDefault(f => f.AuthorId == author?.Id)!.Id : Guid.Empty,
             }).ToList();
 
             GetListResponse<GetListEntryForHomePageListItemDto> response = new GetListResponse<GetListEntryForHomePageListItemDto>

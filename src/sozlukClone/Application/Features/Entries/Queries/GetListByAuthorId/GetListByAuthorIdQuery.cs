@@ -80,7 +80,10 @@ namespace Application.Features.Entries.Queries.GetListByAuthorId
                     Author = _mapper.Map<GetByIdAuthorForEntryResponse>(e.Author),
                     AuthorLike = author != null && e.Likes.Any(l => l.AuthorId == author.Id),
                     AuthorDislike = author != null && e.Dislikes.Any(d => d.AuthorId == author.Id),
-                    AuthorFavorite = author != null && e.Favorites.Any(f => f.AuthorId == author.Id)
+                    AuthorFavorite = author != null && e.Favorites.Any(f => f.AuthorId == author.Id),
+                    LikeId = e.Likes.Any(l => l.AuthorId == author?.Id) ? e.Likes.FirstOrDefault(l => l.AuthorId == author?.Id)!.Id : Guid.Empty,
+                    DislikeId = e.Dislikes.Any(d => d.AuthorId == author?.Id) ? e.Dislikes.FirstOrDefault(d => d.AuthorId == author?.Id)!.Id : Guid.Empty,
+                    FavoriteId = e.Favorites.Any(f => f.AuthorId == author?.Id) ? e.Favorites.FirstOrDefault(f => f.AuthorId == author?.Id)!.Id : Guid.Empty,
                 }).ToList();
 
                 GetListResponse<GetListByAuthorIdListItemDto> response = new GetListResponse<GetListByAuthorIdListItemDto>
