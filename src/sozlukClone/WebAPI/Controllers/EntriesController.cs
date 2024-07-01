@@ -2,6 +2,7 @@ using Application.Features.Entries.Commands.Create;
 using Application.Features.Entries.Commands.Delete;
 using Application.Features.Entries.Commands.Update;
 using Application.Features.Entries.Queries.GetById;
+using Application.Features.Entries.Queries.GetFavoriteEntriesOfAuthorById;
 using Application.Features.Entries.Queries.GetList;
 using Application.Features.Entries.Queries.GetListByAuthorId;
 using Application.Features.Entries.Queries.GetListByTitleId;
@@ -117,6 +118,15 @@ public class EntriesController : BaseController
         GetMostLikedListOfYesterdayQuery query = new() { PageRequest = pageRequest };
 
         GetListResponse<GetMostLikedListOfYesterdayResponse> response = await Mediator.Send(query);
+        return Ok(response);
+    }
+
+    [HttpGet("GetFavoriteEntriesOfAuthorById")]
+    public async Task<ActionResult<GetFavoriteEntriesOfAuthorByIdResponse>> GetFavoriteEntriesOfAuthorById([FromQuery] PageRequest pageRequest, int authorId)
+    {
+        GetFavoriteEntriesOfAuthorByIdQuery query = new() { PageRequest = pageRequest, AuthorId = authorId };
+        GetListResponse<GetFavoriteEntriesOfAuthorByIdResponse> response = await Mediator.Send(query);
+
         return Ok(response);
     }
 }

@@ -3,6 +3,7 @@ using Application.Features.Entries.Commands.Create;
 using Application.Features.Entries.Commands.Delete;
 using Application.Features.Entries.Commands.Update;
 using Application.Features.Entries.Queries.GetById;
+using Application.Features.Entries.Queries.GetFavoriteEntriesOfAuthorById;
 using Application.Features.Entries.Queries.GetList;
 using Application.Features.Entries.Queries.GetListByAuthorId;
 using Application.Features.Entries.Queries.GetListByTitleId;
@@ -62,5 +63,8 @@ public class MappingProfiles : Profile
 
         CreateMap<Entry, GetMostLikedListOfYesterdayResponse>();
         CreateMap<IPaginate<Entry>, GetListResponse<GetMostLikedListOfYesterdayResponse>>();
+
+        CreateMap<Entry, GetFavoriteEntriesOfAuthorByIdResponse>();
+        CreateMap<IPaginate<Entry>, GetListResponse<GetFavoriteEntriesOfAuthorByIdResponse>>();
     }
 }

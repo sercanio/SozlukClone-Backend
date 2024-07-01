@@ -28,4 +28,6 @@ public static class EntriesOperationClaims
     public const string GetListByTitleId = $"{_section}.GetListByTitleId";
     
     public const string GetMostLikedListOfYesterday = $"{_section}.GetMostLikedListOfYesterday";
+    
+    public const string GetFavoriteEntriesOfAuthorById = $"{_section}.GetFavoriteEntriesOfAuthorById";
 }

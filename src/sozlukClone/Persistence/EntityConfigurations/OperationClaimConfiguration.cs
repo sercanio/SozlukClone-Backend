@@ -481,6 +481,8 @@ public class OperationClaimConfiguration : IEntityTypeConfiguration<OperationCla
         featureOperationClaims.Add(new() { Id = ++lastId, Name = EntriesOperationClaims.GetListByTitleId });
         
         featureOperationClaims.Add(new() { Id = ++lastId, Name = EntriesOperationClaims.GetMostLikedListOfYesterday });
+        
+        featureOperationClaims.Add(new() { Id = ++lastId, Name = EntriesOperationClaims.GetFavoriteEntriesOfAuthorById });
         return featureOperationClaims;
     }
 #pragma warning restore S1854 // Unused assignments should be removed

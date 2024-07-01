@@ -16,6 +16,12 @@ public class GetByUserNameResponse : IResponse
     public GenderEnum? Gender { get; set; }
     public int AuthorGroupId { get; set; }
     public int ActiveBadgeId { get; set; }
+    public bool IsFollowing { get; set; }
+    public bool IsFollower { get; set; }
+    public bool IsBlocking { get; set; }
+    public bool IsBlocker { get; set; }
+    public Guid? AuthorFollowingId { get; set; }
+    public Guid? AuthorBlockingId { get; set; }
 
     // statistics
     public int EntryCount { get; set; }
