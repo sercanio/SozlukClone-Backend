@@ -3,6 +3,6 @@ using NArchitecture.Core.Persistence.Repositories;
 
 namespace Application.Services.Repositories;
 
-public interface IPenaltyTypeRepository : IAsyncRepository<PenaltyType, uint>, IRepository<PenaltyType, uint>
+public interface IPenaltyTypeRepository : IAsyncRepository<PenaltyType, int>, IRepository<PenaltyType, int>
 {
 }
