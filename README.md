@@ -1,92 +1,77 @@
-## About The Project
+# SozlukClone Backend
 
-As Kodlama.io, we decided to share examples of completed projects. Inspired by Clean Architecture, nArchitecture is a monolith project that showcases advanced development techniques. The project includes Clean Architecture, CQRS, Advanced Repository, Dynamic Querying, JWT, OTP, Google & Microsoft Auth, Role-Based Management, Distributed Caching (Redis), Logging (Serilog), Elastic Search, [Code Generator](https://github.com/sercanio/SozlukClone.Gen) and much more. By contributing, you can support the project and learn new things.
+SozlukClone is a backend project that replicates the functionalities of the popular Turkish social media site "Ekşi Sözlük". This project is built using modern technologies to ensure robustness and scalability.
 
-### Built With
-![GitHub Repo stars](https://img.shields.io/github/stars/expressjs/express)
-[![](https://img.shields.io/badge/.NET%20Core-512BD4?style=for-the-badge&logo=dotnet&logoColor=white)](https://learn.microsoft.com/tr-tr/dotnet/welcome)
+## Disclaimer
 
-## ⚙️ Getting Started
+**This project is not completed and is currently under development.**
 
-To get a local copy up and running follow these simple steps.
+## Technologies Used
+
+- **ASP.Net Core**: A cross-platform, high-performance framework for building modern, cloud-based, Internet-connected applications.
+- **PostgreSQL**: A powerful, open source object-relational database system with a strong reputation for reliability, feature robustness, and performance.
+- **NArchitecture.Core**: A comprehensive framework for building applications with a focus on maintainability and modularity.
+
+## Project Structure
+
+The project is organized to follow best practices and ensure a clean architecture:
+
+- **Domain**: Contains the core business logic and entities.
+- **Infrastructure**: Handles data access, external services, and other infrastructure concerns.
+- **Persistence**: Manages database context and migrations.
+- **Application/Services**: Includes application services, use cases, and business rules.
+- **WebAPI**: Exposes the application's functionalities through a RESTful API.
+
+## Features
+
+- User authentication and authorization
+- Topic creation and management
+- Entry posting and management
+- Voting and commenting on entries
+- User profiles and settings
+- Users can follow each other
+
+## Getting Started
 
 ### Prerequisites
 
-- .NET 7
+- [.NET SDK](https://dotnet.microsoft.com/download)
+- [PostgreSQL](https://www.postgresql.org/download/)
 
 ### Installation
 
-1. Clone the repo
+1. **Clone the repository:**
    ```sh
-   git clone --recurse-submodules https://github.com/sercanio/SozlukClone.git
+   git clone https://github.com/yourusername/SozlukClone.git
+   cd SozlukClone
    ```
-2. Configure `appsettings.json` in WebAPI.
-3. Run `Update-Database` command with Package Manager Console in WebAPI to create tables in sql server.
+2. **Set up the database:**
 
-- Run the following command to update submodules
-  ```sh
-   git submodule update --remote
+   Create a PostgreSQL database.
+   Update the connection string in appsettings.json with your database credentials.
+   Run the migrations:
+   
+   ```sh
+   dotnet ef database update
    ```
 
-## 🚀 Usage
+3. **Run the application:**
 
-1. Run example WebAPI project `dotnet run --project src\rentACar\WebAPI`
+   ```sh
+   dotnet run
+   ```
 
-### Analysis
+### Running Tests
+   To run the tests, use the following command:
 
-1. If not, Install dotnet tool `dotnet tool restore`.
-2. Run anaylsis command `dotnet roslynator analyze`
+   ```sh
+   dotnet test
+   ```
 
-### Format
+### Contributing
+   Contributions are welcome! Please open an issue or submit a pull request.
 
-1. If not, Install dotnet tool `dotnet tool restore`.
-2. Run format command `dotnet csharpier .`
+### License
+   This project is licensed under the MIT License - see the LICENSE file for details.
 
-## 🚧 Roadmap
-
-See the [open issues](https://github.com/sercanio/SozlukClone/issues) for a list of proposed features (and known issues).
-
-## 🤝 Contributing
-
-Contributions are what make the open source community such an amazing place to be learn, inspire, and create. Any contributions you make are **greatly appreciated**.
-
-1. Fork the project and clone your local machine
-2. Create your Feature Branch (`git checkout -b <Feature>/<AmazingFeature>'`)
-3. Develop
-4. Commit your Changes (`git add . && git commit -m '<SemanticCommitType>(<Scope>): <AmazingFeature>'`)
-   💡 Check [Semantic Commit Messages](./docs/Semantic%20Commit%20Messages.md)
-5. Push to the Branch (`git push origin <Feature>/<AmazingFeature>`)
-6. Open a Pull Request
-
-Contributing on Core Packages With This Repo:
-
-1. Fork the [nArchitecture.Core](https://github.com/sercanio/SozlukClone.Core) project
-2. Locate to `src/corePackages` path (`cd .\src\corePackages\`)
-3. Add your forked nArchitecture.Core repository remote address (`git remote add <YourUserName> https://github.com/<YourUserName>/nArchitecture.Core.git`)
-4. Create your Feature Branch (`git checkout -b <Feature>/<AmazingFeature>'`)
-5. Develop
-6. Commit your changes (`git add . && git commit -m '<SemanticCommitType>(<Scope>): <AmazingFeature>'`)
-   💡 Check [Semantic Commit Messages](./docs/Semantic%20Commit%20Messages.md)
-7. Push to the branch (`git push <YourUserName> --set-upstream HEAD:refs/heads/<Feature>/<AmazingFeature>`)
-8. Open a Pull Request
-
-If your pull request is accepted and merged:
-
-9. Locate to `src/corePackages` path (`cd .\src\corePackages\`)
-10. Switch to main branch `git checkout main`
-11. Locate root path `/` path (`cd ..\..\`)
-12. Pull repo and submodule `git submodule update --remote`
-13. Commit your changes (`git add . && git commit -m 'build(corePackages): update submodule'`)
-14. Push to the Branch (`git push origin <Feature>/<AmazingFeature>`)
-15. Open a Pull Request
-
-## ⚖️ License
-
-Distributed under the MIT License. See `LICENSE` for more information.
-
-## 📧 Contact
-
-**Project Link:** [https://github.com/sercanio/SozlukClone](https://github.com/sercanio/SozlukClone)
-
-<!-- ## 🙏 Acknowledgements
-- []() -->
+Feel free to copy and paste this into your README file!
