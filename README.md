@@ -27,6 +27,7 @@ The project is organized to follow best practices and ensure a clean architectur
 - User authentication and authorization
 - Topic creation and management
 - Entry posting and management
+- Dynamic search function for Titles and Users
 - Voting and commenting on entries
 - User profiles and settings
 - Users can follow each other
